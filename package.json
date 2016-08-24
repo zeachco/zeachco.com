@@ -58,7 +58,7 @@
   "scripts": {
     "start": "node ./scripts/start.js",
     "build": "node ./scripts/build.js",
-    "postbuild": "mkdir -p /var/www/zeachco.com ; cp ./build/* /var/www/zeachco.com"
+    "postbuild": "mkdir -p /var/www/zeachco.com ; cp -R build/* /var/www/zeachco.com/"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"
