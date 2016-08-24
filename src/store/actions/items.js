@@ -15,7 +15,7 @@ function searchItems(text) {
   dispatch({
     type: 'SEARCH_ITEMS_START'
   });
-  bridge.get('/api/v2/items/search/' + text).then(data => {
+  bridge.get('/api/items/search/' + text).then(data => {
     dispatch({
       type: 'SEARCH_ITEMS_DONE',
       payload: data

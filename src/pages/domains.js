@@ -21,7 +21,7 @@ class ProductPage extends React.Component {
   refresh() {
     if (!this.state.loading) {
       this.setState({loading: true});
-      bridge.get('/api/v2/items').then(data => {
+      bridge.get('/api/items').then(data => {
         this.setState({'items': data, loading: false});
         store.set('items', data);
       });

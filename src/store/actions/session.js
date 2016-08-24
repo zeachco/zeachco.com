@@ -7,7 +7,7 @@ function fetch() {
   dispatch({
     type: 'SESSION_FETCHING',
   });
-  return bridge.get('/api/v2/profile/me').then(data => {
+  return bridge.get('/api/profile/me').then(data => {
     dispatch({
       type: 'SESSION_FETCHED',
       payload: data
@@ -23,7 +23,7 @@ function login(username, password) {
   dispatch({
     type: 'SESSION_FETCHING',
   });
-  return bridge.post('/api/v2/login', {
+  return bridge.post('/api/login', {
     username,
     password
   }).then(data => {
@@ -38,7 +38,7 @@ function logout() {
   dispatch({
     type: 'DISCONNECT_START',
   });
-  return bridge.delete('/api/v2/logout').then(() => {
+  return bridge.delete('/api/logout').then(() => {
     dispatch({
       type: 'DISCONNECT_DONE',
     });
@@ -50,7 +50,7 @@ function profileUpdate(profile) {
   dispatch({
     type: 'PROFILE_UPDATE_START'
   });
-  bridge.put('/api/v2/profile/me', profile).then(data => {
+  bridge.put('/api/profile/me', profile).then(data => {
     dispatch({
       type: 'PROFILE_UPDATE_DONE',
       payload: data
