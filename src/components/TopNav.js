@@ -5,7 +5,9 @@ import {Navbar, MenuItem, NavDropdown, Nav, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
 
-const TopNavbar = ({session, isLoading, isAuth}) => {
+const TopNavbar = (props) => {
+  const {session, isAuth} = props;
+  console.log(props);
   return (
     <Navbar>
       <Navbar.Header>
@@ -14,6 +16,12 @@ const TopNavbar = ({session, isLoading, isAuth}) => {
         </Navbar.Brand>
       </Navbar.Header>
       <Nav>
+        <LinkContainer to="/users">
+          <NavItem>Utilisateurs</NavItem>
+        </LinkContainer>
+        <LinkContainer to="/categories">
+          <NavItem>Categories</NavItem>
+        </LinkContainer>
         <LinkContainer to="/inventory">
           <NavItem>Inventaire</NavItem>
         </LinkContainer>
@@ -49,7 +57,7 @@ const TopNavbar = ({session, isLoading, isAuth}) => {
   )
 };
 
-const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, isLoading: store.session.isLoading, session: store.session});
+const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, session: store.session, props: ownProps});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   logout: () => dispatch({type: 'LOGOUT_REQUEST'})
