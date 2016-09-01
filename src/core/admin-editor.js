@@ -1,4 +1,4 @@
-import bridge from '../core/bridge';
+import axios from 'axios';
 
 function focusItemDescriptionEditor(obj) {
   obj.style.cssText = "width:700px;height:500px;";
@@ -24,7 +24,7 @@ function update_item(id, edit) {
 };
 
 export const openItemEditor = (id) => {
-  bridge.get()
+  axios.get()
   xhr = Ajax('a=update_item&e=1&i=' + id, 'index.php');
   div = document.getElementById("item_editor");
   div.innerHTML = "Loading...";

@@ -1,5 +1,5 @@
 import React from 'react';
-import bridge from '../core/bridge';
+import axios from 'axios';
 import Item from '../components/item';
 import store from '../core/store';
 
@@ -21,7 +21,7 @@ class ProductPage extends React.Component {
   refresh() {
     if (!this.state.loading) {
       this.setState({loading: true});
-      bridge.get('/api/items').then(data => {
+      axios.get('/api/items').then(data => {
         this.setState({'items': data, loading: false});
         store.set('items', data);
       });

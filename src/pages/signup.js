@@ -1,6 +1,6 @@
 import React from 'react';
 import store from '../core/store';
-import bridge from '../core/bridge';
+import axios from 'axios';
 import actions from '../store/actions';
 import {browserHistory} from 'react-router';
 import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
@@ -11,7 +11,7 @@ class LoginPage extends React.Component {
     this.state = {};
   }
   componentDidMount() {
-    // bridge.delete('/api/logout');
+    // axios.delete('/api/logout');
   }
   componentWillUnmount() {
     // console.log('unmount!');
@@ -23,7 +23,7 @@ class LoginPage extends React.Component {
     let confirm = ev.target.pass2.value;
     if (password === confirm) {
       this.setState({message: 'Vérification...', loading: true});
-      bridge.post('/api/users', {username, password}).then(data => {
+      axios.post('/api/users', {username, password}).then(data => {
         this.setState({message: 'created!', loading: false});
         store.set('auth', data);
         actions.session.login(username, password);

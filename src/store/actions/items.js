@@ -1,4 +1,4 @@
-import bridge from '../../core/bridge';
+import axios from 'axios';
 import store from '..';
 
 const {
@@ -15,7 +15,7 @@ function searchItems(text) {
   dispatch({
     type: 'SEARCH_ITEMS_START'
   });
-  bridge.get('/api/items/search/' + text).then(data => {
+  axios.get('/api/items/search/' + text).then(data => {
     dispatch({
       type: 'SEARCH_ITEMS_DONE',
       payload: data

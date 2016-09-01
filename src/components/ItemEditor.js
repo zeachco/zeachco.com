@@ -92,7 +92,7 @@ class ItemEditor extends Component {
   }
 }
 
-export default ItemEditor;
+// export default ItemEditor;
 
 const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, isLoading: store.session.isLoading, session: store.session});
 
