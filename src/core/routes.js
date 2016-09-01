@@ -1,6 +1,7 @@
 import React from 'react';
 import Application from '../components/Application';
 import Pages from '../pages';
+import * as Page from '../pages';
 import store from '../store';
 import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 
@@ -24,7 +25,7 @@ export const Routes = props => (
       <Route path="signup" component={Pages.Signup}/>
       <Route path="logout" component={Pages.Logout}/>
       <Route path="site/:id" component={Pages.Site} onEnter={requireAuth}/>
-      <Route path="users" component={Pages.Inventory} onEnter={requireAuth}/>
+      <Route path="users" component={Page.Users} onEnter={requireAuth}/>
       <Route path="categories" component={Pages.Inventory} onEnter={requireAuth}/>
       <Route path="inventory" component={Pages.Inventory} onEnter={requireAuth}/>
       <Route path="parameters" component={Pages.Parameters} onEnter={requireAuth}/>

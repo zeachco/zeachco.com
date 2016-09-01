@@ -6,6 +6,7 @@ import Home from './Home';
 import Site from './site';
 import Inventory from './Inventory';
 import Parameters from './parameters';
+export * from './Users';
 
 export default {
   NotFound,
