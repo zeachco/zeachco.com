@@ -1,7 +1,7 @@
 export * from './SessionDropdown';
+export * from './App';
 
 export default {
-  Application: require('./Application'),
   Logo: require('./Logo'),
   Footer: require('./Footer'),
   Header: require('./Header'),

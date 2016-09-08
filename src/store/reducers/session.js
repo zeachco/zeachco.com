@@ -1,9 +1,9 @@
-const defaultState = {
+const initialState = {
   isAuth: false,
   isLoading: true
 }
 
-const session = (state = defaultState, action) => {
+const session = (state = initialState, action) => {
   switch (action.type) {
     case 'SESSION_FETCH':
       return {
@@ -19,6 +19,12 @@ const session = (state = defaultState, action) => {
       return {
         isLoading: false,
         isAuth: false
+      };
+    case 'SESSION_LOGIN_FAIL':
+      return {
+        isLoading: false,
+        isAuth: false,
+        errorMessage: 'Authentification échouée'
       };
     case 'DISCONNECT_START':
       return Object.assign({

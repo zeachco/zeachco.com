@@ -24,12 +24,10 @@ class ItemEditor extends Component {
 
   submit(e) {
     e.preventDefault();
-    console.log(this.state);
   }
 
   delete(e) {
     e.preventDefault();
-    console.log(e);
   }
 
   render() {

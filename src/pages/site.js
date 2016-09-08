@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-class HomePage extends Component {
-  componentWillReceiveProps() {
-    console.log(this.props);
-  }
+class Site extends Component {
   render() {
     const {params, sites} = this.props;
     const site = sites.filter(s => s._id === params.id)[0] || {};
@@ -29,4 +26,4 @@ const mapStatetoProps = (store, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({});
 
-export default connect(mapStatetoProps, mapDispatchToProps)(HomePage);
+export default connect(mapStatetoProps, mapDispatchToProps)(Site);

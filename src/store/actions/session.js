@@ -35,6 +35,11 @@ function login(username, password) {
       type: 'SESSION_FETCH_DONE',
       payload: xhr.data
     });
+  }).catch(xhr => {
+    dispatch({
+      type: 'SESSION_LOGIN_FAIL',
+      payload: xhr
+    });
   })
 }
 

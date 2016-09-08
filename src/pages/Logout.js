@@ -1,5 +1,4 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {session} from '../store/actions';
 
@@ -7,14 +6,9 @@ class LoginPage extends React.Component {
   componentDidMount() {
     session.logout();
   }
-  componentDidUpdate() {
-    if (!this.props.isAuth) {
-      browserHistory.push('/');
-    }
-  }
   render() {
     return (
-      <p>Login you out...</p>
+      <p className="well well-info">Login you out...</p>
     );
   }
 }

@@ -6,7 +6,7 @@ const SearchBar = props => {
     placeholder: "Texte...",
     disabled: false,
     searchButtonText: "Rechercher",
-    onSearch: e => console.log('onSearch undefined')
+    onSearch: e => {}
   }, props);
 
   const onSubmitCallback = e => {

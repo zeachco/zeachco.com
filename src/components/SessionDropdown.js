@@ -10,7 +10,7 @@ const SessionDropdown = props => {
       {isAuth
         ? (
           <NavDropdown title={session.firstName || session.email || session.username} id="session-dropdown">
-            <LinkContainer to="/parameters">
+            <LinkContainer to="/settings">
               <MenuItem >Paramètres</MenuItem>
             </LinkContainer>
             <MenuItem divider/>
