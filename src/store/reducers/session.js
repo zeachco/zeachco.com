@@ -5,16 +5,21 @@ const defaultState = {
 
 const session = (state = defaultState, action) => {
   switch (action.type) {
-    case 'SESSION_FETCHING':
+    case 'SESSION_FETCH':
       return {
         isAuth: false,
         isLoading: true
       };
-    case 'SESSION_FETCHED':
+    case 'SESSION_FETCH_DONE':
       return Object.assign({
         isLoading: false,
         isAuth: !!action.payload,
       }, action.payload);
+    case 'SESSION_FETCH_FAIL':
+      return {
+        isLoading: false,
+        isAuth: false
+      };
     case 'DISCONNECT_START':
       return Object.assign({
         isAuth: false,

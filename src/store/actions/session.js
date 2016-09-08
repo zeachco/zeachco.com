@@ -1,35 +1,39 @@
 import axios from 'axios';
 import store from '..';
-import {browserHistory} from 'react-router';
-const {dispatch} = store;
+import {
+  browserHistory
+} from 'react-router';
+const {
+  dispatch
+} = store;
 
 function fetch() {
   dispatch({
-    type: 'SESSION_FETCHING',
+    type: 'SESSION_FETCH',
   });
-  return axios.get('/api/profile/me').then(data => {
+  return axios.get('/api/profile/me').then(xhr => {
     dispatch({
-      type: 'SESSION_FETCHED',
-      payload: data
+      type: xhr.data ? 'SESSION_FETCH_DONE' : 'SESSION_FETCH_FAIL',
+      payload: xhr.data
     });
   }).catch(data => {
     dispatch({
-      type: 'SESSION_FETCHED'
+      type: 'SESSION_FETCH_FAIL'
     });
   });
 }
 
 function login(username, password) {
   dispatch({
-    type: 'SESSION_FETCHING',
+    type: 'SESSION_FETCH',
   });
   return axios.post('/api/login', {
     username,
     password
-  }).then(data => {
+  }).then(xhr => {
     dispatch({
-      type: 'SESSION_FETCHED',
-      payload: data
+      type: 'SESSION_FETCH_DONE',
+      payload: xhr.data
     });
   })
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import actions from '../store/actions';
+// import actions from '../store/actions';
 
 class Users extends Component {
   render() {
