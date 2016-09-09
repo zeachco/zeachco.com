@@ -64,7 +64,12 @@ function profileUpdate(profile) {
       type: 'PROFILE_UPDATE_DONE',
       payload: data
     });
-  })
+  }).catch(xhr => {
+    dispatch({
+      type: 'PROFILE_UPDATE_FAIL',
+      payload: xhr.data
+    })
+  });
 }
 
 module.exports = {

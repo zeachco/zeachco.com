@@ -14,24 +14,34 @@ class LoginPage extends React.Component {
     let username = ev.target.user.value;
     let password = ev.target.pass1.value;
     let confirm = ev.target.pass2.value;
+    if (!password || !username) {
+      return this.setState({message: 'Vous devez remplir tout les champs', msgType: 'danger', loading: false});
+    }
     if (password === confirm) {
-      this.setState({message: 'Vérification...', loading: true});
+      this.setState({message: 'Vérification...', msgType: 'info', loading: true});
       axios.post('/api/users', {username, password}).then(data => {
-        this.setState({message: 'created!', loading: false});
+        this.setState({message: 'Utilisateur Créé!', msgType: 'success', loading: false});
         actions.session.login(username, password);
         browserHistory.push('/');
+      }).catch(xhr => {
+        if (xhr.response.status === 409) {
+          this.setState({message: 'Cet usager existe déjà', msgType: 'danger', loading: false});
+        } else {
+          this.setState({message: 'Une erreur est survenue', msgType: 'danger', loading: false});
+        }
       });
     } else {
-      this.setState({message: 'Votre mot de passe n\'est pas identique', loading: true});
+      this.setState({message: 'Votre mot de passe n\'est pas identique', msgType: 'danger', loading: true});
     }
   }
   render() {
+    const {message, msgType, loading} = this.state;
     return (
       <div id="login">
-        <form disabled={this.state.loading} onSubmit={this.submit.bind(this)}>
+        <form disabled={loading} onSubmit={this.submit.bind(this)}>
           <h1>Créez votre compte</h1>
-          {this.state.message && (
-            <p className="alert alert-warning">{this.state.message}</p>
+          {message && (
+            <p className={`alert alert-${msgType || 'info'}`}>{message}</p>
           )}
           <p>
             <FormGroup controlId="user">
