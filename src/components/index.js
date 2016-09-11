@@ -1,6 +1,7 @@
 export * from './SessionDropdown';
 export * from './App';
 export * from './UserList';
+export * from './User';
 
 export default {
   Logo: require('./Logo'),
