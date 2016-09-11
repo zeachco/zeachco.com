@@ -1,5 +1,5 @@
 const initialState = {
-  isAuth: false,
+  data: [],
   isLoading: true
 }
 

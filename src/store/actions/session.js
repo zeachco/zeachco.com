@@ -59,17 +59,17 @@ function profileUpdate(profile) {
   dispatch({
     type: 'PROFILE_UPDATE_START'
   });
-  axios.put('/api/profile/me', profile).then(data => {
+  axios.put('/api/profile/me', profile).then(xhr => {
     dispatch({
-      type: 'PROFILE_UPDATE_DONE',
-      payload: data
+      type: 'SESSION_FETCH_DONE',
+      payload: xhr.data
     });
   }).catch(xhr => {
     dispatch({
-      type: 'PROFILE_UPDATE_FAIL',
-      payload: xhr.data
-    })
-  });
+      type: 'SESSION_LOGIN_FAIL',
+      payload: xhr
+    });
+  })
 }
 
 module.exports = {
