@@ -15,10 +15,10 @@ function searchItems(text) {
   dispatch({
     type: 'SEARCH_ITEMS_START'
   });
-  axios.get('/api/items/search/' + text).then(data => {
+  axios.get('/api/items/search/' + text).then(xhr => {
     dispatch({
       type: 'SEARCH_ITEMS_DONE',
-      payload: data
+      payload: xhr.data
     });
   })
 }
