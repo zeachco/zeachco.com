@@ -4,7 +4,7 @@ import React from 'react'
 import {User} from '.';
 
 const UserList = (props) => (
-  <div>{props.users.map(u => (<User {...u}/>))}</div>
+  <div>{props.users.map(u => (<User key={u._id} {...u}/>))}</div>
 );
 
 export {UserList};
