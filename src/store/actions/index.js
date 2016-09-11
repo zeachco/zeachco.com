@@ -1,4 +1,5 @@
 module.exports = {
   session: require('./session'),
-  items: require('./items')
+  items: require('./items'),
+  users: require('./users')
 };
