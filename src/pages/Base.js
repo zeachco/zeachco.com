@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 
 const style = {
-  position: 'relative',
-  width: '100%',
-  display: 'block',
-  left: '-100%',
-  transition: 'all .2s'
+  transform: 'translateX(-100%)',
+  transition: 'transform .2s'
 }
 
 export class Base extends Component {
@@ -25,7 +22,7 @@ export class Base extends Component {
     const tempStyle = this.state.activated
       ? {
         ...style,
-        left: 0
+        transform: 'none'
       }
       : style;
     return (
