@@ -54,15 +54,6 @@ class ProfileForm extends Component {
                   isEmail: 'Courriel invalide'
                 }}/>
               </div>
-              <div className="col-md-4">
-                <input className="form-control" type='password' name='password' label='Mot de passe' validate={(val, context) => val
-                  ? val.length >= 6
-                  : true} errorHelp='Le mot de passe doit comporter au moins 6 caractères' placeholder="******"/>
-
-              </div>
-              <div className="col-md-4">
-                <input className="form-control" type='password' name='password-confirm' label='Confirmez' validate={(val, context) => val === context.password} errorHelp='Le mot de passe ne correspond pas' placeholder="******"/>
-              </div>
             </div>
           </div>
         </div>
