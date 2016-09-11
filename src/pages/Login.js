@@ -2,9 +2,10 @@ import React from 'react';
 import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
 import actions from '../store/actions';
 import {connect} from 'react-redux';
+import {Base} from '.';
 
 const LoginPage = ({errorMessage, isAuth, isLoading}) => (
-  <div id="login">
+  <Base id="login">
     <form disabled={isLoading} onSubmit={ev => {
       ev.preventDefault();
       actions.session.login(ev.target.user.value, ev.target.pass.value);
@@ -27,7 +28,7 @@ const LoginPage = ({errorMessage, isAuth, isLoading}) => (
         <Button bsStyle="primary" type="submit" disabled={isLoading}>Connexion</Button>
       </p>
     </form>
-  </div>
+  </Base>
 );
 
 const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, isLoading: store.session.isLoading, errorMessage: store.session.errorMessage});

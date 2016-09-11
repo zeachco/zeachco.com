@@ -1,9 +1,10 @@
 import React from 'react';
 import ProfileForm from '../components/ProfileForm';
+import {Base} from '.';
 
 export const Settings = () => (
-  <div>
+  <Base>
     <h1>Paramètres</h1>
     <ProfileForm/>
-  </div>
+  </Base>
 );

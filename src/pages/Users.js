@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import actions from '../store/actions';
 import {UserList} from '../components';
+import {Base} from '.';
 class Users extends Component {
   componentDidMount() {
     this.props.loadUsers();
@@ -9,10 +10,10 @@ class Users extends Component {
   render() {
     const {users} = this.props;
     return (
-      <div>
+      <Base>
         <h1>Utilisateurs</h1>
         <UserList users={users}/>
-      </div>
+      </Base>
     )
   }
 }

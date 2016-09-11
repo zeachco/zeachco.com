@@ -3,6 +3,7 @@ import axios from 'axios';
 import actions from '../store/actions';
 import {browserHistory} from 'react-router';
 import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
+import {Base} from '.';
 
 class LoginPage extends React.Component {
   constructor(...props) {
@@ -37,7 +38,7 @@ class LoginPage extends React.Component {
   render() {
     const {message, msgType, loading} = this.state;
     return (
-      <div id="login">
+      <Base id="login">
         <form disabled={loading} onSubmit={this.submit.bind(this)}>
           <h1>Créez votre compte</h1>
           {message && (
@@ -59,7 +60,7 @@ class LoginPage extends React.Component {
             <Button bsStyle="primary" type="submit">Valider</Button>
           </p>
         </form>
-      </div>
+      </Base>
     );
   }
 }

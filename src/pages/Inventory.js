@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import SearchBar from '../components/SearchBar';
 import ItemEditor from '../components/ItemEditor';
 import actions from '../store/actions';
+import {Base} from '.';
 
 class HomePage extends Component {
   render() {
@@ -12,7 +13,7 @@ class HomePage extends Component {
     }
 
     return (
-      <div>
+      <Base>
         <h1>
           Inventaire
         </h1>
@@ -21,7 +22,7 @@ class HomePage extends Component {
             ? '+'
             : ''}</p>
         {items.map((item, i) => <ItemEditor key={item._id} item={item}/>)}
-      </div>
+      </Base>
     );
   }
 }

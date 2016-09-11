@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {session} from '../store/actions';
+import {Base} from '.';
 
 class LoginPage extends React.Component {
   componentDidMount() {
@@ -8,7 +9,9 @@ class LoginPage extends React.Component {
   }
   render() {
     return (
-      <p className="well well-info">Login you out...</p>
+      <Base>
+        <p className="well well-info">Login you out...</p>
+      </Base>
     );
   }
 }

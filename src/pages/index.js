@@ -7,6 +7,7 @@ import Site from './site';
 import Inventory from './Inventory';
 export * from './Users';
 export * from './Settings';
+export * from './Base';
 
 export default {
   NotFound,
