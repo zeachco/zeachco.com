@@ -56,7 +56,7 @@ class ItemEditor extends Component {
             <div className="col-sm-12 col-md-12"></div>
             <div className="col-sm-6 col-md-4">
               <label href="#" className="thumbnail btn">
-                <img src={`//rockplusinc.com/img/full/_${item.code}.png`} alt={item.code}/>
+                <img src={`//rockplusinc.com/img/thumbs/_${item.code}.png`} alt={item.code}/>
                 <input style={{
                   display: 'none'
                 }} type="file"/>
