@@ -5,6 +5,8 @@ import {Provider} from 'react-redux';
 // import ga from '../../shared/js/analytics';
 // ga.init('UA-60212730-1');
 
+window.$ = require('axios');
+
 import store from './store';
 import {session} from './store/actions';
 import 'bootstrap/dist/css/bootstrap.min.css';
