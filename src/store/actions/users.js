@@ -11,7 +11,7 @@ function fetch() {
   dispatch({
     type: 'USER_FETCH',
   });
-  return axios.get('/api/admin/users').then(xhr => {
+  return axios.get('/api/users').then(xhr => {
     dispatch({
       type: xhr.data ? 'USER_FETCH_DONE' : 'USER_FETCH_FAIL',
       payload: xhr.data
