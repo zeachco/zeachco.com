@@ -23,6 +23,25 @@ function fetch() {
   });
 }
 
+
+function destroy(id) {
+  dispatch({
+    type: 'USER_DESTROY',
+    payload: id
+  });
+  return axios.delete('/api/users/' + id).then(xhr => {
+    fetch();
+    dispatch({
+      type: xhr.data ? 'USER_DESTROY_DONE' : 'USER_DESTROY_FAIL',
+      payload: xhr.data
+    });
+  }).catch(data => {
+    dispatch({
+      type: 'USER_DESTROY_FAIL'
+    });
+  });
+}
+
 function login(username, password) {
   dispatch({
     type: 'USER_FETCH',
@@ -74,6 +93,7 @@ function profileUpdate(profile) {
 
 module.exports = {
   fetch,
+  destroy,
   login,
   logout,
   profileUpdate

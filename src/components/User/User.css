@@ -1,10 +1,20 @@
 .user_row {
   cursor: pointer;
-  /*padding: .25em 1.5em;*/
-  /*margin: .5em;*/
   transition: transform .3s;
+}
+
+.user_row .label {
+  opacity: .5;
 }
 
 .user_row:hover {
   transform: translateX(.5em);
+}
+
+.user_row:hover h3 {
+  color: #456;
+}
+
+.user_row:hover .label {
+  opacity: 1;
 }

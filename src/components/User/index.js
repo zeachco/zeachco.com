@@ -1,5 +1,6 @@
 import './User.css';
 import React, {Component} from 'react'
+import actions from '../../store/actions';
 
 export class User extends Component {
   constructor(props) {
@@ -22,14 +23,19 @@ export class User extends Component {
   }
 
   renderDetails() {
+    const {_id, firstName, lastName, email} = this.props;
     return (
       <div className="well">
-        <h4>{this.props.firstName + ' ' + this.props.lastName}</h4>
-        <p>{this.props.email}</p>
+        <small style={{
+          float: 'right',
+          color: '#888'
+        }}>{_id}</small>
+        <h4>{firstName + ' ' + lastName}</h4>
+        <p>{email}</p>
         <div>{this.checkbox('images', true, 'Peut voir les images')}</div>
         <div>{this.checkbox('prices', true, 'Peut voir les prix')}</div>
         <hr/>
-        <button className="btn btn-danger">Détruire</button>
+        <button className="btn btn-danger" onClick={e => actions.users.destroy(_id)}>Détruire</button>
       </div>
     );
   }
