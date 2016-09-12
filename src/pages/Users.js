@@ -16,7 +16,13 @@ class Users extends Component {
 
   searchFilter(user) {
     const {search} = this.state;
-    return user.username.indexOf(search) > -1 || user.space.indexOf(search) > -1;
+    let match = false;
+    ['username', 'space', 'firstName', 'lastName', 'email'].forEach(f => {
+      if (user[f].toLowerCase().indexOf(search.toLowerCase()) > -1) {
+        match = true;
+      }
+    });
+    return match;
   }
   render() {
     const {users} = this.props;
