@@ -27,7 +27,7 @@ export class Base extends Component {
       : style;
     return (
       <div style={tempStyle}>
-        <div className="container">{this.props.children}</div>
+        <div>{this.props.children}</div>
         <hr/>
       </div>
     );

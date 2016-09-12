@@ -1,4 +1,4 @@
-import './User.css';
+import './style.css';
 import React, {Component} from 'react'
 import actions from '../../store/actions';
 

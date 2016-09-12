@@ -23,6 +23,23 @@ function fetch() {
   });
 }
 
+function create(data) {
+  dispatch({
+    type: 'USER_CREATE',
+    payload: data
+  });
+  return axios.post('/api/users', data).then(xhr => {
+    fetch();
+    dispatch({
+      type: xhr.data ? 'USER_CREATE_DONE' : 'USER_CREATE_FAIL',
+      payload: xhr.data
+    });
+  }).catch(data => {
+    dispatch({
+      type: 'USER_CREATE_FAIL'
+    });
+  });
+}
 
 function destroy(id) {
   dispatch({
@@ -94,6 +111,7 @@ function profileUpdate(profile) {
 module.exports = {
   fetch,
   destroy,
+  create,
   login,
   logout,
   profileUpdate
