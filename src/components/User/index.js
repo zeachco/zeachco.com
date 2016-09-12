@@ -15,9 +15,22 @@ export class User extends Component {
     })
   }
 
+  checkbox(attrName, value, label) {
+    return (
+      <label><input type="checkbox" checked={value} value={attrName}/>&nbsp;{label}</label>
+    );
+  }
+
   renderDetails() {
     return (
-      <pre>{JSON.stringify(this.props, null, 2)}</pre>
+      <div className="well">
+        <h4>{this.props.firstName + ' ' + this.props.lastName}</h4>
+        <p>{this.props.email}</p>
+        <div>{this.checkbox('images', true, 'Peut voir les images')}</div>
+        <div>{this.checkbox('prices', true, 'Peut voir les prix')}</div>
+        <hr/>
+        <button className="btn btn-danger">Détruire</button>
+      </div>
     );
   }
 
