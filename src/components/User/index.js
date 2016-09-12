@@ -17,7 +17,7 @@ export class User extends Component {
 
   checkbox(attrName, value, label) {
     return (
-      <label><input type="checkbox" checked={value} value={attrName}/>&nbsp;{label}</label>
+      <label><input readOnly={true} type="checkbox" checked={value} value={attrName}/>&nbsp;{label}</label>
     );
   }
 

@@ -11,7 +11,7 @@ class Users extends Component {
     };
   }
   componentDidMount() {
-    this.props.loadUsers();
+    actions.users.fetch();
   }
 
   searchFilter(user) {
@@ -41,8 +41,6 @@ const mapStatetoProps = (store, ownProps) => ({
   users: store.users.data || []
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({loadUsers: actions.users.fetch});
-
-const ConnectedUsers = connect(mapStatetoProps, mapDispatchToProps)(Users);
+const ConnectedUsers = connect(mapStatetoProps)(Users);
 export {ConnectedUsers as Users};
 export default ConnectedUsers;
