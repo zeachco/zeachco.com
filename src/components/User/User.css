@@ -1,0 +1,10 @@
+.user_row {
+  cursor: pointer;
+  /*padding: .25em 1.5em;*/
+  /*margin: .5em;*/
+  transition: transform .3s;
+}
+
+.user_row:hover {
+  transform: translateX(.5em);
+}
