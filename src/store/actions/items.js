@@ -15,7 +15,7 @@ function searchItems(text) {
   dispatch({
     type: 'SEARCH_ITEMS_START'
   });
-  axios.get('/api/items/search/' + text).then(xhr => {
+  axios.get('/api/admin/items/search/' + text).then(xhr => {
     dispatch({
       type: 'SEARCH_ITEMS_DONE',
       payload: xhr.data
