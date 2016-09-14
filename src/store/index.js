@@ -10,7 +10,7 @@ const store = createStore(reducers);
 
 import axios from 'axios';
 axios.interceptors.response.use(function(response) {
-  return response;
+  return Promise.resolve(response);
 }, function(err) {
   console.log(err);
   if (err.response.status === 403) {

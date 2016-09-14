@@ -36,7 +36,8 @@ function create(data) {
     });
   }).catch(data => {
     dispatch({
-      type: 'USER_CREATE_FAIL'
+      type: 'USER_CREATE_FAIL',
+      payload: xhr
     });
   });
 }
