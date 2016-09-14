@@ -3,30 +3,39 @@ import {Button, Jumbotron, ButtonToolbar} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
 import {Base} from '.';
+import actions from '../store/actions';
 
-const HomePage = ({session}) => (
+const LoggedOut = () => (
+  <div className="row">
+    <div className="col-md-6">
+      <h3>Connectez-vous pour administrer vos sites</h3>
+      <ButtonToolbar>
+        <LinkContainer to="signup">
+          <Button bsStyle="success">inscription</Button>
+        </LinkContainer>
+        <LinkContainer to="login">
+          <Button bsStyle="primary">connexion</Button>
+        </LinkContainer>
+      </ButtonToolbar>
+    </div>
+    <div className="col-md-6">
+      <h3>Voir les fonctionnalitées sans créer de compte (oui c'est possible)</h3>
+      <Button onClick={e => actions.session.login('demo', 'demo')} bsStyle="default">Compte demo</Button>
+    </div>
+  </div>
+);
+
+const HomePage = ({isAuth}) => (
   <Base>
     <Jumbotron>
       <h1>Vos outils, votre site</h1>
       <h2>Simple d'utilisation, personnalisé et haute qualité</h2>
-      {!session.isAuth && (
-        <div>
-          <h3>Connectez-vous pour administrer vos sites</h3>
-          <ButtonToolbar>
-            <LinkContainer to="signup">
-              <Button bsStyle="success">inscription</Button>
-            </LinkContainer>
-            <LinkContainer to="login">
-              <Button bsStyle="primary">connexion</Button>
-            </LinkContainer>
-          </ButtonToolbar>
-        </div>
-      )}
+      {!isAuth && (<LoggedOut/>)}
     </Jumbotron>
   </Base>
 );
 
-const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, isLoading: store.session.isLoading, session: store.session});
+const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, isLoading: store.session.isLoading});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({});
 
