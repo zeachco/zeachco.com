@@ -31,6 +31,7 @@ class Users extends Component {
 
   render() {
     const {users} = this.props;
+    const {showAdd} = this.state;
     return (
       <Base>
         <h1>Utilisateurs</h1>
@@ -41,7 +42,7 @@ class Users extends Component {
           right: '2em',
           bottom: '1em'
         }}>Nouveau</button>
-        {this.state.showAdd && <EditUser onClose={e => this.setState({showAdd: false})}/>}
+        {showAdd && <EditUser onClose={e => this.setState({showAdd: false})}/>}
       </Base>
     )
   }

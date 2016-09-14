@@ -28,7 +28,7 @@ function create(data) {
     type: 'USER_CREATE',
     payload: data
   });
-  return axios.post('/api/users', data).then(xhr => {
+  return axios.post('/api/admin/users', data).then(xhr => {
     fetch();
     dispatch({
       type: xhr.data ? 'USER_CREATE_DONE' : 'USER_CREATE_FAIL',
