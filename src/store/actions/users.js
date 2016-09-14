@@ -34,7 +34,7 @@ function create(data) {
       type: xhr.data ? 'USER_CREATE_DONE' : 'USER_CREATE_FAIL',
       payload: xhr.data
     });
-  }).catch(data => {
+  }).catch(xhr => {
     dispatch({
       type: 'USER_CREATE_FAIL',
       payload: xhr

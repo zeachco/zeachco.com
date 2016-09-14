@@ -26,30 +26,24 @@ const session = (state = initialState, action) => {
         isAuth: false,
         errorMessage: 'Authentification échouée'
       };
-    case 'DISCONNECT_START':
-      return Object.assign({
-        isAuth: false,
-        isLoading: true
-      }, state);
-    case 'DISCONNECT_DONE':
+    case 'USER_CREATE':
       return {
-        isAuth: false,
-        isLoading: false
-      };
-    case 'redux-form/CHANGE':
-      if (action.form === 'profile') {
-        state = Object.assign({}, state);
-        state[action.field] = action.value;
+        isLoading: false,
+        message: 'Création...',
+        messageType: 'info'
       }
-      return state;
-    case 'PROFILE_UPDATE_START':
-      return Object.assign({}, state, {
-        isSaving: true
-      });
-    case 'PROFILE_UPDATE_DONE':
-      return Object.assign({}, state, action.payload, {
-        isSaving: false
-      });
+    case 'USER_CREATE_DONE':
+      return {
+        isLoading: false,
+        message: 'Utilisateur créé',
+        messageType: 'success'
+      }
+    case 'USER_CREATE_FAIL':
+      return {
+        isLoading: false,
+        message: 'impossible de créer cet utilisateur',
+        messageType: 'danger'
+      }
     default:
       return state;
   }

@@ -15,11 +15,18 @@ export class EditUser extends Component {
 
   render() {
     const {spaces} = store.getState().session;
+    const {
+      message,
+      messageType = 'default'
+    } = store.getState().users;
     return (
       <div className="user-editor">
         <div className="user-editor__mask" onClick={this.props.onClose}></div>
         <div className="user-editor__content">
           <h1>Création d'un usager</h1>
+          {message && (
+            <div className={'alert alert-' + messageType}>{message}</div>
+          )}
           <form onSubmit={e => {
             e.preventDefault();
             const user = {};
