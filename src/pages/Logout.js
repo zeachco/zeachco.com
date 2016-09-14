@@ -10,7 +10,7 @@ class LoginPage extends React.Component {
   render() {
     return (
       <Base>
-        <p className="well well-info">Login you out...</p>
+        <p className="well well-info">Déconnection en cours...</p>
       </Base>
     );
   }
