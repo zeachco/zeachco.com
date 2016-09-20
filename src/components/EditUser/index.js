@@ -34,12 +34,12 @@ export class EditUser extends Component {
             this.save(user).then(this.props.onClose);
           }}>
             <div className="form-group">
-              <label for="username" className="control-label">Utilisateur</label>
+              <label htmlFor="username" className="control-label">Utilisateur</label>
               <input type="text" className="form-control" name="username" placeholder="Utilisateur"/>
             </div>
 
             <div className="form-group">
-              <label for="space" className="control-label">Espace</label>
+              <label htmlFor="space" className="control-label">Espace</label>
               <select className="form-control" name="space">
                 {spaces.map(space => (
                   <option key={space} value={space}>{space}</option>
@@ -47,11 +47,11 @@ export class EditUser extends Component {
               </select>
             </div>
             <div className="form-group">
-              <label for="pass" className="control-label">Mot de passe</label>
+              <label htmlFor="pass" className="control-label">Mot de passe</label>
               <input type="text" className="form-control" name="password" placeholder="Mot de passe"/>
             </div>
             <input className="btn btn-primary" type="submit" defaultValue="Création"/>&nbsp;
-            <input className="btn btn-secondary" type="button" onClick={this.props.onClose} defaultValue="Annuler"/>
+            <input className="btn btn-secondary" type="button" onClick={this.props.onClose} defaultValue="Fermer"/>
           </form>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import './style.css';
 import React, {Component} from 'react'
 import actions from '../../store/actions';
+import store from '../../store';
 
 export class User extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ export class User extends Component {
 
   renderDetails() {
     const {_id, firstName, lastName, email} = this.props;
+    const {spaces} = store.getState().session;
     return (
       <div className="well">
         <small style={{
@@ -32,6 +34,15 @@ export class User extends Component {
         }}>{_id}</small>
         <h4>{firstName + ' ' + lastName}</h4>
         <p>{email}</p>
+
+        <div className="form-group">
+          <label htmlFor="space" className="control-label">Espace</label>
+          <select className="form-control" name="space">
+            {spaces.map(space => (
+              <option key={space} value={space}>{space}</option>
+            ))}
+          </select>
+        </div>
         <div>{this.checkbox('images', true, 'Peut voir les images')}</div>
         <div>{this.checkbox('prices', true, 'Peut voir les prix')}</div>
         <hr/>
