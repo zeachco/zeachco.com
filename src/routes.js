@@ -14,7 +14,7 @@ export const Routes = props => (
       <Route path="site/:id" component={Pages.Site}/>
       <Route path="users" component={Page.Users}/>
       <Route path="categories" component={Page.Categories}/>
-      <Route path="inventory" component={Pages.Inventory}/>
+      <Route path="inventory" component={Page.Inventory}/>
       <Route path="settings" component={Page.Settings}/>
       <Route path="*" component={Page.NotFound}/>
     </Route>

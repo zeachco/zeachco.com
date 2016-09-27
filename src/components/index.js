@@ -3,6 +3,8 @@ export * from './App';
 export * from './UserList';
 export * from './User';
 export * from './EditUser';
+export * from './ItemList';
+export * from './Item';
 
 export default {
   Logo: require('./Logo'),
@@ -10,6 +12,5 @@ export default {
   Header: require('./Header'),
   TopNav: require('./TopNav'),
   ProfileForm: require('./ProfileForm'),
-  SearchBar: require('./SearchBar'),
-  ItemEditor: require('./ItemEditor')
+  SearchBar: require('./SearchBar')
 };
