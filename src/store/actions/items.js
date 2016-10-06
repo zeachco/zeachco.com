@@ -20,7 +20,7 @@ function searchItems(text) {
       type: 'SEARCH_ITEMS_DONE',
       payload: xhr.data
     });
-  })
+  });
 }
 
 module.exports = {

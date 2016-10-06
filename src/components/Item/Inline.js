@@ -4,7 +4,7 @@ import './style.css';
 export const ItemInline = ({
   space,
   name,
-  category,
+  labels,
   imgThumb,
   onClick,
   ...attrs
@@ -16,7 +16,7 @@ export const ItemInline = ({
         height: '1.5em',
         width: '3em'
       }}></span>&nbsp;<span>{name}</span>
-      <span className="pull-right label label-primary">{category}</span>
     </h4>
+    <p>{labels.join(', ')}</p>
   </div>
 );

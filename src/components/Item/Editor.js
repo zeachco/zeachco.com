@@ -1,6 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Field from '../Field';
+import LabelSelect from 'react-select';
+
+var options = [
+  {
+    value: 'one',
+    label: 'One'
+  }, {
+    value: 'two',
+    label: 'Two'
+  }
+];
+
+function logChange(val) {
+  console.log("Selected: " + val);
+  return val && val.replace(/[^a-z0-9]/g, '');
+}
 
 const FloatingStyle = {
   position: 'fixed',
@@ -61,8 +77,9 @@ class ItemEditor extends Component {
         : {}} onChange={this.validate.bind(this)}>
         <div className="panel panel-default">
           <div className="panel-body">
+            <LabelSelect name="form-field-name" value="one" options={options} onChange={logChange}/>
             <label href="#" className="thumbnail btn">
-              <img src={`//rockplusinc.com/img/thumbs/_${item.code}.png`} alt={item.code}/>
+              <img src={item.imgThumb} alt={item.code}/>
               <input style={{
                 display: 'none'
               }} type="file"/>
