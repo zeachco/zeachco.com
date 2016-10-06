@@ -24,7 +24,7 @@ class Inventory extends Component {
     return (
       <div>
         <div className={editedItem && 'col-xs-7'}>
-          <ItemList items={items} onSelect={cb}/>
+          <ItemList items={items} onSelect={cb} selected={editedItem && editedItem._id}/>
         </div>
         {editedItem && (
           <div className="col-xs-5"><ItemEditor item={editedItem}/></div>

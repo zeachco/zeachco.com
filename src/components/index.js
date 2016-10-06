@@ -5,6 +5,7 @@ export * from './User';
 export * from './EditUser';
 export * from './ItemList';
 export * from './Item';
+export * from './Form';
 
 export default {
   Logo: require('./Logo'),
