@@ -17,6 +17,6 @@ export const ItemInline = ({
         width: '3em'
       }}></span>&nbsp;<span>{name}</span>
     </h4>
-    <p>{labels.join(', ')}</p>
+    <p>{labels && labels.join(', ')}</p>
   </div>
 );
