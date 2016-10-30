@@ -23,7 +23,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "echo 'no tests' && exit 0;",
     "deploy": "fly default"
   },
   "proxy": "http://zeachco.com.dev:8080",
