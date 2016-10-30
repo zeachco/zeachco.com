@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "babel-polyfill": "^6.16.0",
+    "eslint": "^3.9.0",
     "flightplan": "^0.6.14",
     "react-scripts": "0.6.1",
     "uuid": "^2.0.3"
@@ -22,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "echo 'no tests' && exit 0;",
     "deploy": "fly default"
   },
   "proxy": "http://zeachco.com.dev:8080",
