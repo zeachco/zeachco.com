@@ -9,6 +9,7 @@ export * from './NotFound';
 export * from './Users';
 export * from './Settings';
 export * from './Categories';
+export * from './NewItem';
 
 export default {
   Logout,

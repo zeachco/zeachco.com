@@ -3,10 +3,9 @@ import {connect} from 'react-redux';
 import SearchBar from '../components/SearchBar';
 import {ItemList, ItemEditor} from '../components';
 import actions from '../store/actions';
-import {Link} from 'react-router';
 import {Base} from '.';
 
-class Inventory extends Component {
+class NewItem extends Component {
   constructor(...args) {
     super(...args);
     this.state = {};
@@ -38,7 +37,7 @@ class Inventory extends Component {
     return (
       <Base>
         <h1>
-          Inventaire&nbsp;<Link className="btn btn-primary pull-right" to="/inventory/new">Ajouter un article</Link>
+          Inventaire&nbsp;<button className="btn btn-primary" onclick={actions.showModal()}>Ajouter un article</button>
         </h1>
         <SearchBar placeholder="nom, description, code..." searchButtonText="Rechercher" onSearch={this.onSearch}/> {this.renderGrid()}
       </Base>
@@ -53,6 +52,6 @@ const mapStatetoProps = (store, ownProps) => ({
   items: store.items || []
 });
 
-const ConnectedInventory = connect(mapStatetoProps)(Inventory);
+const ConnectedNewItem = connect(mapStatetoProps)(NewItem);
 
-export {ConnectedInventory as Inventory};
+export {ConnectedNewItem as NewItem};

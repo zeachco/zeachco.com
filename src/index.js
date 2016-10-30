@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 
 import store from './store';
 import {session} from './store/actions';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 session.fetch();
 
