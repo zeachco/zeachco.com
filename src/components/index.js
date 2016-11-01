@@ -6,6 +6,8 @@ export * from './EditUser';
 export * from './ItemList';
 export * from './Item';
 export * from './Form';
+export * from './FormField';
+export * from './Debug';
 
 export default {
   Logo: require('./Logo'),

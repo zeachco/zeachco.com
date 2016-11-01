@@ -3,6 +3,7 @@ import './style.css';
 
 export * from './Inline';
 export * from './Editor';
+export * from './Form';
 
 export const Item = ({
   space,
