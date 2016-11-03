@@ -8,6 +8,8 @@ export * from './Item';
 export * from './Form';
 export * from './FormField';
 export * from './Debug';
+export * from './Notification';
+export * from './Notifications';
 
 export default {
   Logo: require('./Logo'),

@@ -14,7 +14,7 @@ const FieldValidations = [
     }, {
         label: 'Nom',
         regex: v => (v + '').length > 0,
-        force: v => v.replace(/[^a-z0-9 \-_\.]+/i, '').toLowerCase(),
+        // force: v => v.replace(/[^a-z0-9 '"\(\)\-_\.]+/gi, '').toLowerCase(),
         error: 'Ce champs ne peut être vide',
         attributes: {
             name: 'name'
@@ -61,10 +61,15 @@ class ItemForm extends Component {
         });
     }
 
+    submit(e) {
+        e.preventDefault();
+        createOrUpdate(this.state);
+    }
+
     render() {
         return (
-            <form onChange={this.handleChanges.bind(this)} onSubmit={e => createOrUpdate(this.state)}>
-                {FieldValidations.map(f => (<FormField {...f} key={f.name} value={this.state[f.key]}/>))}
+            <form onChange={this.handleChanges.bind(this)} onSubmit={this.submit.bind(this)}>
+                {FieldValidations.map((f, i) => (<FormField {...f} key={i} value={this.state[f.key]}/>))}
                 <button className="btn btn-primary" type="submit">Cr&eacute;er</button>
                 <Debug object={this.state}/>
             </form>
