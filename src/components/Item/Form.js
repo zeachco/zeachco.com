@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {FormField, Debug} from '..';
+import actions from '../../store/actions';
+const {createOrUpdate} = actions.items;
 
 const FieldValidations = [
     {
@@ -61,7 +63,7 @@ class ItemForm extends Component {
 
     render() {
         return (
-            <form onChange={this.handleChanges.bind(this)}>
+            <form onChange={this.handleChanges.bind(this)} onSubmit={e => createOrUpdate(this.state)}>
                 {FieldValidations.map(f => (<FormField {...f} key={f.name} value={this.state[f.key]}/>))}
                 <button className="btn btn-primary" type="submit">Cr&eacute;er</button>
                 <Debug object={this.state}/>
