@@ -25,7 +25,7 @@
     "build": "react-scripts build",
     "deploy": "fly default"
   },
-  "proxy": "http://zeachco.com.dev:8080",
+  "proxy": "http://zeachco.com:8080",
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/config/eslint.js"
   }
