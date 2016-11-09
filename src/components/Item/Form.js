@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {FormField, Debug, Uploader} from '..';
 import actions from '../../store/actions';
 const {createOrUpdate} = actions.items;
+const {addToastMessage} = actions.notifications;
 
 const FieldValidations = [
     {
@@ -51,19 +52,19 @@ class ItemForm extends Component {
     }
 
     handleChanges(ev) {
-        ev.preventDefault();
-        this.setState({
-            [ev.target.name]: ev.target.value
-        });
+      ev.preventDefault();
+      this.setState({
+        [ev.target.name]: ev.target.value
+      });
     }
 
     submit(e) {
-        e.preventDefault();
-        createOrUpdate(this.state);
+      e.preventDefault();
+      createOrUpdate(this.state);
     }
 
     fileUploaded(response) {
-        console.log(response);
+      addToastMessage({message: `"${response.originalname}" a bien été téléchargée`, type: 'success'});
     }
 
     render() {

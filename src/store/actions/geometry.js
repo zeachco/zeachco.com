@@ -1,4 +1,5 @@
 import store from '..';
+import {addToastMessage} from './notifications';
 
 const {dispatch} = store;
 window.addEventListener('scroll', dispatchScroll);
@@ -18,10 +19,11 @@ function dispatchResize() {
   dispatch({
     type: 'WINDOW_RESIZE',
     payload: {
-      innerHeight: window.innerHeight,
       innerWidth: window.innerWidth,
-      outerHeight: window.outerHeight,
-      outerWidth: window.outerWidth
+      innerHeight: window.innerHeight,
+      outerWidth: window.outerWidth,
+      outerHeight: window.outerHeight
     }
   });
+  addToastMessage({message: `Dimensions: ${window.innerWidth}x${window.innerHeight}`})
 }

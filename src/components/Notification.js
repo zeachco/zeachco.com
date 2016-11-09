@@ -1,9 +1,3 @@
 import React from 'react';
 
-export const Notification = ({
-    type,
-    message,
-    ...props
-}) => (
-    <div className={`alert alert-${type || 'default'}`} {...props}>{message}</div>
-);
+export const Notification = ({data}) => (<div className={`alert alert-${data.type || 'info'}`}>{data.message}</div>);

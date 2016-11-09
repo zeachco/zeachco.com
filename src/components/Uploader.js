@@ -3,7 +3,8 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 const imgStyle = {
     display: 'block',
-    width: '100%'
+    maxWidth: '100%',
+    maxHeight: '100%'
 };
 export class Uploader extends Component {
     constructor(...args) {
@@ -43,7 +44,7 @@ export class Uploader extends Component {
                             padding: 5
                         }}>{this.getPercent()}</p>
                     )
-                    : <img style={imgStyle} src={preview}/>}
+                    : <img alt="dropzone" style={imgStyle} src={preview}/>}
 
             </Dropzone>
         )
