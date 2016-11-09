@@ -18,7 +18,7 @@ class NewItem extends Component {
     return (
       <Base>
         <h3>
-          Cr&eacute;ation d'un article
+          Création d'un article
         </h3>
         <ItemForm/>
       </Base>

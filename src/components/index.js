@@ -10,6 +10,7 @@ export * from './FormField';
 export * from './Debug';
 export * from './Notification';
 export * from './Notifications';
+export * from './Uploader';
 
 export default {
   Logo: require('./Logo'),
