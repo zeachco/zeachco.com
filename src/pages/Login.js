@@ -10,12 +10,6 @@ const LoginPage = ({errorMessage, isAuth, isLoading}) => (
       ev.preventDefault();
       actions.session.login(ev.target.user.value, ev.target.pass.value);
     }}>
-      {errorMessage && (
-        <p className="alert alert-danger">{errorMessage}</p>
-      )}
-      {isLoading && (
-        <p className="alert alert-info">Connexion...</p>
-      )}
       <p>
         <FormGroup controlId="user">
           <ControlLabel>Utilisateur</ControlLabel>
