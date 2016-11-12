@@ -34,7 +34,7 @@ class Users extends Component {
     const {showAdd} = this.state;
     return (
       <Base>
-        <h1>Utilisateurs</h1>
+        <h2>Utilisateurs</h2>
         <input type="text" className="form-control" autoFocus={true} placeholder="Recherche" onKeyUp={e => this.setState({search: e.target.value})}/>
         <UserList users={users.filter(this.searchFilter.bind(this))}/>
         <button onClick={this.add.bind(this)} className="btn btn-primary" style={{

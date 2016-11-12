@@ -7,7 +7,7 @@ const style = {
     display: 'block',
     bottom: 0,
     left: '1%',
-    maxWidth: '98%',
+    maxWidth: '90%',
     zIndex: 9
 };
 

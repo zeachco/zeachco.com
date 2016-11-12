@@ -73,7 +73,6 @@ class ItemForm extends Component {
                 <Uploader url="/api/item/medias" onSuccess={this.fileUploaded.bind(this)}/>
                 {FieldValidations.map((f, i) => (<FormField {...f} key={i} value={this.state[f.key]}/>))}
                 <button className="btn btn-primary" type="submit">Cr&eacute;er</button>
-                <Debug object={this.state}/>
             </form>
         );
     }

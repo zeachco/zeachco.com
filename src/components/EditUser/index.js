@@ -23,7 +23,7 @@ export class EditUser extends Component {
       <div className="user-editor">
         <div className="user-editor__mask" onClick={this.props.onClose}></div>
         <div className="user-editor__content">
-          <h1>Création d'un usager</h1>
+          <h2>Création d'un usager</h2>
           {message && (
             <div className={'alert alert-' + messageType}>{message}</div>
           )}

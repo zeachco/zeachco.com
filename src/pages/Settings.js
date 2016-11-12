@@ -4,7 +4,7 @@ import {Base} from '.';
 
 export const Settings = () => (
   <Base>
-    <h1>Paramètres</h1>
+    <h2>Paramètres</h2>
     <ProfileForm/>
   </Base>
 );

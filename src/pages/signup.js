@@ -40,7 +40,7 @@ class LoginPage extends React.Component {
     return (
       <Base id="login">
         <form disabled={loading} onSubmit={this.submit.bind(this)}>
-          <h1>Créez votre compte</h1>
+          <h2>Créez votre compte</h2>
           {message && (
             <p className={`alert alert-${msgType || 'info'}`}>{message}</p>
           )}

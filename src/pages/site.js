@@ -7,10 +7,10 @@ class Site extends Component {
     const site = sites.filter(s => s._id === params.id)[0] || {};
     return (
       <div>
-        <h1>
+        <h2>
           <span>{site.name}&nbsp;</span>
           <small>Users</small>
-        </h1>
+        </h2>
         <pre>{JSON.stringify(site, null, 2)}</pre>
       </div>
     );
