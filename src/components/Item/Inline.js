@@ -2,14 +2,14 @@ import React from 'react'
 import './style.css';
 
 export const ItemInline = ({
+  _id,
   space,
   name,
   labels,
   imgThumb,
-  onClick,
   ...attrs
 }) => (
-  <div title={JSON.stringify(attrs, null, 2)}>
+  <div>
     <h4>
       <span className="inline-image col-sm-6" style={{
         backgroundImage: `url(${imgThumb})`,

@@ -6,51 +6,19 @@ import actions from '../store/actions';
 import {Link} from 'react-router';
 import {Base} from '.';
 
-class Inventory extends Component {
-  constructor(...args) {
-    super(...args);
-    this.state = {};
-  }
-
-  onSearch(text) {
-    actions.items.searchItems(text);
-  }
-
-  renderGrid() {
-    const {items} = this.props;
-    const {editedItem} = this.state;
-    const cb = item => {
-      this.setState({editedItem: item});
-    };
-    return (
-      <div>
-        <div className={editedItem && 'col-xs-7'}>
-          <ItemList items={items} onSelect={cb} selected={editedItem && editedItem._id}/>
-        </div>
-        {editedItem && (
-          <div className="col-xs-5"><ItemEditor item={editedItem}/></div>
-        )}
-      </div>
-    );
-  }
-
-  render() {
-    return (
-      <Base>
+const Inventory = ({items}) => (
+    <Base>
         <h1>
-          Inventaire&nbsp;<Link className="btn btn-primary pull-right" to="/inventory/new">Ajouter un article</Link>
+            Inventaire&nbsp;<Link className="btn btn-primary pull-right" to="/inventory/new">Ajouter un article</Link>
         </h1>
-        <SearchBar placeholder="nom, description, code..." searchButtonText="Rechercher" onSearch={this.onSearch}/> {this.renderGrid()}
-      </Base>
-    );
-  }
-}
+        <SearchBar placeholder="nom, description, code..." searchButtonText="Rechercher" onSearch={actions.items.searchItems}/>
+        <hr/>
+        <ItemList items={items}/>
+    </Base>
+);
 
 const mapStatetoProps = (store, ownProps) => ({
-  isAuth: store.session.isAuth,
-  isLoading: store.session.isLoading,
-  session: store.session,
-  items: store.items || []
+    items: store.items || []
 });
 
 const ConnectedInventory = connect(mapStatetoProps)(Inventory);
