@@ -28,7 +28,8 @@ export const Routes = props => (
             <Route path="categories" component={Page.Categories}/>
             <Route path="inventory">
                 <IndexRoute component={Page.Inventory}/>
-                <Route path="new" component={Page.NewItem}/>
+                <Route path="new" component={Page.EditItem}/>
+                <Route path="item/:_id" component={Page.EditItem}/>
             </Route>
             <Route path="settings" component={Page.Settings}/>
             <Route path="*" component={Page.NotFound}/>
