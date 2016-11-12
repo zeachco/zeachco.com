@@ -19,8 +19,10 @@ function error(xhr) {
     addToastMessage({message: xhr.message, type: 'danger'});
     if (xhr.response && xhr.response.data && xhr.response.data.errors) {
         for (var err in xhr.response.data.errors) {
-            var error = xhr.response.data.errors[err];
-            addToastMessage({message: error.message, type: 'danger'});
+            if (xhr.response.data.errors.hasOwnProperty(err)) {
+                var error = xhr.response.data.errors[err];
+                addToastMessage({message: error.message, type: 'danger'});
+            }
         }
     }
 
@@ -31,13 +33,19 @@ function createOrUpdate(item) {
         dispatch({type: 'UPDATE_ITEM_START'});
         axios.put('/api/admin/items', item).then(xhr => {
             dispatch({type: 'UPDATE_ITEM_DONE', payload: xhr.data});
-            addToastMessage({message: `article ${xhr.data.name || xhr.data._id} enregistré`, type: 'success'});
+            addToastMessage({
+                message: `article ${xhr.data.name || xhr.data._id} enregistré`,
+                type: 'success'
+            });
         }).catch(error);
     } else {
         dispatch({type: 'CREATE_ITEM_START'});
         axios.post('/api/admin/items', item).then(xhr => {
             dispatch({type: 'CREATE_ITEM_DONE', payload: xhr.data});
-            addToastMessage({message: `article ${xhr.data.name || xhr.data._id} créé`, type: 'success'});
+            addToastMessage({
+                message: `article ${xhr.data.name || xhr.data._id} créé`,
+                type: 'success'
+            });
         }).catch(error);
     }
 }

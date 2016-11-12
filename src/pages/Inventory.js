@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import SearchBar from '../components/SearchBar';
-import {ItemList, ItemEditor} from '../components';
+import {ItemList} from '../components';
 import actions from '../store/actions';
 import {Link} from 'react-router';
 import {Base} from '.';

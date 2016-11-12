@@ -15,7 +15,7 @@ export const EditItem = props => {
                     )
                     : 'Création d\'un article'}
             </h3>
-            <ItemForm id={_id}/>
+            <ItemForm _id={_id}/>
         </Base>
     );
 }

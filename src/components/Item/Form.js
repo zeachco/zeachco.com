@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FormField, Debug, Uploader} from '..';
+import {FormField, Uploader, Debug} from '..';
 import actions from '../../store/actions';
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications;
@@ -25,7 +25,7 @@ const FieldValidations = [
         }
     }, {
         label: 'Notes courtes',
-        force: v => v.replace(/[^a-z0-9 \-_]+/g, ''),
+        force: v => v.replace(/[^A-Za-z0-9 \-_]+/g, ''),
         attributes: {
             name: 'notes'
         }
@@ -38,11 +38,11 @@ const FieldValidations = [
     }
 ];
 
-
 class ItemForm extends Component {
     constructor(...args) {
         super(...args);
         this.state = {
+            ...this.props,
             files: []
         };
     }
@@ -52,27 +52,35 @@ class ItemForm extends Component {
     }
 
     handleChanges(ev) {
-      ev.preventDefault();
-      this.setState({
-        [ev.target.name]: ev.target.value
-      });
+        ev.preventDefault();
+        this.setState({
+            [ev.target.name]: ev.target.value
+        });
     }
 
     submit(e) {
-      e.preventDefault();
-      createOrUpdate(this.state);
+        e.preventDefault();
+        createOrUpdate(this.state);
     }
 
     fileUploaded(response) {
-      addToastMessage({message: `"${response.originalname}" a bien été téléchargée`, type: 'success'});
+        this.setState({
+            files: [
+                ...this.state.files,
+                response.filename
+            ]
+        });
+        addToastMessage({message: `"${response.originalname}" a bien été téléchargée`, type: 'success'});
     }
 
     render() {
         return (
             <form onChange={this.handleChanges.bind(this)} onSubmit={this.submit.bind(this)}>
-                <Uploader url="/api/item/medias" onSuccess={this.fileUploaded.bind(this)}/>
-                {FieldValidations.map((f, i) => (<FormField {...f} key={i} value={this.state[f.key]}/>))}
-                <button className="btn btn-primary" type="submit">Cr&eacute;er</button>
+                <Uploader url="/api/item/medias" onSuccess={this.fileUploaded.bind(this)}/> {FieldValidations.map((f, i) => (<FormField {...f} key={i} value={this.state[f.key]}/>))}
+                <button className="btn btn-primary" type="submit">{this.state._id
+                        ? 'Enregistrer'
+                        : 'Créer'}</button>
+                <Debug object={this.state}/>
             </form>
         );
     }

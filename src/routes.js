@@ -18,21 +18,21 @@ axios.interceptors.response.use(undefined, function(err) {
 
 export const Routes = props => (
     <Router history={browserHistory}>
-        <Route path="/" component={App}>
-            <IndexRoute component={Pages.Home}/>
-            <Route path="login" component={Pages.Login}/>
-            <Route path="signup" component={Pages.Signup}/>
-            <Route path="logout" component={Pages.Logout}/>
-            <Route path="site/:id" component={Pages.Site}/>
-            <Route path="users" component={Page.Users}/>
-            <Route path="categories" component={Page.Categories}/>
-            <Route path="inventory">
-                <IndexRoute component={Page.Inventory}/>
-                <Route path="new" component={Page.EditItem}/>
-                <Route path="item/:_id" component={Page.EditItem}/>
-            </Route>
-            <Route path="settings" component={Page.Settings}/>
-            <Route path="*" component={Page.NotFound}/>
+      <Route path="/" component={App}>
+        <IndexRoute component={Pages.Home}/>
+        <Route path="login" component={Pages.Login}/>
+        <Route path="signup" component={Pages.Signup}/>
+        <Route path="logout" component={Pages.Logout}/>
+        <Route path="site/:_id" component={Pages.Site}/>
+        <Route path="users" component={Page.Users}/>
+        <Route path="categories" component={Page.Categories}/>
+        <Route path="inventory">
+          <IndexRoute component={Page.Inventory}/>
+          <Route path="new" component={Page.EditItem}/>
+          <Route path="item/:_id" component={Page.EditItem}/>
         </Route>
+        <Route path="settings" component={Page.Settings}/>
+        <Route path="*" component={Page.NotFound}/>
+      </Route>
     </Router>
 );
