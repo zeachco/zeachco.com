@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '..';
+import {addToastMessage} from './notifications';
 import {
   browserHistory
 } from 'react-router';
@@ -16,10 +17,12 @@ function fetch() {
       type: xhr.data ? 'SESSION_FETCH_DONE' : 'SESSION_FETCH_FAIL',
       payload: xhr.data
     });
+    addToastMessage({message: 'Session récupérée', type: 'success'});
   }).catch(data => {
     dispatch({
       type: 'SESSION_FETCH_FAIL'
     });
+    addToastMessage({message: 'impossible de récupérée la session', type: 'danger'});
   });
 }
 

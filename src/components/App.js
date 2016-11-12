@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Notifications} from '.';
 import TopNav from './TopNav';
 import Footer from './Footer';
 import {browserHistory} from 'react-router';
@@ -31,6 +32,7 @@ class App extends Component {
           {this.props.children}
         </div>
         <Footer/>
+        <Notifications />
       </div>
     )
   }

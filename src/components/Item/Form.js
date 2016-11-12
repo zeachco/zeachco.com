@@ -1,18 +1,14 @@
 import React, {Component} from 'react';
-import {FormField, Debug} from '..';
+import {FormField, Debug, Uploader} from '..';
+import actions from '../../store/actions';
+const {createOrUpdate} = actions.items;
+const {addToastMessage} = actions.notifications;
 
 const FieldValidations = [
     {
-        label: 'Image',
-        error: 'Une image est necessaire',
-        attributes: {
-            name: 'image',
-            type: 'file'
-        }
-    }, {
         label: 'Nom',
         regex: v => (v + '').length > 0,
-        force: v => v.replace(/[^a-z0-9 \-_\.]+/i, '').toLowerCase(),
+        // force: v => v.replace(/[^a-z0-9 '"\(\)\-_\.]+/gi, '').toLowerCase(),
         error: 'Ce champs ne peut être vide',
         attributes: {
             name: 'name'
@@ -42,10 +38,13 @@ const FieldValidations = [
     }
 ];
 
+
 class ItemForm extends Component {
     constructor(...args) {
         super(...args);
-        this.state = {};
+        this.state = {
+            files: []
+        };
     }
 
     willReceiveProps(newProps) {
@@ -53,16 +52,26 @@ class ItemForm extends Component {
     }
 
     handleChanges(ev) {
-        ev.preventDefault();
-        this.setState({
-            [ev.target.name]: ev.target.value
-        });
+      ev.preventDefault();
+      this.setState({
+        [ev.target.name]: ev.target.value
+      });
+    }
+
+    submit(e) {
+      e.preventDefault();
+      createOrUpdate(this.state);
+    }
+
+    fileUploaded(response) {
+      addToastMessage({message: `"${response.originalname}" a bien été téléchargée`, type: 'success'});
     }
 
     render() {
         return (
-            <form onChange={this.handleChanges.bind(this)}>
-                {FieldValidations.map(f => (<FormField {...f} key={f.name} value={this.state[f.key]}/>))}
+            <form onChange={this.handleChanges.bind(this)} onSubmit={this.submit.bind(this)}>
+                <Uploader url="/api/item/medias" onSuccess={this.fileUploaded.bind(this)}/>
+                {FieldValidations.map((f, i) => (<FormField {...f} key={i} value={this.state[f.key]}/>))}
                 <button className="btn btn-primary" type="submit">Cr&eacute;er</button>
                 <Debug object={this.state}/>
             </form>

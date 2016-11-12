@@ -19,6 +19,7 @@ export const FormField = ({
 
     const field = React.createElement(type || 'input', {
         onBlur,
+        key: attributes.name + '_field',
         placeholder: label,
         className: 'form-control',
         autoComplete: 'off',
