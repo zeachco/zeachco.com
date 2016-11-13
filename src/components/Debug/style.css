@@ -1,0 +1,9 @@
+.debug {
+    transition: all .5s;
+}
+
+.debug.updated {
+    background: yellow !important;
+    color: black !important;
+    transform: scale(1.1, 1.1);
+}

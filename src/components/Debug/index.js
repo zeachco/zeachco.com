@@ -1,3 +1,4 @@
+import './style.css';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -17,6 +18,13 @@ export class Debug extends Component {
     this.hide = this.hide.bind(this);
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      updated: true
+    });
+    this.to = setTimeout(this.setState.bind(this), 300, { updated: false });
+  }
+
   show() {
     this.setState({show: true})
   }
@@ -33,11 +41,12 @@ export class Debug extends Component {
   componentWillUnmount() {
       ReactDOM.findDOMNode(this).removeEventListener('mouseenter', this.show);
       ReactDOM.findDOMNode(this).removeEventListener('mouseleave', this.hide);
+      clearTimeout(this.to);
   }
 
   render() {
     const {object} = this.props;
-    const {show} = this.state;
-    return (<pre style={style} className="dark">{show ? JSON.stringify(object, null, 2) : '...'}</pre>);
+    const {show, updated} = this.state;
+    return (<pre style={style} className={updated ? 'dark debug updated' : 'dark debug'}>{show ? JSON.stringify(object, null, 2) : '...'}</pre>);
   }
 }
