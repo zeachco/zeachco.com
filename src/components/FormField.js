@@ -6,6 +6,7 @@ export const FormField = ({
     force,
     type,
     regex,
+    value,
     error
 }) => {
     const onBlur = e => {
@@ -24,6 +25,7 @@ export const FormField = ({
         className: 'form-control',
         autoComplete: 'off',
         title: error,
+        value,
         ...attributes
     })
 

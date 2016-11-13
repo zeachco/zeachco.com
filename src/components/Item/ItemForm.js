@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {FormField, Uploader, Debug} from '..';
 import actions from '../../store/actions';
 import store from '../../store';
+import axios from 'axios'
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications;
 
@@ -42,13 +43,31 @@ export class ItemForm extends Component {
     constructor(...args) {
         super(...args);
         this.state = {
-            ...this.props,
-            files: []
+            name: 'Loading...',
+            files: [],
+            ...this.props
         };
+        this.fetchItem();
     }
 
     willReceiveProps(newProps) {
-        this.setState(newProps);
+        this.setState({
+            name: 'Loading...',
+            files: [],
+            ...newProps
+        });
+        this.fetchItem();
+    }
+
+    fetchItem(props) {
+        const {_id} = this.props;
+        if (_id) {
+            axios
+                .get('/api/admin/item/' + _id)
+                .then(xhr => {
+                    this.setState(xhr.data);
+                });
+        }
     }
 
     handleChanges(ev) {
@@ -81,17 +100,11 @@ export class ItemForm extends Component {
     render() {
         return (
             <form
-                onChange={this
-                .handleChanges
-                .bind(this)}
-                onSubmit={this
-                .submit
-                .bind(this)}>
+                onChange={this.handleChanges.bind(this)}
+                onSubmit={this.submit.bind(this)}>
                 <Uploader
                     url="/api/item/medias"
-                    onSuccess={this
-                    .fileUploaded
-                    .bind(this)}/>
+                    onSuccess={this.fileUploaded.bind(this)}/>
                 <div className="form-group">
                     <label htmlFor="space-select">Select list:</label>
                     <select
@@ -100,10 +113,10 @@ export class ItemForm extends Component {
                         className="form-control"
                         value={this.state.space}>
                         <option value="">-- Choisir --</option>
-                        {this.getSpaces().map(s=><option>{s}</option>)}
+                        {this.getSpaces().map(s => (<option key={s}>{s}</option>))}
                     </select>
                 </div>
-                {FieldValidations.map((f, i) => (<FormField {...f} key={i} value={this.state[f.key]}/>))}
+                {FieldValidations.map((f, i) => (<FormField key={i} {...f} value={this.state[f.key]}/>))}
                 <button className="btn btn-primary" type="submit">{this.state._id
                         ? 'Enregistrer'
                         : 'Créer'}</button>
