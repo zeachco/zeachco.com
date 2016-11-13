@@ -31,7 +31,7 @@ function error(xhr) {
 function createOrUpdate(item) {
     if (item._id) {
         dispatch({type: 'UPDATE_ITEM_START'});
-        axios.put('/api/admin/items', item).then(xhr => {
+        axios.put('/api/admin/item/' + item._id, item).then(xhr => {
             dispatch({type: 'UPDATE_ITEM_DONE', payload: xhr.data});
             addToastMessage({
                 message: `article ${xhr.data.name || xhr.data._id} enregistré`,
