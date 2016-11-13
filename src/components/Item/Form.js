@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {FormField, Uploader, Debug} from '..';
 import actions from '../../store/actions';
+import store from '../../store';
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications;
 
@@ -37,7 +38,7 @@ const FieldValidations = [
     }
 ];
 
-class ItemForm extends Component {
+export class ItemForm extends Component {
     constructor(...args) {
         super(...args);
         this.state = {
@@ -72,6 +73,11 @@ class ItemForm extends Component {
         addToastMessage({message: `"${response.originalname}" a bien été téléchargée`, type: 'success'});
     }
 
+    getSpaces() {
+        const {session} = store.getState();
+        return session.spaces || [];
+    }
+
     render() {
         return (
             <form
@@ -94,8 +100,7 @@ class ItemForm extends Component {
                         className="form-control"
                         value={this.state.space}>
                         <option value="">-- Choisir --</option>
-                        <option value="rockplusinc.com">RockPlus inc.</option>
-                        <option value="gosensi.com">Gosensi</option>
+                        {this.getSpaces().map(s=><option>{s}</option>)}
                     </select>
                 </div>
                 {FieldValidations.map((f, i) => (<FormField {...f} key={i} value={this.state[f.key]}/>))}
@@ -107,5 +112,3 @@ class ItemForm extends Component {
         );
     }
 }
-
-export {ItemForm};
