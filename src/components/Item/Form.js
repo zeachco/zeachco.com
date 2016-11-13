@@ -8,7 +8,6 @@ const FieldValidations = [
     {
         label: 'Nom',
         regex: v => (v + '').length > 0,
-        // force: v => v.replace(/[^a-z0-9 '"\(\)\-_\.]+/gi, '').toLowerCase(),
         error: 'Ce champs ne peut être vide',
         attributes: {
             name: 'name'
@@ -75,8 +74,31 @@ class ItemForm extends Component {
 
     render() {
         return (
-            <form onChange={this.handleChanges.bind(this)} onSubmit={this.submit.bind(this)}>
-                <Uploader url="/api/item/medias" onSuccess={this.fileUploaded.bind(this)}/> {FieldValidations.map((f, i) => (<FormField {...f} key={i} value={this.state[f.key]}/>))}
+            <form
+                onChange={this
+                .handleChanges
+                .bind(this)}
+                onSubmit={this
+                .submit
+                .bind(this)}>
+                <Uploader
+                    url="/api/item/medias"
+                    onSuccess={this
+                    .fileUploaded
+                    .bind(this)}/>
+                <div className="form-group">
+                    <label htmlFor="space-select">Select list:</label>
+                    <select
+                        id="space-select"
+                        name="space"
+                        className="form-control"
+                        value={this.state.space}>
+                        <option value="">-- Choisir --</option>
+                        <option value="rockplusinc.com">RockPlus inc.</option>
+                        <option value="gosensi.com">Gosensi</option>
+                    </select>
+                </div>
+                {FieldValidations.map((f, i) => (<FormField {...f} key={i} value={this.state[f.key]}/>))}
                 <button className="btn btn-primary" type="submit">{this.state._id
                         ? 'Enregistrer'
                         : 'Créer'}</button>
