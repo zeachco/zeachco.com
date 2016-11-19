@@ -10,7 +10,7 @@ const LoginPage = ({errorMessage, isAuth, isLoading}) => (
       ev.preventDefault();
       actions.session.login(ev.target.user.value, ev.target.pass.value);
     }}>
-      <p>
+      <div>
         <FormGroup controlId="user">
           <ControlLabel>Utilisateur</ControlLabel>
           <FormControl type="text" autoFocus placeholder="email@domain.xyz"/>
@@ -20,7 +20,7 @@ const LoginPage = ({errorMessage, isAuth, isLoading}) => (
           <FormControl type="password" placeholder="********"/>
         </FormGroup>
         <Button bsStyle="primary" type="submit" disabled={isLoading}>Connexion</Button>
-      </p>
+      </div>
     </form>
   </Base>
 );
