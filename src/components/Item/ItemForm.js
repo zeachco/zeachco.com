@@ -8,14 +8,14 @@ const {addToastMessage} = actions.notifications;
 
 const FieldValidations = [
     {
-        label: 'Nom',
+        label: 'Nom du produit',
         regex: v => (v + '').length > 0,
         error: 'Ce champs ne peut être vide',
         attributes: {
             name: 'name'
         }
     }, {
-        label: 'Prix',
+        label: 'Prix d\'affichage',
         regex: v => /[0-9]+(\.[0-9]{1,2})^/.test(v),
         force: v => String(Number(v) || 0),
         error: 'Le prix doit être sous un des deux formats suivants: 1234.56 ou 1234',
@@ -25,14 +25,24 @@ const FieldValidations = [
             step: 0.01
         }
     }, {
-        label: 'Notes courtes',
+        label: 'Description courte',
         force: v => v.replace(/[^A-Za-z0-9 \-_]+/g, ''),
         attributes: {
-            name: 'notes'
+            name: 'shortDescription'
         }
     }, {
-        label: 'Description',
+        label: 'Description complète',
         type: 'textarea',
+        attributes: {
+            name: 'description'
+        }
+    }, {
+        label: 'Catégories',
+        attributes: {
+            name: 'category'
+        }
+    }, {
+        label: 'Catégories',
         attributes: {
             name: 'description'
         }
