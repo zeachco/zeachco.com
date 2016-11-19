@@ -116,7 +116,7 @@ export class ItemForm extends Component {
                         {this.getSpaces().map(s => (<option key={s}>{s}</option>))}
                     </select>
                 </div>
-                {FieldValidations.map((f, i) => (<FormField key={i} {...f} value={this.state[f.key]}/>))}
+                {FieldValidations.map((f, i) => (<FormField key={i} {...f} value={this.state[f.attributes.name]}/>))}
                 <button className="btn btn-primary" type="submit">{this.state._id
                         ? 'Enregistrer'
                         : 'Créer'}</button>
