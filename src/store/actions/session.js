@@ -3,6 +3,21 @@ import store from '..';
 import {addToastMessage} from './notifications';
 import {browserHistory} from 'react-router';
 
+axios.interceptors.response.use(function(response) {
+    return Promise.resolve(response);
+}, function(err) {
+    const {status} = err.response; 
+    if (status === 403 || status === 401) {
+        store.dispatch({type: 'SESSION_LOGIN_FAIL'});
+        addToastMessage({ message: 'Veuillez vous reconnecter', type: 'danger' });
+        browserHistory.push('/login');
+    } else {    
+        console.error(err);
+        addToastMessage({ message: 'Une erreur est survenue', type: 'danger' });
+    }
+    return Promise.reject(err);
+});
+
 function fetch() {
     store.dispatch({type: 'SESSION_FETCH'});
     return axios.get('/api/profile/me').then(xhr => {
