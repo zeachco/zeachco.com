@@ -116,7 +116,14 @@ export class ItemForm extends Component {
                 onSubmit={this.submit.bind(this)}>
                 <Uploader
                     url="/api/item/medias"
-                    onSuccess={this.fileUploaded.bind(this)} />
+                    onSuccess={this.fileUploaded.bind(this)}>
+                    {this.state.files.length === 0 && (
+                        <div className="mask">
+                            <div className="banner">Déposer les images ici</div>
+                        </div>
+                    )}
+                    {this.state.files.map(id => (<img alt={this.state.name} style={thumbStyle} src={'../../api/medias/' + id} />))}
+                </Uploader>
                 <div className="form-group">
                     <label htmlFor="space-select">Select list:</label>
                     <select
@@ -128,8 +135,6 @@ export class ItemForm extends Component {
                         {this.getSpaces().map(s => (<option key={s}>{s}</option>))}
                     </select>
                 </div>
-                Images ({this.state.files.length}) :
-                {this.state.files.map(id => (<img alt={this.state.name} style={thumbStyle} src={'../../api/medias/' + id} />))}
                 {FieldValidations.map((f, i) => (<FormField key={i} {...f} value={this.state[f.attributes.name]}/>))}
                 <button className="btn btn-primary" type="submit">{this.state._id
                         ? 'Enregistrer'
