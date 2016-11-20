@@ -5,7 +5,10 @@ import store from '../../store';
 import axios from 'axios'
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications;
-
+const thumbStyle = {
+    maxWidth: 200,
+    maxHeight: 200
+}
 const FieldValidations = [
     {
         label: 'Nom du produit',
@@ -16,7 +19,7 @@ const FieldValidations = [
         }
     }, {
         label: 'Prix d\'affichage',
-        regex: v => /[0-9]+(\.[0-9]{1,2})^/.test(v),
+        // regex: v => /[0-9]+(\.[0-9]{1,2})^/.test(v),
         // force: v => String(Number(v) || 0),
         error: 'Le prix doit être sous un des deux formats suivants: 1234.56 ou 1234',
         attributes: {
@@ -113,7 +116,7 @@ export class ItemForm extends Component {
                 onSubmit={this.submit.bind(this)}>
                 <Uploader
                     url="/api/item/medias"
-                    onSuccess={this.fileUploaded.bind(this)}/>
+                    onSuccess={this.fileUploaded.bind(this)} />
                 <div className="form-group">
                     <label htmlFor="space-select">Select list:</label>
                     <select
@@ -125,6 +128,8 @@ export class ItemForm extends Component {
                         {this.getSpaces().map(s => (<option key={s}>{s}</option>))}
                     </select>
                 </div>
+                Images ({this.state.files.length}) :
+                {this.state.files.map(id => (<img alt={this.state.name} style={thumbStyle} src={'../../api/medias/' + id} />))}
                 {FieldValidations.map((f, i) => (<FormField key={i} {...f} value={this.state[f.attributes.name]}/>))}
                 <button className="btn btn-primary" type="submit">{this.state._id
                         ? 'Enregistrer'
