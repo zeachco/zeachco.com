@@ -17,7 +17,7 @@ const FieldValidations = [
     }, {
         label: 'Prix d\'affichage',
         regex: v => /[0-9]+(\.[0-9]{1,2})^/.test(v),
-        force: v => String(Number(v) || 0),
+        // force: v => String(Number(v) || 0),
         error: 'Le prix doit être sous un des deux formats suivants: 1234.56 ou 1234',
         attributes: {
             name: 'price',
@@ -53,7 +53,6 @@ export class ItemForm extends Component {
     constructor(...args) {
         super(...args);
         this.state = {
-            name: 'Loading...',
             files: [],
             ...this.props
         };

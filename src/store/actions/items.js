@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '..';
 import {addToastMessage} from './notifications';
+import {browserHistory} from 'react-router';
 
 const {dispatch} = store;
 
@@ -46,6 +47,7 @@ function createOrUpdate(item) {
                 message: `article ${xhr.data.name || xhr.data._id} créé`,
                 type: 'success'
             });
+            browserHistory.push('/inventory/item/'+xhr.data._id);
         }).catch(error);
     }
 }
