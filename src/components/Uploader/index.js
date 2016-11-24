@@ -38,12 +38,12 @@ export class Uploader extends Component {
             <div className="mask">
                 <div className="banner">{progress}%</div>
                 <div className="progressContainer"><div className="progressView" style={{width: progress+'%'}}></div></div>
-            </div>    
+            </div>
         );
     }
 
     render() {
-        const {progress, preview, uploading} = this.state;
+        const {uploading} = this.state;
         return (
             <Dropzone
                 className="uploader"
