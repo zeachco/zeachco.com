@@ -32,5 +32,8 @@ export const FormField = ({
 
     return React.createElement('div', {
         className: 'form-group'
-    }, [field]);
+    }, [
+        React.createElement('label', null, label),
+        field
+    ]);
 };
