@@ -6,6 +6,8 @@ import {
 } from '.';
 import axios from 'axios';
 
+import { categories } from '../store/actions';
+
 export class Categories extends Component {
   constructor(...args) {
     super(...args)
@@ -18,6 +20,7 @@ export class Categories extends Component {
     this.setState({
       loading: true
     });
+    categories.fetch();
     axios
       .get('/api/admin/categories')
       .then(xhr => {
