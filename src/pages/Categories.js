@@ -1,14 +1,10 @@
-import React, {
-  Component
-} from 'react';
-import {
-  Base
-} from '.';
-import axios from 'axios';
+import React, { Component } from 'react';
+import { Base } from '.';
 
 import { categories } from '../store/actions';
+import { connect } from 'react-redux';
 
-export class Categories extends Component {
+class Categories extends Component {
   constructor(...args) {
     super(...args)
     this.state = {
@@ -17,26 +13,12 @@ export class Categories extends Component {
   }
 
   componentWillMount(newprops) {
-    this.setState({
-      loading: true
-    });
+    console.log('category')
     categories.fetch();
-    axios
-      .get('/api/admin/categories')
-      .then(xhr => {
-        this.setState({
-          categories: xhr.data,
-          loading: false
-        });
-      }).catch(error => {
-        this.setState({
-          loading: false
-        });
-      });
   }
 
   render() {
-    const {categories} = this.state;
+    const {categories} = this.props;
     return (
       <Base>
         <h2>Catégories ({categories.length})</h2>
@@ -46,3 +28,9 @@ export class Categories extends Component {
     );
   }
 }
+
+const mapStatetoProps = store => ({ store: store, categories: store.categories.data });
+
+const ConnectedCategories = connect(mapStatetoProps)(Categories);
+
+export { ConnectedCategories as Categories };

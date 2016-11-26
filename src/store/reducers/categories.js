@@ -4,13 +4,12 @@ const initialState = {
 }
 
 const categories = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case 'CATEGORIES_FETCH':
-      return [{
+      return {
         isLoading: true,
         data: []
-      }];
+      };
     case 'CATEGORIES_FETCH_DONE':
       return {
         isLoading: false,
