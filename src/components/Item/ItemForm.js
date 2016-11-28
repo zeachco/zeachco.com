@@ -1,14 +1,12 @@
-import React, {Component} from 'react';
-import {FormField, Uploader} from '..';
-import actions from '../../store/actions';
-import store from '../../store';
+import React, {Component} from 'react'
+import {FormField, Uploader, EditorImage} from '..'
+import actions from '../../store/actions'
+import store from '../../store'
 import axios from 'axios'
+
 const {createOrUpdate} = actions.items;
-const {addToastMessage} = actions.notifications;
-const thumbStyle = {
-    maxWidth: 200,
-    maxHeight: 200
-}
+const {addToastMessage} = actions.notifications
+
 const FieldValidations = [
     {
         label: 'Nom du produit',
@@ -19,8 +17,6 @@ const FieldValidations = [
         }
     }, {
         label: 'Prix d\'affichage',
-        // regex: v => /[0-9]+(\.[0-9]{1,2})^/.test(v),
-        // force: v => String(Number(v) || 0),
         error: 'Le prix doit être sous un des deux formats suivants: 1234.56 ou 1234',
         attributes: {
             name: 'price',
@@ -50,16 +46,22 @@ const FieldValidations = [
             name: 'description'
         }
     }
-];
+]
 
 export class ItemForm extends Component {
-    constructor(...args) {
-        super(...args);
+    constructor(args) {
+        super(args)
         this.state = {
             files: [],
             ...this.props
         };
-        this.fetchItem();
+        this.fetchItem()
+        this.handleChanges = this
+            .handleChanges
+            .bind(this)
+        this.submit = this
+            .submit
+            .bind(this)
     }
 
     willReceiveProps(newProps) {
@@ -112,18 +114,9 @@ export class ItemForm extends Component {
     render() {
         return (
             <form
-                onChange={this.handleChanges.bind(this)}
-                onSubmit={this.submit.bind(this)}>
-                <Uploader
-                    url="/api/item/medias"
-                    onSuccess={this.fileUploaded.bind(this)}>
-                    {this.state.files.length === 0 && (
-                        <div className="mask">
-                            <div className="banner">Déposer les images ici</div>
-                        </div>
-                    )}
-                    {this.state.files.map(id => (<img alt={this.state.name} style={thumbStyle} src={'../../api/medias/' + id} />))}
-                </Uploader>
+                className="item-form"
+                onChange={this.handleChanges}
+                onSubmit={this.submit}>
                 <div className="form-group">
                     <label htmlFor="space-select">Select list:</label>
                     <select
@@ -132,10 +125,40 @@ export class ItemForm extends Component {
                         className="form-control"
                         value={this.state.space}>
                         <option value="">-- Choisir --</option>
-                        {this.getSpaces().map(s => (<option key={s}>{s}</option>))}
+                        {this
+                            .getSpaces()
+                            .map(s => (
+                                <option key={s}>{s}</option>
+                            ))}
                     </select>
                 </div>
                 {FieldValidations.map((f, i) => (<FormField key={i} {...f} value={this.state[f.attributes.name]}/>))}
+                <hr/>
+                <Uploader
+                    url="/api/item/medias"
+                    onSuccess={this
+                    .fileUploaded
+                    .bind(this)}>
+
+                    <div className="mask">
+                        <div className="banner">Déposer les images ici</div>
+                    </div>
+                </Uploader>
+                <hr/>
+                <div style={{
+                    textAlign: 'center'
+                }}>
+                    {this
+                        .state
+                        .files
+                        .map(id => (<EditorImage
+                            key={id}
+                            onDestroy={() => console.log('destroy', id)}
+                            onPrimary={() => console.log('make primary', id)}
+                            alt={this.state.name}
+                            src={'../../api/medias/' + id}/>))}
+                </div>
+                <hr/>
                 <button className="btn btn-primary" type="submit">{this.state._id
                         ? 'Enregistrer'
                         : 'Créer'}</button>
