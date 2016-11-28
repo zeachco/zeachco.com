@@ -1,35 +1,32 @@
-import React, {Component} from 'react';
-
-const style = {
-  transform: 'translateX(-100%)',
-  transition: 'transform .2s'
-}
+import '!style!css!sass!./Base.scss'
+import React, {Component} from 'react'
 
 export class Base extends Component {
-  constructor(...props) {
-    super(...props);
-    this.state = {};
+  constructor(props) {
+    super(props)
+    this.state = {}
   }
+
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({activated: true});
-    }, 20);
+    this.to = setTimeout(() => {
+      this.setState({ready: true})
+    }, 0)
   }
+
   componentWillUnmount() {
-    this.setState({activated: false});
+    clearTimeout(this.to)
+    this.setState({ready: false})
   }
+
   render() {
-    const tempStyle = this.state.activated
-      ? {
-        ...style,
-        transform: 'none'
-      }
-      : style;
+    const animationClasses = 'base-page' + (this.state.ready
+      ? ' ready'
+      : '')
     return (
-      <div style={tempStyle}>
+      <div className={animationClasses}>
         <div>{this.props.children}</div>
         <hr/>
       </div>
-    );
+    )
   }
 }
