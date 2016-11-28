@@ -1,20 +1,12 @@
-import Logout from './Logout';
-import Login from './Login';
-import Signup from './signup';
-import Home from './Home';
-import Site from './site';
-export * from './Inventory';
-export * from './Base';
-export * from './NotFound';
-export * from './Users';
-export * from './Settings';
-export * from './Categories';
-export * from './EditItem';
-
-export default {
-  Logout,
-  Login,
-  Signup,
-  Home,
-  Site
-};
+export * from './NotFound'
+export * from './Login'
+export * from './Logout'
+export * from './Signup'
+export * from './Home'
+export * from './Site'
+export * from './Inventory'
+export * from './Base'
+export * from './Users'
+export * from './Settings'
+export * from './Categories'
+export * from './EditItem'

@@ -31,4 +31,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   logout: () => dispatch({type: 'LOGOUT_REQUEST'})
 });
 
-export default connect(mapStatetoProps, mapDispatchToProps)(LoginPage);
+const ConnectedLogin = connect(mapStatetoProps, mapDispatchToProps)(LoginPage);
+
+export default ConnectedLogin;
+export {ConnectedLogin as Login};

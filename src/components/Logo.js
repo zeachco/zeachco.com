@@ -1,11 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-const Logo = props => {
+export const Logo = props => {
   return (
     <span className="logo">
       Z<small>EACH</small>CO
     </span>
-  );
-};
-
-module.exports = Logo;
+  )
+}

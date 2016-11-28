@@ -1,9 +1,9 @@
-import React from 'react';
-import {Button, Jumbotron, ButtonToolbar} from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
-import {connect} from 'react-redux';
-import {Base} from '.';
-import actions from '../store/actions';
+import React from 'react'
+import {Button, Jumbotron, ButtonToolbar} from 'react-bootstrap'
+import {LinkContainer} from 'react-router-bootstrap'
+import {connect} from 'react-redux'
+import {Base} from '.'
+import actions from '../store/actions'
 
 const LoggedOut = () => (
   <div className="row">
@@ -20,12 +20,16 @@ const LoggedOut = () => (
     </div>
     <div className="col-md-6">
       <h3>Voir les fonctionnalitées sans créer de compte (oui c'est possible)</h3>
-      <Button onClick={e => actions.session.login('demo', 'demo')} bsStyle="default">Compte demo</Button>
+      <Button
+        onClick={e => actions
+        .session
+        .login('demo', 'demo')}
+        bsStyle="default">Compte demo</Button>
     </div>
   </div>
-);
+)
 
-const HomePage = ({isAuth}) => (
+const Home = ({isAuth}) => (
   <Base>
     <Jumbotron>
       <h1>Vos outils, votre site</h1>
@@ -33,10 +37,10 @@ const HomePage = ({isAuth}) => (
       {!isAuth && (<LoggedOut/>)}
     </Jumbotron>
   </Base>
-);
+)
 
-const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, isLoading: store.session.isLoading});
+const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, isLoading: store.session.isLoading})
 
-const mapDispatchToProps = (dispatch, ownProps) => ({});
+const ConnectedHome = connect(mapStatetoProps)(Home)
 
-export default connect(mapStatetoProps, mapDispatchToProps)(HomePage);
+export {ConnectedHome as Home}

@@ -1,11 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router';
-import Logo from './Logo';
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
-import {SessionDropdown} from '.';
+import {Navbar, Nav, NavItem} from 'react-bootstrap'
+import {LinkContainer} from 'react-router-bootstrap'
+import {SessionDropdown, Logo} from '.'
 
-const TopNavbar = (props) => (
+export const TopNav = (props) => (
   <Navbar>
     <Navbar.Header>
       <Navbar.Brand>
@@ -25,7 +24,4 @@ const TopNavbar = (props) => (
     </Nav>
     <SessionDropdown/>
   </Navbar>
-);
-
-export {TopNavbar};
-export default TopNavbar;
+)

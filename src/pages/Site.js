@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 
 class Site extends Component {
   render() {
-    const {params, sites} = this.props;
-    const site = sites.filter(s => s._id === params.id)[0] || {};
+    const {params, sites} = this.props
+    const site = sites.filter(s => s._id === params.id)[0] || {}
     return (
       <div>
         <h2>
@@ -13,7 +13,7 @@ class Site extends Component {
         </h2>
         <pre>{JSON.stringify(site, null, 2)}</pre>
       </div>
-    );
+    )
   }
 }
 
@@ -22,8 +22,8 @@ const mapStatetoProps = (store, ownProps) => ({
   isLoading: store.session.isLoading,
   session: store.session,
   sites: (store.session && store.session.sites) || []
-});
+})
 
-const mapDispatchToProps = (dispatch, ownProps) => ({});
+const ConnectedSite = connect(mapStatetoProps)(Site)
 
-export default connect(mapStatetoProps, mapDispatchToProps)(Site);
+export {ConnectedSite as Site};

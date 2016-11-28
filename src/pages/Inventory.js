@@ -1,10 +1,9 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import SearchBar from '../components/SearchBar';
-import {ItemList} from '../components';
-import actions from '../store/actions';
-import {Link} from 'react-router';
-import {Base} from '.';
+import React from 'react'
+import {connect} from 'react-redux'
+import {ItemList, SearchBar} from '../components'
+import {Link} from 'react-router'
+import {Base} from '.'
+import actions from '../store/actions'
 
 const Inventory = ({items}) => (
     <Base>
@@ -13,12 +12,12 @@ const Inventory = ({items}) => (
         <hr/>
         <ItemList items={items}/>
     </Base>
-);
+)
 
 const mapStatetoProps = (store, ownProps) => ({
     items: store.items || []
-});
+})
 
-const ConnectedInventory = connect(mapStatetoProps)(Inventory);
+const ConnectedInventory = connect(mapStatetoProps)(Inventory)
 
-export {ConnectedInventory as Inventory};
+export {ConnectedInventory as Inventory}
