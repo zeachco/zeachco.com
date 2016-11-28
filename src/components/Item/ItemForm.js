@@ -145,9 +145,7 @@ export class ItemForm extends Component {
                     </div>
                 </Uploader>
                 <hr/>
-                <div style={{
-                    textAlign: 'center'
-                }}>
+                <div className="editor-images">
                     {this
                         .state
                         .files
