@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FormField, Uploader, Debug} from '..';
+import {FormField, Uploader} from '..';
 import actions from '../../store/actions';
 import store from '../../store';
 import axios from 'axios'
@@ -139,7 +139,6 @@ export class ItemForm extends Component {
                 <button className="btn btn-primary" type="submit">{this.state._id
                         ? 'Enregistrer'
                         : 'Créer'}</button>
-                <Debug object={this.state}/>
             </form>
         );
     }
