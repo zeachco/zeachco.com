@@ -3,26 +3,15 @@ import {connect} from 'react-redux'
 import {Login} from '../../pages'
 
 export const requireAuth = ComposedComponent => {
-    class Authenticate extends React.Component {
-        componentWillMount() {
-            console.log('componentWillMount');
-        }
+    const Authenticate = props => {
+        const ActualPage = props.isAuth
+            ? ComposedComponent
+            : Login
 
-        componentWillUpdate() {
-            console.log('componentWillUpdate');
-        }
-
-        render() {
-            const ActualPage = this.props.isAuth
-                ? ComposedComponent
-                : Login;
-
-            console.log(ActualPage)
-            return (<ActualPage {...this.props}/>);
-        }
+        return (<ActualPage {...props}/>)
     }
 
-    const stateToProps = store => ({isAuth: store.session.isAuth});
+    const stateToProps = store => ({isAuth: store.session.isAuth})
 
-    return connect(stateToProps, null)(Authenticate);
+    return connect(stateToProps, null)(Authenticate)
 }
