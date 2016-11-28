@@ -31,6 +31,6 @@
   },
   "proxy": "http://zeachco.com.dev:8080",
   "eslintConfig": {
-    "extends": "./node_modules/react-scripts/config/eslint.js"
+    "extends": "node_modules/react-scripts/config/eslint.js"
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react'
-import './style.css';
+import './style.css'
 
-export * from './Inline';
-export * from './Editor';
-export * from './ItemForm';
+export * from './Inline'
+export * from './Editor'
+export * from './ItemForm'
 
 export const Item = ({
   space,
@@ -13,11 +13,12 @@ export const Item = ({
   ...attrs
 }) => (
   <tr title={JSON.stringify(attrs, null, 2)} onClick={onClick}>
-    <th className="inline-image" style={{
-        backgroundImage: `url(${imgThumb})`
-      }}>
-    </th>
+    <th
+      className="inline-image"
+      style={{
+      backgroundImage: `url(${imgThumb})`
+    }}></th>
     <td>{name}</td>
     <td>{space}</td>
   </tr>
-);
+)
