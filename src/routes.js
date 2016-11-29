@@ -2,21 +2,6 @@ import React from 'react'
 import {App, requireAuth} from './components'
 import * as Page from './pages'
 import {Router, Route, browserHistory, IndexRoute} from 'react-router'
-// import axios from 'axios'
-
-// axios
-//     .interceptors
-//     .response
-//     .use(undefined, function (err) {
-//         return new Promise((resolve, reject) => {
-//             console.log(err);
-//             if (err.status === 401) {
-//                 console.log('unauthorized redirect...');
-//                 reject('redirect...');
-//             }
-//             throw err;
-//         });
-//     });
 
 export const Routes = props => (
     <Router history={browserHistory}>
