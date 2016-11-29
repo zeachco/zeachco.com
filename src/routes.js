@@ -7,7 +7,7 @@ export const Routes = props => (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Page.Home}/>
-            <Route path="login" component={Page.Login}/>
+            <Route path="login" component={requireAuth(Page.Home)}/>
             <Route path="signup" component={Page.Signup}/>
             <Route path="logout" component={Page.Logout}/>
             <Route path="site/:_id" component={requireAuth(Page.Site)}/>
