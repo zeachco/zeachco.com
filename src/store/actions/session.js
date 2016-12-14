@@ -31,7 +31,8 @@ function fetch() {
                     : 'SESSION_FETCH_FAIL',
                 payload: xhr.data
             });
-            addToastMessage({message: 'Session récupérée', type: 'success'});
+            console.warn('Session récupéré');
+            // addToastMessage({message: 'Session récupérée', type: 'success'});
         })
         .catch(data => {
             store.dispatch({type: 'SESSION_FETCH_FAIL'});
