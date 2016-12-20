@@ -2,11 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Field from '../Field';
 
-const FloatingStyle = {
-  position: 'fixed',
-  top: '0'
-}
-
 class ItemEditor extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +32,6 @@ class ItemEditor extends Component {
 
   render() {
     const item = this.state;
-    const {isFloating} = this.props;
     if (!item) {
       return (
         <p>Invalid item</p>
@@ -56,9 +50,7 @@ class ItemEditor extends Component {
       }
     ].filter(cat => cat.sites.indexOf(item.site));
     return (
-      <form onSubmit={this.submit.bind(this)} style={isFloating
-        ? FloatingStyle
-        : {}} onChange={this.validate.bind(this)}>
+      <form onSubmit={this.submit.bind(this)} onChange={this.validate.bind(this)}>
         <div className="panel panel-default">
           <div className="panel-body">
             <label href="#" className="thumbnail btn">
@@ -95,8 +87,7 @@ class ItemEditor extends Component {
 const mapStatetoProps = (store, ownProps) => ({
   isAuth: store.session.isAuth,
   isLoading: store.session.isLoading,
-  session: store.session,
-  isFloating: store.geometry.scrollY > 175
+  session: store.session
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
