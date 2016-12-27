@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {FormField, Uploader, EditorImage} from '..'
+import {FormField, Uploader, EditorImage, DescriptionEditor} from '..'
 import actions from '../../store/actions'
 import store from '../../store'
 import axios from 'axios'
@@ -33,7 +33,8 @@ const FieldValidations = [
         label: 'Description complète',
         type: 'textarea',
         attributes: {
-            name: 'description'
+            name: 'description',
+            rows: 9
         }
     }, {
         label: 'Catégories',
@@ -41,9 +42,9 @@ const FieldValidations = [
             name: 'category'
         }
     }, {
-        label: 'Catégories',
+        label: 'Libellés',
         attributes: {
-            name: 'description'
+            name: 'labels'
         }
     }
 ]
@@ -117,6 +118,8 @@ export class ItemForm extends Component {
                 className="item-form"
                 onChange={this.handleChanges}
                 onSubmit={this.submit}>
+
+                <DescriptionEditor/>
                 <div className="form-group">
                     <label htmlFor="space-select">Select list:</label>
                     <select
