@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import actions from '../store/actions';
-import {UserList, EditUser} from '../components';
+import {UserList, EditUser, Translate} from '../components';
 import {Base} from '.';
 class Users extends Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class Users extends Component {
     const {showAdd} = this.state;
     return (
       <Base>
-        <h2>Utilisateurs</h2>
+        <h2><Translate content="Users"/></h2>
         <input type="text" className="form-control" autoFocus={true} placeholder="Recherche" onKeyUp={e => this.setState({search: e.target.value})}/>
         <UserList users={users.filter(this.searchFilter.bind(this))}/>
         <button onClick={this.add.bind(this)} className="btn btn-primary" style={{
