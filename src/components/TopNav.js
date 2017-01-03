@@ -13,7 +13,7 @@ export const TopNav = (props) => (
     </Navbar.Header>
     <Nav>
       <LinkContainer to="/users">
-        <NavItem>Utilisateurs</NavItem>
+        <NavItem><Translate content="Users"/></NavItem>
       </LinkContainer>
       <LinkContainer to="/categories">
         <NavItem>Categories</NavItem>
