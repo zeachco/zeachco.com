@@ -8,6 +8,7 @@ import userReducer from './users';
 import categoriesReducer from './categories';
 import geometryReducer from './geometry';
 import notificationsReducer from './notifications';
+import languageReducer from './language';
 
 export default combineReducers({
   session: sessionReducer,
@@ -15,5 +16,6 @@ export default combineReducers({
   users: userReducer,
   categories: categoriesReducer,
   geometry: geometryReducer,
-  notifications: notificationsReducer
+  notifications: notificationsReducer,
+  language: languageReducer
 });

@@ -7,9 +7,10 @@ import {Provider} from 'react-redux';
 // ga.init('UA-60212730-1');
 
 import store from './store';
-import {session} from './store/actions';
+import {session, language} from './store/actions';
 
 session.fetch();
+language.setLanguage('fr');
 
 render((
   <Provider store={store}>

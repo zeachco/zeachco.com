@@ -3,6 +3,7 @@ import {FormField, Uploader, EditorImage, DescriptionEditor} from '..'
 import actions from '../../store/actions'
 import store from '../../store'
 import axios from 'axios'
+import {Nav, NavItem, Checkbox} from 'react-bootstrap';
 
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications
@@ -118,8 +119,16 @@ export class ItemForm extends Component {
                 className="item-form"
                 onChange={this.handleChanges}
                 onSubmit={this.submit}>
-
-                <DescriptionEditor/>
+                <Nav bsStyle="tabs" justified activeKey={1} onSelect={this.handleSelect}>
+                    <NavItem eventKey={1} href="/home">Base</NavItem>
+                    <NavItem eventKey={2} title="Item">Red</NavItem>
+                    <NavItem eventKey={3} disabled>NavItem 3 content</NavItem>
+                </Nav>
+                <DescriptionEditor/> {this
+                    .getSpaces()
+                    .map(s => (
+                        <Checkbox checked={this.state[s] === 'on'} value={s}>visible for {s}</Checkbox>
+                    ))}
                 <div className="form-group">
                     <label htmlFor="space-select">Select list:</label>
                     <select

@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router';
 import {Navbar, Nav, NavItem} from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
-import {SessionDropdown, Logo} from '.'
+import {SessionDropdown, Logo, Translate} from '.'
 
 export const TopNav = (props) => (
   <Navbar>
@@ -19,7 +19,7 @@ export const TopNav = (props) => (
         <NavItem>Categories</NavItem>
       </LinkContainer>
       <LinkContainer to="/inventory">
-        <NavItem>Inventaire</NavItem>
+        <NavItem><Translate content="Inventory"/></NavItem>
       </LinkContainer>
     </Nav>
     <SessionDropdown/>

@@ -5,5 +5,6 @@ module.exports = {
   items: require('./items'),
   users: require('./users'),
   categories: require('./categories'),
-  notifications: require('./notifications')
+  notifications: require('./notifications'),
+  language: require('./language')
 };

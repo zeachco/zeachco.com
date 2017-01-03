@@ -2,7 +2,8 @@ import React from 'react'
 import {Button, Jumbotron, ButtonToolbar} from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 import {connect} from 'react-redux'
-import {Base} from '.'
+import { Base } from '.'
+import { Translate } from '../components';
 import actions from '../store/actions'
 
 const LoggedOut = () => (
@@ -32,8 +33,8 @@ const LoggedOut = () => (
 const Home = ({isAuth}) => (
   <Base>
     <Jumbotron>
-      <h1>Vos outils, votre site</h1>
-      <h2>Simple d'utilisation, personnalisé et haute qualité</h2>
+      <h1><Translate content="HomeHeaderH1"/></h1>
+      <h2><Translate content="HomeHeaderH2"/></h2>
       {!isAuth && (<LoggedOut/>)}
     </Jumbotron>
   </Base>
