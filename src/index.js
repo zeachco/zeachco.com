@@ -10,7 +10,8 @@ import store from './store';
 import {session, language} from './store/actions';
 
 session.fetch();
-language.setLanguage('fr');
+const browsersLang = navigator.language || navigator.userLanguage;
+language.setLanguage(browsersLang.split('-')[0]);
 
 render((
   <Provider store={store}>
