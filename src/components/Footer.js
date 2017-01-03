@@ -1,13 +1,12 @@
 import React from 'react';
-import { LangSwitcher } from '.';
+import { LangSwitcher, Translate } from '.';
 
 const Footer = () => (
   <footer className="footer">
     <div className="container">
-      <p className="text-muted">Pour toutes questions &nbsp;<a href="mailto:info@zeachco.com">info@zeachco.com</a>.
-      </p>
-      <hr/>
       <LangSwitcher />
+      <hr/>
+      <p className="text-muted"><Translate content="Inquiries" data={{email: 'zeachco@gmail.com'}} /></p>
     </div>
   </footer>
 );

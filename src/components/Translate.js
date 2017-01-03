@@ -8,15 +8,15 @@ const Translate = ({
     data = {}
 }) => {
     const keys = I18N[lang];
-    let message = keys[content] || `[${content}]`;
+    let message = keys[content] || `[${content} ${JSON.stringify(data)}]`;
     for (var k in data) {
         if (data.hasOwnProperty(k)) {
-            message.replace(`{${k}}`, data[k])
+            message = message.replace(new RegExp(`{${k}}`, 'g'), data[k])
         }
     }
-    return (
-        <span>{message}</span>
-    );
+    return (<span dangerouslySetInnerHTML={{
+        __html: message
+    }}/>);
 }
 
 const mapStatetoProps = (state) => ({lang: state.language})

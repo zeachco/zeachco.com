@@ -5,11 +5,23 @@ import {connect} from 'react-redux';
 
 const LANGS = [
     {
-        key: 'fr',
-        label: 'Français'
-    }, {
         key: 'en',
-        label: 'English'
+        label: 'english'
+    }, {
+        key: 'fr',
+        label: 'français'
+    }, {
+        key: 'es',
+        label: 'español'
+    }, {
+        key: 'it',
+        label: 'italiano'
+    }, {
+        key: 'hi',
+        label: 'हिन्दी (hindī)'
+    }, {
+        key: 'jp',
+        label: '日本語 (nihongo)'
     }
 ];
 
