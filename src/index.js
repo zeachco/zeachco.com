@@ -5,6 +5,7 @@ import {Routes} from './routes';
 import {Provider} from 'react-redux';
 // import ga from '../../shared/js/analytics';
 // ga.init('UA-60212730-1');
+window.axios = require('axios');
 
 import store from './store';
 import {session, language} from './store/actions';
