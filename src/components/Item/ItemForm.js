@@ -1,54 +1,13 @@
 import React, {Component} from 'react'
-import {FormField, Uploader, EditorImage, DescriptionEditor} from '..'
+import {Uploader, EditorImage, Translate, BSFormField} from '..'
 import actions from '../../store/actions'
 import store from '../../store'
 import axios from 'axios'
-import {Nav, NavItem, Checkbox} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
+import {bind, formula} from '../../core/utils';
 
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications
-
-const FieldValidations = [
-    {
-        label: 'Nom du produit',
-        regex: v => (v + '').length > 0,
-        error: 'Ce champs ne peut être vide',
-        attributes: {
-            name: 'name'
-        }
-    }, {
-        label: 'Prix d\'affichage',
-        error: 'Le prix doit être sous un des deux formats suivants: 1234.56 ou 1234',
-        attributes: {
-            name: 'price',
-            type: 'number',
-            step: 0.01
-        }
-    }, {
-        label: 'Description courte',
-        force: v => v.replace(/[^A-Za-z0-9 \-_]+/g, ''),
-        attributes: {
-            name: 'shortDescription'
-        }
-    }, {
-        label: 'Description complète',
-        type: 'textarea',
-        attributes: {
-            name: 'description',
-            rows: 9
-        }
-    }, {
-        label: 'Catégories',
-        attributes: {
-            name: 'category'
-        }
-    }, {
-        label: 'Libellés',
-        attributes: {
-            name: 'labels'
-        }
-    }
-]
 
 export class ItemForm extends Component {
     constructor(args) {
@@ -57,13 +16,8 @@ export class ItemForm extends Component {
             files: [],
             ...this.props
         };
-        this.fetchItem()
-        this.handleChanges = this
-            .handleChanges
-            .bind(this)
-        this.submit = this
-            .submit
-            .bind(this)
+        bind(this, 'handleChanges', 'submit', 'fileUploaded', 'fetchItem');
+        this.fetchItem();
     }
 
     willReceiveProps(newProps) {
@@ -114,64 +68,134 @@ export class ItemForm extends Component {
     }
 
     render() {
+        const {_id} = this.props;
+        const spaces = this.getSpaces();
+        const formulaEval = formula(this.state.price, {});
+        const formulaState = formulaEval.isValid
+            ? 'info'
+            : 'warning';
+        const {
+            space = spaces[0],
+            name,
+            shortDescription,
+            description,
+            price = 0,
+            labels = [],
+            options = [],
+            files = []
+        } = this.state;
         return (
             <form
-                className="item-form"
+                className="form-horizontal"
                 onChange={this.handleChanges}
                 onSubmit={this.submit}>
-                <Nav bsStyle="tabs" justified activeKey={1} onSelect={this.handleSelect}>
-                    <NavItem eventKey={1} href="/home">Base</NavItem>
-                    <NavItem eventKey={2} title="Item">Red</NavItem>
-                    <NavItem eventKey={3} disabled>NavItem 3 content</NavItem>
-                </Nav>
-                <DescriptionEditor/> {this
-                    .getSpaces()
-                    .map(s => (
-                        <Checkbox checked={this.state[s] === 'on'} value={s}>visible for {s}</Checkbox>
-                    ))}
-                <div className="form-group">
-                    <label htmlFor="space-select">Select list:</label>
-                    <select
-                        id="space-select"
-                        name="space"
-                        className="form-control"
-                        value={this.state.space}>
-                        <option value="">-- Choisir --</option>
-                        {this
-                            .getSpaces()
-                            .map(s => (
-                                <option key={s}>{s}</option>
-                            ))}
-                    </select>
-                </div>
-                {FieldValidations.map((f, i) => (<FormField key={i} {...f} value={this.state[f.attributes.name]}/>))}
-                <hr/>
-                <Uploader
-                    url="/api/item/medias"
-                    onSuccess={this
-                    .fileUploaded
-                    .bind(this)}>
+                <Grid>
+                    <Row className="show-grid">
+                        <Col sm={7} md={8} lg={6}>
+                            <fieldset>
+                                <legend>{_id
+                                        ? (
+                                            <div>
+                                                <Translate content="item_modification"/>{' '}
+                                                <small>{_id}</small>
+                                            </div>
+                                        )
+                                        : (<Translate content="item_creation"/>)}</legend>
 
-                    <div className="mask">
-                        <div className="banner">Déposer les images ici</div>
-                    </div>
-                </Uploader>
-                <hr/>
-                <div className="editor-images">
-                    {this
-                        .state
-                        .files
-                        .map(id => (<EditorImage
-                            key={id}
-                            onDestroy={() => console.log('destroy', id)}
-                            onPrimary={() => console.log('make primary', id)}
-                            alt={this.state.name}
-                            src={'../../api/medias/' + id}/>))}
-                </div>
-                <hr/>
-                <button className="btn btn-primary" type="submit">{this.state._id
-                        ? 'Enregistrer'
-                        : 'Créer'}</button>
+                                <BSFormField label={(<Translate content="space_name"/>)} icon="globe">
+                                    <select name="space" className="form-control" value={space}>
+                                        {spaces.map(space => (
+                                            <option value="space" key={space}>{space}</option>
+                                        ))}
+                                    </select>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="product_name"/>)}>
+                                    <input
+                                        name="name"
+                                        placeholder="Blue shirt"
+                                        className="form-control"
+                                        value={name}
+                                        type="text"/>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="short_description"/>)}>
+                                    <input
+                                        name="short_description"
+                                        placeholder="Shirt with a unicorn design"
+                                        className="form-control"
+                                        value={shortDescription}
+                                        type="text"/>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="description"/>)}>
+                                    <textarea
+                                        className="form-control"
+                                        name="long_description"
+                                        placeholder="This shirt is made of 97% coton and 4% magic"
+                                        value={description}></textarea>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="labels"/>)} icon="tags">
+                                    <input
+                                        name="labels"
+                                        placeholder="men, clothes, summer"
+                                        className="form-control"
+                                        type="text"
+                                        value={'' + (labels || []).join(', ')}/>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="width"/>)} icon="resize-horizontal">
+                                    <input name="width" placeholder="10cm" className="form-control" type="number"/>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="height"/>)} icon="resize-vertical">
+                                    <input name="width" placeholder="10cm" className="form-control" type="number"/>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="depth"/>)} icon="export">
+                                    <input name="width" placeholder="10cm" className="form-control" type="number"/>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="weigth"/>)} icon="scale">
+                                    <input name="width" placeholder="300g" className="form-control" type="number"/>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="option_groups"/>)} icon="th-list">
+                                    <select name="option1" id="" className="form-control">
+                                        <option value="">red</option>
+                                    </select>
+                                </BSFormField>
+                                <BSFormField
+                                    label={(<Translate content="price"/>)}
+                                    icon="usd"
+                                    message={formulaEval.error}
+                                    state={formulaState}>
+                                    <input
+                                        name="price"
+                                        placeholder="(10.15 + size) + qty"
+                                        className="form-control "
+                                        type="text"
+                                        value={price}/>
+                                </BSFormField>
+                                <BSFormField icon="save">
+                                    <button className="btn btn-primary" type="submit">{this.state._id
+                                            ? (<Translate content="save_item"/>)
+                                            : (<Translate content="create_item"/>)}</button>
+                                </BSFormField>
+                            </fieldset>
+                        </Col>
+                        <Col sm={5} md={4} lg={6}>
+                            <Uploader url="/api/item/medias" onSuccess={this.fileUploaded}>
+                                <div className="mask">
+                                    <div className="banner">Déposer les images ici</div>
+                                </div>
+                            </Uploader>
+                            <div className="editor-images">
+                                {this
+                                    .state
+                                    .files
+                                    .map(id => (<EditorImage
+                                        key={'image' + id}
+                                        onDestroy={() => console.log('destroy', id)}
+                                        onPrimary={() => console.log('make primary', id)}
+                                        alt={this.state.name}
+                                        src={'../../api/medias/' + id}/>))}
+                            </div>
+                        </Col>
+                    </Row>
+                </Grid>
             </form>
         );
     }

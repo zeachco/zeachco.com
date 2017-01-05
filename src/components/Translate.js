@@ -4,11 +4,15 @@ import I18N from '../i18n';
 
 const Translate = ({
     lang = 'fr',
-    content,
+    content = 'invalid_key',
     data = {}
 }) => {
     const keys = I18N[lang];
-    let message = keys[content] || `[${content} ${JSON.stringify(data)}]`;
+    let message = keys[content] || content;
+    if (keys[content] === undefined) {
+        console.warn(content, `not found for ${lang}`, data);
+    }
+
     for (var k in data) {
         if (data.hasOwnProperty(k)) {
             message = message.replace(new RegExp(`{${k}}`, 'g'), data[k])

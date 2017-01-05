@@ -7,5 +7,8 @@ module.exports = {
     HomeHeaderH2: 'Simple d\'utilisation, personnalisé et haute qualité',
     Inquiries: 'Pour toutes questions&nbsp;<a href="mailto:{email}">{email}</a>.',
     AddAnItem: 'Ajouter un article',
-    PlaceholderInventorySearch: 'nom, description, code...'
+    PlaceholderInventorySearch: 'nom, description, code...',
+    product_name: 'Nom du produit',
+    item_modification: 'Modifier un article',
+    price: 'Prix'
 };

@@ -19,9 +19,6 @@ const LANGS = [
     }, {
         key: 'hi',
         label: 'हिन्दी (hindī)'
-    }, {
-        key: 'jp',
-        label: '日本語 (nihongo)'
     }
 ];
 
