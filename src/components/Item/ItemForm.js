@@ -81,7 +81,39 @@ export class ItemForm extends Component {
             description,
             price = 0,
             labels = [],
-            options = [],
+            options = [
+                {
+                    code: 'size',
+                    label: 'Size',
+                    options: [
+                        {
+                            code: 'small',
+                            mod: -1.5
+                        }, {
+                            code: 'medium',
+                            mod: 0
+                        }, {
+                            code: 'large',
+                            mod: 2
+                        }
+                    ]
+                }, {
+                    code: 'color',
+                    label: 'Colors',
+                    options: [
+                        {
+                            code: 'red',
+                            mod: 0
+                        }, {
+                            code: 'blue',
+                            mod: 0
+                        }, {
+                            code: 'sparkling',
+                            mod: 2
+                        }
+                    ]
+                }
+            ],
             files = []
         } = this.state;
         return (
@@ -101,7 +133,6 @@ export class ItemForm extends Component {
                                             </div>
                                         )
                                         : (<Translate content="item_creation"/>)}</legend>
-
                                 <BSFormField label={(<Translate content="space_name"/>)} icon="globe">
                                     <select name="space" className="form-control" value={space}>
                                         {spaces.map(space => (
@@ -117,21 +148,6 @@ export class ItemForm extends Component {
                                         value={name}
                                         type="text"/>
                                 </BSFormField>
-                                <BSFormField label={(<Translate content="short_description"/>)}>
-                                    <input
-                                        name="short_description"
-                                        placeholder="Shirt with a unicorn design"
-                                        className="form-control"
-                                        value={shortDescription}
-                                        type="text"/>
-                                </BSFormField>
-                                <BSFormField label={(<Translate content="description"/>)}>
-                                    <textarea
-                                        className="form-control"
-                                        name="long_description"
-                                        placeholder="This shirt is made of 97% coton and 4% magic"
-                                        value={description}></textarea>
-                                </BSFormField>
                                 <BSFormField label={(<Translate content="labels"/>)} icon="tags">
                                     <input
                                         name="labels"
@@ -139,6 +155,22 @@ export class ItemForm extends Component {
                                         className="form-control"
                                         type="text"
                                         value={'' + (labels || []).join(', ')}/>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="product_short_description"/>)}>
+                                    <input
+                                        name="short_description"
+                                        placeholder="Shirt with a unicorn design"
+                                        className="form-control"
+                                        value={shortDescription}
+                                        type="text"/>
+                                </BSFormField>
+                                <BSFormField label={(<Translate content="product_full_description"/>)}>
+                                    <textarea
+                                        className="form-control"
+                                        name="long_description"
+                                        placeholder="This shirt is made of 97% coton and 4% magic"
+                                        rows={12}
+                                        value={description}></textarea>
                                 </BSFormField>
                                 <BSFormField label={(<Translate content="width"/>)} icon="resize-horizontal">
                                     <input name="width" placeholder="10cm" className="form-control" type="number"/>
@@ -149,14 +181,26 @@ export class ItemForm extends Component {
                                 <BSFormField label={(<Translate content="depth"/>)} icon="export">
                                     <input name="width" placeholder="10cm" className="form-control" type="number"/>
                                 </BSFormField>
-                                <BSFormField label={(<Translate content="weigth"/>)} icon="scale">
-                                    <input name="width" placeholder="300g" className="form-control" type="number"/>
+                                <BSFormField label={(<Translate content="weight"/>)} icon="scale">
+                                    <input name="weight" placeholder="300g" className="form-control" type="number"/>
                                 </BSFormField>
-                                <BSFormField label={(<Translate content="option_groups"/>)} icon="th-list">
-                                    <select name="option1" id="" className="form-control">
-                                        <option value="">red</option>
-                                    </select>
-                                </BSFormField>
+                                {options.map(opt => (
+                                    <BSFormField label={(<Translate content="option_groups"/>)} icon="th-list">
+                                        <select key={opt.code} name={opt.code} className="form-control">
+                                            {opt
+                                                .options
+                                                .map(o => (
+                                                    <option value={o.code} key={`${opt.code}_${o.code}`}>{o.label} {o.mod === 0
+                                                            ? null
+                                                            : ` (${o.mod})`}</option>
+                                                ))}
+                                        </select>
+
+                                        <span className="input-group-addon">
+                                            {opt.code}
+                                        </span>
+                                    </BSFormField>
+                                ))}
                                 <BSFormField
                                     label={(<Translate content="price"/>)}
                                     icon="usd"
@@ -183,15 +227,12 @@ export class ItemForm extends Component {
                                 </div>
                             </Uploader>
                             <div className="editor-images">
-                                {this
-                                    .state
-                                    .files
-                                    .map(id => (<EditorImage
-                                        key={'image' + id}
-                                        onDestroy={() => console.log('destroy', id)}
-                                        onPrimary={() => console.log('make primary', id)}
-                                        alt={this.state.name}
-                                        src={'../../api/medias/' + id}/>))}
+                                {files.map(id => (<EditorImage
+                                    key={'image' + id}
+                                    onDestroy={() => console.log('destroy', id)}
+                                    onPrimary={() => console.log('make primary', id)}
+                                    alt={this.state.name}
+                                    src={'../../api/medias/' + id}/>))}
                             </div>
                         </Col>
                     </Row>

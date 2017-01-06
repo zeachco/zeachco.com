@@ -10,5 +10,14 @@ module.exports = {
     PlaceholderInventorySearch: 'nom, description, code...',
     product_name: 'Nom du produit',
     item_modification: 'Modifier un article',
-    price: 'Prix'
+    save_item: 'Enregistrer l\'article',
+    price: 'Prix',
+    space_name: 'Site',
+    labels: 'Libellés',
+    width: 'Largeur',
+    height: 'Hauteur',
+    depth: 'Profondeur',
+    weight: 'Poids',
+    product_short_description: 'Description courte',
+    product_full_description: 'Description complète du produit'
 };

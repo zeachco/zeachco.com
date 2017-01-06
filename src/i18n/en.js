@@ -9,5 +9,14 @@ module.exports = {
     AddAnItem: 'Add an item',
     product_name: 'Product name',
     item_modification: 'Update item',
-    price: 'Price'
+    save_item: 'Save item',
+    price: 'Price',
+    space_name: 'Site',
+    labels: 'Labels',
+    width: 'Width',
+    height: 'Height',
+    depth: 'Depth',
+    weight: 'Weight',
+    product_short_description: 'Short description',
+    product_full_description: 'Product full description'
 };
