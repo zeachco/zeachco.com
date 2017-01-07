@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import {Translate} from '../components'
 
 class Site extends Component {
   render() {
@@ -9,7 +10,7 @@ class Site extends Component {
       <div>
         <h2>
           <span>{site.name}&nbsp;</span>
-          <small>Users</small>
+          <small><Translate content="users" /></small>
         </h2>
         <pre>{JSON.stringify(site, null, 2)}</pre>
       </div>

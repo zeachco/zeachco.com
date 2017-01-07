@@ -12,7 +12,7 @@ const Inventory = ({items}) => (
         </h2>
         <SearchBar
             placeholder="nom, description, code..."
-            searchButtonText="Rechercher"
+            searchButtonText={(<Translate content="search" />)}
             onSearch={actions.items.searchItems}/>
         <hr/>
         <ItemList items={items}/>

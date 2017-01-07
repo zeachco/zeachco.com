@@ -13,13 +13,13 @@ export const TopNav = (props) => (
     </Navbar.Header>
     <Nav>
       <LinkContainer to="/users">
-        <NavItem><Translate content="Users"/></NavItem>
+        <NavItem><Translate content="users"/></NavItem>
       </LinkContainer>
       <LinkContainer to="/categories">
-        <NavItem><Translate content="Categories"/></NavItem>
+        <NavItem><Translate content="categories"/></NavItem>
       </LinkContainer>
       <LinkContainer to="/inventory">
-        <NavItem><Translate content="Inventory"/></NavItem>
+        <NavItem><Translate content="inventory"/></NavItem>
       </LinkContainer>
     </Nav>
     <SessionDropdown/>
