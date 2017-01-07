@@ -9,23 +9,23 @@ import actions from '../store/actions'
 const LoggedOut = () => (
   <div className="row">
     <div className="col-md-6">
-      <h3>Connectez-vous pour administrer vos sites</h3>
+      <h3><Translate content="login_to_manage_text" /></h3>
       <ButtonToolbar>
         <LinkContainer to="signup">
-          <Button bsStyle="success">inscription</Button>
+          <Button bsStyle="success"><Translate content="signup" /></Button>
         </LinkContainer>
         <LinkContainer to="login">
-          <Button bsStyle="primary">connexion</Button>
+          <Button bsStyle="primary"><Translate content="login" /></Button>
         </LinkContainer>
       </ButtonToolbar>
     </div>
     <div className="col-md-6">
-      <h3>Voir les fonctionnalitées sans créer de compte (oui c'est possible)</h3>
+      <h3><Translate content="login_with_demo_text" /></h3>
       <Button
         onClick={e => actions
         .session
         .login('demo', 'demo')}
-        bsStyle="default">Compte demo</Button>
+        bsStyle="default"><Translate content="demo_account"/></Button>
     </div>
   </div>
 )

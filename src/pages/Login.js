@@ -3,6 +3,7 @@ import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
 import actions from '../store/actions'
 import {connect} from 'react-redux'
 import {Base} from '.'
+import {Translate} from '../components'
 
 const LoginPage = ({errorMessage, isAuth, isLoading}) => (
   <Base id="login">
@@ -16,14 +17,14 @@ const LoginPage = ({errorMessage, isAuth, isLoading}) => (
     }}>
       <div>
         <FormGroup controlId="user">
-          <ControlLabel>Utilisateur</ControlLabel>
+          <ControlLabel><Translate content="user" /></ControlLabel>
           <FormControl type="text" autoFocus placeholder="email@domain.xyz"/>
         </FormGroup>
         <FormGroup controlId="pass">
-          <ControlLabel>Mot de passe</ControlLabel>
+          <ControlLabel><Translate content="password" /></ControlLabel>
           <FormControl type="password" placeholder="********"/>
         </FormGroup>
-        <Button bsStyle="primary" type="submit" disabled={isLoading}>Connexion</Button>
+        <Button bsStyle="primary" type="submit" disabled={isLoading}><Translate content="login"/></Button>
       </div>
     </form>
   </Base>

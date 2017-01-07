@@ -16,7 +16,7 @@ export const TopNav = (props) => (
         <NavItem><Translate content="Users"/></NavItem>
       </LinkContainer>
       <LinkContainer to="/categories">
-        <NavItem>Categories</NavItem>
+        <NavItem><Translate content="Categories"/></NavItem>
       </LinkContainer>
       <LinkContainer to="/inventory">
         <NavItem><Translate content="Inventory"/></NavItem>
