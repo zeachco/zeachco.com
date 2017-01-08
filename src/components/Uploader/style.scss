@@ -1,5 +1,9 @@
-$ink: rgba(40, 40, 80, .8); 
+$ink: rgba(40, 40, 80, .8);
 $borderRad: .5em;
+
+.drop_container {
+    width: 100%;
+}
 
 .uploader {
     text-align: center;
@@ -14,8 +18,7 @@ $borderRad: .5em;
         height: 100%;
         .banner {
             display: inline-block;
-            line-height: 4em;
-            margin: auto;
+            margin: 2em auto;
             font-size: 2.5em;
             font-weight: 700;
             text-shadow: 0 0 2px white;

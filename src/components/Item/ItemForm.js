@@ -118,21 +118,20 @@ export class ItemForm extends Component {
         } = this.state;
         return (
             <form
-                className="form-horizontal"
+                className="form-horizontal well"
                 onChange={this.handleChanges}
                 onSubmit={this.submit}>
-                <Grid>
-                    <Row className="show-grid">
-                        <Col sm={7} md={8} lg={6}>
-                            <fieldset>
-                                <legend>{_id
-                                        ? (
-                                            <div>
-                                                <Translate content="item_modification"/>{' '}
-                                                <small>{_id}</small>
-                                            </div>
-                                        )
-                                        : (<Translate content="item_creation"/>)}</legend>
+                <fieldset>
+                    <legend style={{textAlign: 'center'}}>{_id
+                            ? (
+                                <div>
+                                    <Translate content="item_modification"/>{' '}
+                                    <small>{_id}</small>
+                                </div>
+                            )
+                            : (<Translate content="item_creation"/>)}</legend>
+                        <Row className="show-grid">
+                            <Col sm={7} md={8} lg={6}>
                                 <BSFormField label={(<Translate content="space_name"/>)} icon="globe">
                                     <select name="space" className="form-control" value={space}>
                                         {spaces.map(space => (
@@ -195,7 +194,6 @@ export class ItemForm extends Component {
                                                             : ` (${o.mod})`}</option>
                                                 ))}
                                         </select>
-
                                         <span className="input-group-addon">
                                             {opt.code}
                                         </span>
@@ -218,25 +216,24 @@ export class ItemForm extends Component {
                                             ? (<Translate content="save_item"/>)
                                             : (<Translate content="create_item"/>)}</button>
                                 </BSFormField>
-                            </fieldset>
-                        </Col>
-                        <Col sm={5} md={4} lg={6}>
-                            <Uploader url="/api/item/medias" onSuccess={this.fileUploaded}>
-                                <div className="mask">
-                                    <div className="banner">Déposer les images ici</div>
+                            </Col>
+                            <Col sm={5} md={4} lg={6}>
+                                <Uploader url="/api/item/medias" onSuccess={this.fileUploaded}>
+                                    <div className="mask">
+                                        <div className="banner"><Translate content="drop_image_here" /></div>
+                                    </div>
+                                </Uploader>
+                                <div className="editor-images">
+                                    {files.map(id => (<EditorImage
+                                        key={'image' + id}
+                                        onDestroy={() => console.log('destroy', id)}
+                                        onPrimary={() => console.log('make primary', id)}
+                                        alt={this.state.name}
+                                        src={'../../api/medias/' + id}/>))}
                                 </div>
-                            </Uploader>
-                            <div className="editor-images">
-                                {files.map(id => (<EditorImage
-                                    key={'image' + id}
-                                    onDestroy={() => console.log('destroy', id)}
-                                    onPrimary={() => console.log('make primary', id)}
-                                    alt={this.state.name}
-                                    src={'../../api/medias/' + id}/>))}
-                            </div>
-                        </Col>
-                    </Row>
-                </Grid>
+                            </Col>
+                        </Row>
+                </fieldset>
             </form>
         );
     }

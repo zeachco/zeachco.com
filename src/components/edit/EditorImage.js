@@ -12,7 +12,7 @@ export const EditorImage = ({src, alt, onDestroy, onPrimary}) => (
             <button onClick={preventDefault(onPrimary)} className="btn btn-primary btn-sm">Principale</button>
             <button onClick={preventDefault(onDestroy)} className="btn btn-danger btn-sm">Détruire</button>
         </div>
-        <img src={src} alt={alt}/>
+        <img src={src} alt={alt} />
     </div>
 )
 

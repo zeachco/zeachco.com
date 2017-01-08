@@ -37,7 +37,13 @@ export class Uploader extends Component {
         return (
             <div className="mask">
                 <div className="banner">{progress}%</div>
-                <div className="progressContainer"><div className="progressView" style={{width: progress+'%'}}></div></div>
+                <div className="progressContainer">
+                    <div
+                        className="progressView"
+                        style={{
+                        width: progress + '%'
+                    }}></div>
+                </div>
             </div>
         );
     }
@@ -48,10 +54,11 @@ export class Uploader extends Component {
             <Dropzone
                 className="uploader"
                 style={null}
-                onDrop={this.onDrop.bind(this)}>
-            {uploading && this.getPercent()}
-            {this.props.children}
-
+                onDrop={this
+                .onDrop
+                .bind(this)}>
+                {uploading && this.getPercent()}
+                {this.props.children}
             </Dropzone>
         )
     }

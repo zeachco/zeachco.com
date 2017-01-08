@@ -32,5 +32,6 @@ module.exports = {
     depth: 'Depth',
     weight: 'Weight',
     product_short_description: 'Short description',
-    product_full_description: 'Product full description'
+    product_full_description: 'Product full description',
+    drop_image_here: 'Drop images here'
 };
