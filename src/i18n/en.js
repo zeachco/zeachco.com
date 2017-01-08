@@ -20,7 +20,7 @@ module.exports = {
     demo_account: 'Demo account',
     Inquiries: 'For any questions&nbsp;<a href="mailto:{email}">{email}</a>.',
     add_an_item: 'Add an item',
-    product_name: 'Product name',
+    item_name: 'Product name',
     item_modification: 'Update item',
     save_item: 'Save item',
     create_item: 'Create item',
@@ -32,8 +32,10 @@ module.exports = {
     height: 'Height',
     depth: 'Depth',
     weight: 'Weight',
-    product_short_description: 'Short description',
-    product_full_description: 'Product full description',
+    option_group: 'Option group',
+    item_code: 'Product code',
+    item_short_description: 'Short description',
+    item_full_description: 'Product full description',
     drop_image_here: 'Drop images here',
     image_uploaded_success: '"{file}" successfully uploaded'
 };

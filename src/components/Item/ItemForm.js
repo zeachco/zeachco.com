@@ -106,9 +106,7 @@ export class ItemForm extends Component {
             this.setState(state => {
                 const files = [...state.files];
                 files.splice(index, 1);
-                return {
-                    files: files
-                };
+                return {files: files};
             });
         }
     }
@@ -119,9 +117,7 @@ export class ItemForm extends Component {
                 const files = [...state.files];
                 files.splice(index, 1);
                 files.unshift(state.files[index]);
-                return {
-                    files: files
-                };
+                return {files: files};
             });
         }
     }
@@ -135,6 +131,7 @@ export class ItemForm extends Component {
             : 'warning';
         const {
             space = spaces[0],
+            code,
             name,
             shortDescription,
             description,
@@ -154,10 +151,10 @@ export class ItemForm extends Component {
                         textAlign: 'center'
                     }}>{_id
                             ? (
-                                <div>
-                                    <Translate content="item_modification"/>{' '}
-                                    <small>{_id}</small>
-                                </div>
+                                <h2>
+                                    <Translate content="item_modification"/><br/>
+                                    <small>{name || code || _id}</small>
+                                </h2>
                             )
                             : (<Translate content="item_creation"/>)}</legend>
                     <Row className="show-grid">
@@ -169,7 +166,15 @@ export class ItemForm extends Component {
                                     ))}
                                 </select>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="product_name"/>)}>
+                            <BSFormField label={(<Translate content="item_code"/>)} icon="file">
+                                <input
+                                    name="code"
+                                    placeholder="SK123456789"
+                                    className="form-control"
+                                    value={code}
+                                    type="text"/>
+                            </BSFormField>
+                            <BSFormField label={(<Translate content="item_name"/>)}>
                                 <input
                                     name="name"
                                     placeholder="Blue shirt"
@@ -185,7 +190,7 @@ export class ItemForm extends Component {
                                     type="text"
                                     value={'' + (labels || []).join(', ')}/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="product_short_description"/>)}>
+                            <BSFormField label={(<Translate content="item_short_description"/>)}>
                                 <input
                                     name="short_description"
                                     placeholder="Shirt with a unicorn design"
@@ -193,7 +198,7 @@ export class ItemForm extends Component {
                                     value={shortDescription}
                                     type="text"/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="product_full_description"/>)}>
+                            <BSFormField label={(<Translate content="item_full_description"/>)}>
                                 <textarea
                                     className="form-control"
                                     name="long_description"
@@ -213,7 +218,7 @@ export class ItemForm extends Component {
                             <BSFormField label={(<Translate content="weight"/>)} icon="scale">
                                 <input name="weight" placeholder="300g" className="form-control" type="number"/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="add_item_option"/>)} icon="th-list">
+                            <BSFormField label={(<Translate content="option_group"/>)} icon="th-list">
                                 <input
                                     ref="option_add_field"
                                     name="option_add_field"
@@ -251,19 +256,15 @@ export class ItemForm extends Component {
                                     type="text"
                                     value={price}/>
                             </BSFormField>
-                            <BSFormField icon="save">
-                                <button className="btn btn-primary" type="submit">{this.state._id
-                                        ? (<Translate content="save_item"/>)
-                                        : (<Translate content="create_item"/>)}</button>
-                            </BSFormField>
                         </Col>
                         <Col sm={5} md={4} lg={6}>
                             <div className="editor-images">
-                                <img className="col-xs-12" src={files[0]} alt="Primary"/>
-                                {files.map((src, index) => (<EditorImage
+                                <img className="col-xs-12" src={files[0]} alt="Primary"/> {files.map((src, index) => (<EditorImage
                                     key={'image' + src}
                                     onDestroy={this.deleteImage(index)}
-                                    onPrimary={index > 0 ? this.setPrimaryImage(index) : null}
+                                    onPrimary={index > 0
+                                    ? this.setPrimaryImage(index)
+                                    : null}
                                     alt={this.state.name}
                                     src={src}/>))}
                             </div>
@@ -272,6 +273,15 @@ export class ItemForm extends Component {
                                     <div className="banner"><Translate content="drop_image_here"/></div>
                                 </div>
                             </Uploader>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm={7} md={8} lg={6}>
+                            <BSFormField icon="save">
+                                <button className="btn btn-primary" type="submit">{this.state._id
+                                        ? (<Translate content="save_item"/>)
+                                        : (<Translate content="create_item"/>)}</button>
+                            </BSFormField>
                         </Col>
                     </Row>
                 </fieldset>
