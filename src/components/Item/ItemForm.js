@@ -49,6 +49,7 @@ export class ItemForm extends Component {
 
     submit(e) {
         e.preventDefault();
+        this.state.space = this.state.space || this.getSpaces()[0];
         createOrUpdate(this.state);
     }
 
@@ -156,7 +157,7 @@ export class ItemForm extends Component {
                                     <small>{name || code || _id}</small>
                                 </h2>
                             )
-                            : (<Translate content="item_creation"/>)}</legend>
+                            : (<Translate content="create_item"/>)}</legend>
                     <Row className="show-grid">
                         <Col sm={7} md={8} lg={6}>
                             <BSFormField label={(<Translate content="space_name"/>)} icon="globe">
