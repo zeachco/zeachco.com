@@ -21,9 +21,10 @@ module.exports = {
     Inquiries: 'Pour toutes questions&nbsp;<a href="mailto:{email}">{email}</a>.',
     add_an_item: 'Ajouter un article',
     PlaceholderInventorySearch: 'nom, description, code...',
-    product_name: 'Nom du produit',
+    product_name: 'Nom de l\'article',
     item_modification: 'Modifier un article',
     save_item: 'Enregistrer l\'article',
+    create_item: 'Créer l\'article',
     save: 'Enregistrer',
     price: 'Prix',
     space_name: 'Site',
@@ -34,5 +35,6 @@ module.exports = {
     weight: 'Poids',
     product_short_description: 'Description courte',
     product_full_description: 'Description complète du produit',
-    drop_image_here: 'Déposez les images ici'
+    drop_image_here: 'Déposez les images ici',
+    image_uploaded_success: '"{file}" a bien été téléchargée'
 };

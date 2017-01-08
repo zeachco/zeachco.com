@@ -23,6 +23,7 @@ module.exports = {
     product_name: 'Product name',
     item_modification: 'Update item',
     save_item: 'Save item',
+    create_item: 'Create item',
     save: 'Save',
     price: 'Price',
     space_name: 'Site',
@@ -33,5 +34,6 @@ module.exports = {
     weight: 'Weight',
     product_short_description: 'Short description',
     product_full_description: 'Product full description',
-    drop_image_here: 'Drop images here'
+    drop_image_here: 'Drop images here',
+    image_uploaded_success: '"{file}" successfully uploaded'
 };
