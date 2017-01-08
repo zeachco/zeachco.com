@@ -8,7 +8,7 @@ import actions from '../store/actions'
 const Inventory = ({items}) => (
     <Base>
         <h2>
-            <Translate content="Inventory" />&nbsp;<Link className="btn btn-primary pull-right" to="/inventory/new">Ajouter un article</Link>
+            <Translate content="Inventory" />&nbsp;<Link className="btn btn-primary pull-right" to="/inventory/new"><Translate content="add_an_item" /></Link>
         </h2>
         <SearchBar
             placeholder="nom, description, code..."

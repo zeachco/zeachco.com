@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import {Translate} from '.'
 import actions from '../store/actions';
 
 class ProfileForm extends Component {
@@ -29,14 +30,16 @@ class ProfileForm extends Component {
       <form onSubmit={this.onSubmit.bind(this)} onChange={this.onChange.bind(this)}>
         <div className="col-lg-6">
           <div className="panel panel-default">
-            <div className="panel-heading">Utilisateur</div>
+            <div className="panel-heading"><Translate content="user"/></div>
             <div className="panel-body">
               <div className="col-md-6">
+                <label><Translate content="first_name" /></label>
                 <input className="form-control col-md-6" type='text' label='Prénom' name='firstName' validate='required' value={this.state.firstName} errorHelp={{
                   required: 'Veuillez entrer votre prénom'
                 }}/>
               </div>
               <div className="col-md-6">
+                <label><Translate content="last_name" /></label>
                 <input className="form-control" type='text' label='Nom' name='lastName' validate='required' value={this.state.lastName} errorHelp={{
                   required: 'Veuillez entrer votre nom de famille'
                 }}/>
@@ -46,9 +49,10 @@ class ProfileForm extends Component {
         </div>
         <div className="col-lg-6">
           <div className="panel panel-default">
-            <div className="panel-heading">Usager</div>
+            <div className="panel-heading"><Translate content="login" /></div>
             <div className="panel-body">
               <div className="col-md-4">
+                <label><Translate content="email" /></label>
                 <input className="form-control" type='text' label='Courriel' name='email' validate='required,isEmail' palceholder={this.state.email} value={this.state.email} errorHelp={{
                   required: 'Veuillez entrer votre courriel',
                   isEmail: 'Courriel invalide'
@@ -57,7 +61,7 @@ class ProfileForm extends Component {
             </div>
           </div>
         </div>
-        <button type='submit' className='btn btn-primary btn-large'>Enregistrer</button>
+        <button type='submit' className='btn btn-primary btn-large'><Translate content="save"/></button>
       </form>
     );
   }
