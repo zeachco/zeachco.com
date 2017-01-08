@@ -259,6 +259,7 @@ export class ItemForm extends Component {
                         </Col>
                         <Col sm={5} md={4} lg={6}>
                             <div className="editor-images">
+                                <img className="col-xs-12" src={files[0]} alt="Primary image"/>
                                 {files.map((src, index) => (<EditorImage
                                     key={'image' + src}
                                     onDestroy={this.deleteImage(index)}
