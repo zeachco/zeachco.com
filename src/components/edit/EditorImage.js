@@ -9,8 +9,8 @@ const preventDefault = callback => event => {
 export const EditorImage = ({src, alt, onDestroy, onPrimary}) => (
     <div className="editor-thumb">
         <div className="controls">
-            <button onClick={preventDefault(onPrimary)} className="btn btn-primary btn-sm">Principale</button>
-            <button onClick={preventDefault(onDestroy)} className="btn btn-danger btn-sm">Détruire</button>
+            {onPrimary && (<button onClick={preventDefault(onPrimary)} className="btn btn-primary btn-sm">Principale</button>)}
+            {onDestroy && (<button onClick={preventDefault(onDestroy)} className="btn btn-danger btn-sm">Détruire</button>)}
         </div>
         <img src={src} alt={alt} />
     </div>

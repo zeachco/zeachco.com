@@ -16,7 +16,7 @@ export class ItemForm extends Component {
             files: [],
             ...this.props
         };
-        bind(this, 'handleChanges', 'submit', 'fileUploaded', 'fetchItem', 'addOption', 'removeOption');
+        bind(this, 'handleChanges', 'submit', 'fileUploaded', 'fetchItem', 'addOption', 'removeOption', 'setPrimaryImage', 'deleteImage');
         this.fetchItem();
     }
 
@@ -99,6 +99,31 @@ export class ItemForm extends Component {
             .state
             .options
             .splice(index, 1);
+    }
+
+    deleteImage(index) {
+        return () => {
+            this.setState(state => {
+                const files = [...state.files];
+                files.splice(index, 1);
+                return {
+                    files: files
+                };
+            });
+        }
+    }
+
+    setPrimaryImage(index) {
+        return () => {
+            this.setState(state => {
+                const files = [...state.files];
+                files.splice(index, 1);
+                files.unshift(state.files[index]);
+                return {
+                    files: files
+                };
+            });
+        }
     }
 
     render() {
@@ -234,10 +259,10 @@ export class ItemForm extends Component {
                         </Col>
                         <Col sm={5} md={4} lg={6}>
                             <div className="editor-images">
-                                {files.map(src => (<EditorImage
+                                {files.map((src, index) => (<EditorImage
                                     key={'image' + src}
-                                    onDestroy={() => console.log('destroy', src)}
-                                    onPrimary={() => console.log('make primary', src)}
+                                    onDestroy={this.deleteImage(index)}
+                                    onPrimary={index > 0 ? this.setPrimaryImage(index) : null}
                                     alt={this.state.name}
                                     src={src}/>))}
                             </div>
