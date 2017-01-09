@@ -6,13 +6,15 @@ export const ItemInline = ({
   space,
   name,
   labels,
-  imgThumb,
+  files = [],
   ...attrs
 }) => (
   <div>
     <h4>
-      <span className="inline-image col-sm-6" style={{
-        backgroundImage: `url(${imgThumb})`,
+      <span
+        className="inline-image col-sm-6"
+        style={{
+        backgroundImage: `url(${files[0]}/thumb)`,
         height: '1.5em',
         width: '3em'
       }}></span>&nbsp;<span>{name}</span>
