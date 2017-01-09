@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import {Uploader, EditorImage, Translate, BSFormField} from '..'
+import {Uploader, EditorImage, Translate, BSFormField, ProductOptionGroup} from '..'
 import actions from '../../store/actions'
 import store from '../../store'
 import axios from 'axios'
-import {Row, Col, Glyphicon} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 import {bind, formula} from '../../core/utils';
 
 const {createOrUpdate} = actions.items;
@@ -71,27 +71,12 @@ export class ItemForm extends Component {
         return session.spaces || [];
     }
 
-    addOption() {
-        const add = this.refs.option_add_field.value;
-        const label = add.split('=')[0];
-        this.setState(state => {
-            const {
-                options = []
-            } = state;
-            const newOption = {
-                label: label,
-                code: label
-                    .toLowerCase()
-                    .replace(/[^a-z0-9]/g, '_'),
-                options: []
-            };
-            return {
-                options: [
-                    ...options,
-                    newOption
-                ]
-            };
-        });
+    addOption(e) {
+        this.setState(state => ({
+            options: [
+                ...state.options, {}
+            ]
+        }));
     }
 
     removeOption(index) {
@@ -161,7 +146,7 @@ export class ItemForm extends Component {
                         <Col sm={7} md={8} lg={6}>
                             <BSFormField label={(<Translate content="space_name"/>)} icon="globe">
                                 <select name="space" className="form-control" value={space}>
-                                    <option value=""><Translate content="select_space" /></option>
+                                    <option value="">{Translate.content("select_space")}</option>
                                     {spaces.map(space => (
                                         <option value={space} key={space}>{space}</option>
                                     ))}
@@ -219,32 +204,12 @@ export class ItemForm extends Component {
                             <BSFormField label={(<Translate content="weight"/>)} icon="scale">
                                 <input name="weight" placeholder="300g" className="form-control" type="number"/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="option_group"/>)} icon="th-list">
-                                <input
-                                    ref="option_add_field"
-                                    name="option_add_field"
-                                    placeholder="size"
-                                    className="form-control"/>
-                                <span className="input-group-btn">
-                                    <button onClick={this.addOption} className="btn btn-default" type="button"><Glyphicon glyph="plus-sign"/></button>
-                                </span>
+                            <hr />
+                            <BSFormField label={(<Translate content="option_group" />)} icon="th-list">
+                                {options.map((opt, index) => (<ProductOptionGroup onChange={e => console.log(e)} option={opt} />))}
+                                <ProductOptionGroup onClick={this.addOption}/>
                             </BSFormField>
-                            {options.map(opt => (
-                                <BSFormField label={(<Translate content="option_groups"/>)} icon="th-list">
-                                    <select key={opt.code} name={opt.code} className="form-control">
-                                        {opt
-                                            .options
-                                            .map(o => (
-                                                <option value={o.code} key={`${opt.code}_${o.code}`}>{o.label} {o.mod === 0
-                                                        ? null
-                                                        : ` (${o.mod})`}</option>
-                                            ))}
-                                    </select>
-                                    <span className="input-group-addon">
-                                        {opt.code}
-                                    </span>
-                                </BSFormField>
-                            ))}
+                            <hr/>
                             <BSFormField
                                 label={(<Translate content="price"/>)}
                                 icon="usd"

@@ -19,6 +19,6 @@ export const EditorImage = ({src, alt, onDestroy, onPrimary}) => (
 EditorImage.propTypes = {
   src: React.PropTypes.string.isRequired,
   alt: React.PropTypes.string.isRequired,
-  onDestroy: React.PropTypes.func.isRequired,
-  onPrimary: React.PropTypes.func.isRequired
+  onDestroy: React.PropTypes.func,
+  onPrimary: React.PropTypes.func
 }
