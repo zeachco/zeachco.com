@@ -123,6 +123,10 @@ export class ItemForm extends Component {
             price = 0,
             labels = [],
             options = [],
+            width,
+            height,
+            depth,
+            weight,
             files = []
         } = this.state;
         return (
@@ -193,16 +197,16 @@ export class ItemForm extends Component {
                                     value={description}></textarea>
                             </BSFormField>
                             <BSFormField label={(<Translate content="width"/>)} icon="resize-horizontal">
-                                <input name="width" placeholder="10cm" className="form-control" type="number"/>
+                                <input name="width" placeholder="10cm" className="form-control" type="number" value={width}/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="height"/>)} icon="resize-vertical">
-                                <input name="width" placeholder="10cm" className="form-control" type="number"/>
+                                <input name="height" placeholder="10cm" className="form-control" type="number" value={height}/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="depth"/>)} icon="export">
-                                <input name="width" placeholder="10cm" className="form-control" type="number"/>
+                                <input name="depth" placeholder="10cm" className="form-control" type="number" value={depth}/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="weight"/>)} icon="scale">
-                                <input name="weight" placeholder="300g" className="form-control" type="number"/>
+                                <input name="weight" placeholder="300g" className="form-control" type="number" value={weight}/>
                             </BSFormField>
                             <hr />
                             <BSFormField label={(<Translate content="option_group" />)} icon="th-list">
