@@ -27,6 +27,7 @@ module.exports = {
     save: 'Save',
     price: 'Price',
     space_name: 'Site',
+    select_space: 'Choose a site',
     labels: 'Labels',
     width: 'Width',
     height: 'Height',

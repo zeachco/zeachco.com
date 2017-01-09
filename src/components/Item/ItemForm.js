@@ -49,7 +49,6 @@ export class ItemForm extends Component {
 
     submit(e) {
         e.preventDefault();
-        this.state.space = this.state.space || this.getSpaces()[0];
         createOrUpdate(this.state);
     }
 
@@ -131,7 +130,7 @@ export class ItemForm extends Component {
             ? 'info'
             : 'warning';
         const {
-            space = spaces[0],
+            space,
             code,
             name,
             shortDescription,
@@ -162,8 +161,9 @@ export class ItemForm extends Component {
                         <Col sm={7} md={8} lg={6}>
                             <BSFormField label={(<Translate content="space_name"/>)} icon="globe">
                                 <select name="space" className="form-control" value={space}>
+                                    <option value=""><Translate content="select_space" /></option>
                                     {spaces.map(space => (
-                                        <option value="space" key={space}>{space}</option>
+                                        <option value={space} key={space}>{space}</option>
                                     ))}
                                 </select>
                             </BSFormField>

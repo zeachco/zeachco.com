@@ -28,6 +28,7 @@ module.exports = {
     save: 'Enregistrer',
     price: 'Prix',
     space_name: 'Site',
+    select_space: 'Choisir un domaine',
     labels: 'Libellés',
     width: 'Largeur',
     height: 'Hauteur',
