@@ -8,6 +8,9 @@ import {bind, formula} from '../../core/utils';
 
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications
+const fieldHandlers = {
+    options: input => ([])
+};
 
 export class ItemForm extends Component {
     constructor(args) {
@@ -42,8 +45,10 @@ export class ItemForm extends Component {
 
     handleChanges(ev) {
         ev.preventDefault();
+        const key = ev.target.name;
+        const value = fieldHandlers[key] ? fieldHandlers[key](ev.target.value) : ev.target.value;
         this.setState({
-            [ev.target.name]: ev.target.value
+            [key]: value
         });
     }
 
@@ -178,7 +183,7 @@ export class ItemForm extends Component {
                                     placeholder="men, clothes, summer"
                                     className="form-control"
                                     type="text"
-                                    value={'' + (labels || []).join(', ')}/>
+                                    value={labels}/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="item_short_description"/>)}>
                                 <input
@@ -197,20 +202,40 @@ export class ItemForm extends Component {
                                     value={description}></textarea>
                             </BSFormField>
                             <BSFormField label={(<Translate content="width"/>)} icon="resize-horizontal">
-                                <input name="width" placeholder="10cm" className="form-control" type="number" value={width}/>
+                                <input
+                                    name="width"
+                                    placeholder="10cm"
+                                    className="form-control"
+                                    type="number"
+                                    value={width}/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="height"/>)} icon="resize-vertical">
-                                <input name="height" placeholder="10cm" className="form-control" type="number" value={height}/>
+                                <input
+                                    name="height"
+                                    placeholder="10cm"
+                                    className="form-control"
+                                    type="number"
+                                    value={height}/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="depth"/>)} icon="export">
-                                <input name="depth" placeholder="10cm" className="form-control" type="number" value={depth}/>
+                                <input
+                                    name="depth"
+                                    placeholder="10cm"
+                                    className="form-control"
+                                    type="number"
+                                    value={depth}/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="weight"/>)} icon="scale">
-                                <input name="weight" placeholder="300g" className="form-control" type="number" value={weight}/>
+                                <input
+                                    name="weight"
+                                    placeholder="300g"
+                                    className="form-control"
+                                    type="number"
+                                    value={weight}/>
                             </BSFormField>
-                            <hr />
-                            <BSFormField label={(<Translate content="option_group" />)} icon="th-list">
-                                {options.map((opt, index) => (<ProductOptionGroup onChange={e => console.log(e)} option={opt} />))}
+                            <hr/>
+                            <BSFormField label={(<Translate content="option_group"/>)} icon="th-list">
+                                {options.map((opt, index) => (<ProductOptionGroup onChange={e => console.log(e)} option={opt}/>))}
                                 <ProductOptionGroup onClick={this.addOption}/>
                             </BSFormField>
                             <hr/>
