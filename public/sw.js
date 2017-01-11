@@ -1,5 +1,17 @@
-self.addEventListener('install', function(event) {
-  console.log('install callback!');
-});
+var CACHE_NAME = 'my-site-cache-v1';
+var urlsToCache = [
+  '/',
+  '/bootswatch.cosmos.min.css',
+  '/static/js/bundle.js',
+  '/api/profile/me'
+];
 
-console.log('service worker script!');
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+    .then(function(cache) {
+      console.log('Opened cache');
+      return cache.addAll(urlsToCache);
+    })
+  );
+});
