@@ -46,7 +46,7 @@ export class ItemForm extends Component {
     mapItemIn(get) {
         const item = {
             ...get,
-            labels: typeof get.labels != 'string'
+            labels: typeof get.labels !== 'string'
                 ? get
                     .labels
                     .join(', ')
@@ -278,14 +278,16 @@ export class ItemForm extends Component {
                         <Col sm={5} md={4} lg={6}>
                             <div className="editor-images">
                                 <img className="col-xs-12" src={files[0]} alt="Primary"/>
-                                <p>
-                                    {files.filter((f, i) => i).map((src, index) => (<EditorImage
+                                <div>
+                                    {files.map((src, index) => (<EditorImage
                                         key={'image' + src}
-                                        onDestroy={this.deleteImage(index + 1)}
-                                        onPrimary={this.setPrimaryImage(index + 1)}
+                                        onDestroy={this.deleteImage(index)}
+                                        onPrimary={index > 0
+                                        ? this.setPrimaryImage(index)
+                                        : null}
                                         alt={this.state.name}
                                         src={src}/>))}
-                                </p>
+                                </div>
                             </div>
                             <Uploader url="/api/item/medias" onSuccess={this.fileUploaded}>
                                 <div className="mask">
