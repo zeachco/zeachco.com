@@ -10,6 +10,8 @@ window.axios = require('axios');
 import store from './store';
 import {session, language} from './store/actions';
 
+require('./sw');
+
 session.fetch();
 const browsersLang = navigator.language || navigator.userLanguage;
 language.setLanguage(browsersLang.split('-')[0]);
