@@ -38,9 +38,25 @@ export class ItemForm extends Component {
             axios
                 .get('/api/admin/item/' + _id)
                 .then(xhr => {
-                    this.setState(xhr.data);
+                    this.setState(this.mapItemIn(xhr.data));
                 });
         }
+    }
+
+    mapItemIn(get) {
+        const item = {
+            ...get,
+            labels: get.labels.length ? get.labels.join(', ') : get.labels
+        };
+        return item;
+    }
+
+    mapItemOut(post) {
+        const item = {
+            ...post,
+            labels: post.labels.split(/[ ,]/g)
+        };
+        return item;
     }
 
     handleChanges(ev) {
@@ -54,7 +70,7 @@ export class ItemForm extends Component {
 
     submit(e) {
         e.preventDefault();
-        createOrUpdate(this.state);
+        createOrUpdate(this.mapItemOut(this.state));
     }
 
     fileUploaded(response) {
