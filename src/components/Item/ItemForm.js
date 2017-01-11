@@ -50,7 +50,8 @@ export class ItemForm extends Component {
                 ? get
                     .labels
                     .join(', ')
-                : get.labels
+                : get.labels,
+            __v: undefined
         };
         return item;
     }
