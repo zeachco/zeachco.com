@@ -1,0 +1,14 @@
+{
+    "title": "zeachco.com",
+    "short_name": "CMS portal",
+    "name": "zeachco's CMS portal",
+    "start_url": "?homescreen-launch",
+    "display": "standalone",
+    "background_color": "#222",
+    "description": "Website management site",
+    "icons": [{
+        "src": "/favicon.ico",
+        "sizes": "64x64",
+        "type": "image/ico"
+    }]
+}
