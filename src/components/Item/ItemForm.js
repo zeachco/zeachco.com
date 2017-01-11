@@ -46,7 +46,11 @@ export class ItemForm extends Component {
     mapItemIn(get) {
         const item = {
             ...get,
-            labels: get.labels.length ? get.labels.join(', ') : get.labels
+            labels: typeof get.labels != 'string'
+                ? get
+                    .labels
+                    .join(', ')
+                : get.labels
         };
         return item;
     }
@@ -54,7 +58,10 @@ export class ItemForm extends Component {
     mapItemOut(post) {
         const item = {
             ...post,
-            labels: post.labels.split(/[ ,]/g)
+            labels: post
+                .labels
+                .split(/[ ,]/g)
+                .filter(l => !!l)
         };
         return item;
     }
@@ -62,10 +69,10 @@ export class ItemForm extends Component {
     handleChanges(ev) {
         ev.preventDefault();
         const key = ev.target.name;
-        const value = fieldHandlers[key] ? fieldHandlers[key](ev.target.value) : ev.target.value;
-        this.setState({
-            [key]: value
-        });
+        const value = fieldHandlers[key]
+            ? fieldHandlers[key](ev.target.value)
+            : ev.target.value;
+        this.setState({[key]: value});
     }
 
     submit(e) {
