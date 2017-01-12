@@ -12,13 +12,16 @@ const LANGS = [
         label: 'français'
     }, {
         key: 'es',
-        label: 'español'
+        label: 'español',
+        disabled: true
     }, {
         key: 'it',
-        label: 'italiano'
+        label: 'italiano',
+        disabled: true
     }, {
         key: 'hi',
-        label: 'हिन्दी (hindī)'
+        label: 'हिन्दी (hindī)',
+        disabled: true
     }
 ];
 
@@ -29,7 +32,7 @@ const switchLang = e => {
 const LangSwitcher = props => (
     <Nav bsStyle="pills" activeKey={props.lang} onSelect={switchLang}>
         {LANGS.map(l => (
-            <NavItem eventKey={l.key} key={l.key}>{l.label}</NavItem>
+            <NavItem eventKey={l.key} key={l.key} disabled={l.disabled}>{l.label}</NavItem>
         ))}
     </Nav>
 )
