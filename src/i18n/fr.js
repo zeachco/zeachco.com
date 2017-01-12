@@ -16,7 +16,7 @@ module.exports = {
     logout: 'Déconnexion',
     signup: 'Inscription',
     demo_account: 'Compte démo',
-    login_with_demo_text: 'Voir les fonctionnalitées sans créer de compte (oui c\'est possible)',
+    login_with_demo_text: 'Voir les fonctionnalités sans créer de compte (oui c\'est possible)',
     login_to_manage_text: 'Connectez-vous pour administrer vos sites',
     Inquiries: 'Pour toutes questions&nbsp;<a href="mailto:{email}">{email}</a>.',
     add_an_item: 'Ajouter un article',
