@@ -1,7 +1,7 @@
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
   '/',
-  '/bootswatch.cosmos.min.css',
+  'https://bootswatch.com/cosmo/bootstrap.min.css',
   '/static/js/bundle.js',
   '/api/profile/me'
 ];

@@ -259,9 +259,14 @@ export class ItemForm extends Component {
                             </BSFormField>
                             <hr/>
                             <BSFormField label={(<Translate content="option_group"/>)} icon="th-list">
-                                {options.map((opt, index) => (<ProductOptionGroup onChange={e => console.log(e)} option={opt}/>))}
-                                <ProductOptionGroup onClick={this.addOption}/>
+                                <textarea
+                                    name="options"
+                                    className="form-control"
+                                    value={`size: small, medium, large, xlarge=2\ncolor: red, green, blue, black=1, transparent=-1 `}
+                                    rows="10"></textarea>
                             </BSFormField>
+                            {options.map((opt, index) => (<ProductOptionGroup onChange={e => console.log(e)} option={opt}/>))}
+                            <ProductOptionGroup onClick={this.addOption}/>
                             <hr/>
                             <BSFormField
                                 label={(<Translate content="price"/>)}
