@@ -7,9 +7,7 @@ import {bind, formula, getSpaces} from '../../core/utils';
 
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications
-const fieldHandlers = {
-
-};
+const fieldHandlers = {};
 
 export class ItemForm extends Component {
     constructor(args) {
@@ -77,46 +75,42 @@ export class ItemForm extends Component {
                 .filter(l => !!l)
         };
         item.options = [];
-        const optionGroups = post.options.split(/[\n\r]/);
+        const optionGroups = post
+            .options
+            .split(/[\n\r]/)
+            .map(s => s.trim())
+            .filter(f => !!f);
         optionGroups.forEach(og => {
-            const [groupKey, optionsString] = og.split(/ ?: ?/);
-            const newOptionGroup = { code: groupKey, options: [] };
-            item.options.push()
-            const options = optionsString.split(/[ ,]+/g);
+            const [groupKey,
+                optionsString] = og.split(':')
+            const newOptionGroup = {
+                code: groupKey,
+                options: []
+            };
+            item
+                .options
+                .push()
+            const options = optionsString
+                .split(',')
+                .map(s => s.trim())
+                .filter(f => !!f);
             options.forEach(o => {
-                const [key, value] = o.split('=');
-                newOptionGroup.options.push({
-                    code: key,
-                    mod: value || 0
-                })
+                const [key,
+                    value] = o
+                    .split('=')
+                    .map(s => s.trim())
+                    .filter(f => !!f);
+                newOptionGroup
+                    .options
+                    .push({
+                        code: key,
+                        mod: value || 0
+                    })
             });
-            item.options.push(newOptionGroup);
-            console.log(item.options);
+            item
+                .options
+                .push(newOptionGroup);
         });
-            // {
-            //     code: 'price',
-            //     options: [
-            //         {
-            //             code: 'small'
-            //         }, {
-            //             code: 'large',
-            //             mod: 2
-            //         }
-            //     ]
-            // }, {
-            //     code: 'color',
-            //     options: [
-            //         {
-            //             code: 'red'
-            //         }, {
-            //             code: 'black',
-            //             mod: 1
-            //         }, {
-            //             code: 'clear',
-            //             mod: -1
-            //         }
-            //     ]
-            // }
         return item;
     }
 
@@ -293,7 +287,7 @@ export class ItemForm extends Component {
                             </BSFormField>
                             <hr/>
                             <BSFormField label={(<Translate content="option_group"/>)} icon="th-list">
-                                <textarea name="options" className="form-control" defaultValue={options} rows="3"></textarea>
+                                <textarea name="options" className="form-control" value={options} rows="3"></textarea>
                             </BSFormField>
                             <p>
                                 <b>Example</b>
