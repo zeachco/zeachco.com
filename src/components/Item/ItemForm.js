@@ -55,8 +55,7 @@ export class ItemForm extends Component {
                         mod: 2
                     }
                 ]
-            },
-            {
+            }, {
                 code: 'color',
                 options: [
                     {
@@ -81,7 +80,7 @@ export class ItemForm extends Component {
                         ? `=${o.mod}`
                         : '')));
                 options += `${og
-                    .code}  : ${children
+                    .code}: ${children
                     .join(', ')} \n`;
             });
 
@@ -302,13 +301,20 @@ export class ItemForm extends Component {
                             </BSFormField>
                             <hr/>
                             <BSFormField label={(<Translate content="option_group"/>)} icon="th-list">
-                                <textarea
-                                    name="options"
-                                    className="form-control"
-                                    palceholder={`size: small, medium, large, xlarge=2\ncolor: red, green, blue, black=1, transparent=-1 `}
-                                    value={options}
-                                    rows="10"></textarea>
+                                <textarea name="options" className="form-control" value={options} rows="3"></textarea>
                             </BSFormField>
+                            <p>
+                                <b>Example</b>
+                                <code>size: small, medium, large, xlarge=2</code>
+                                would define an option named
+                                <code>size</code>
+                                that can be used in the price field and his value would be
+                                <code>0</code>
+                                or what's is specified after the
+                                <code>=</code>
+                                sign.
+                            </p>
+                            <p>A line can be jumped for a new option group</p>
                             <hr/>
                             <BSFormField
                                 label={(<Translate content="price"/>)}
