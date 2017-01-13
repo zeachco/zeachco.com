@@ -1,15 +1,14 @@
 import React, {Component} from 'react'
 import {Uploader, EditorImage, Translate, BSFormField} from '..'
 import actions from '../../store/actions'
-import store from '../../store'
 import axios from 'axios'
 import {Row, Col} from 'react-bootstrap';
-import {bind, formula} from '../../core/utils';
+import {bind, formula, getSpaces} from '../../core/utils';
 
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications
 const fieldHandlers = {
-    options: input => ([])
+
 };
 
 export class ItemForm extends Component {
@@ -19,7 +18,7 @@ export class ItemForm extends Component {
             files: [],
             ...this.props
         };
-        bind(this, 'handleChanges', 'submit', 'fileUploaded', 'fetchItem', 'addOption', 'removeOption', 'setPrimaryImage', 'deleteImage');
+        bind(this, 'handleChanges', 'submit', 'fileUploaded', 'fetchItem', 'setPrimaryImage', 'deleteImage');
         this.fetchItem();
     }
 
@@ -44,32 +43,6 @@ export class ItemForm extends Component {
     }
 
     mapItemIn(get) {
-        get.options = [
-            {
-                code: 'price',
-                options: [
-                    {
-                        code: 'small'
-                    }, {
-                        code: 'large',
-                        mod: 2
-                    }
-                ]
-            }, {
-                code: 'color',
-                options: [
-                    {
-                        code: 'red'
-                    }, {
-                        code: 'black',
-                        mod: 1
-                    }, {
-                        code: 'clear',
-                        mod: -1
-                    }
-                ]
-            }
-        ]
         let options = '';
         get
             .options
@@ -83,9 +56,7 @@ export class ItemForm extends Component {
                     .code}: ${children
                     .join(', ')} \n`;
             });
-
-        console.log(get.options, options);
-        const item = {
+        return {
             ...get,
             labels: typeof get.labels !== 'string'
                 ? get
@@ -95,7 +66,6 @@ export class ItemForm extends Component {
             __v: undefined,
             options
         };
-        return item;
     }
 
     mapItemOut(post) {
@@ -106,10 +76,52 @@ export class ItemForm extends Component {
                 .split(/[ ,]/g)
                 .filter(l => !!l)
         };
+        item.options = [];
+        const optionGroups = post.options.split(/[\n\r]/);
+        optionGroups.forEach(og => {
+            const [groupKey, optionsString] = og.split(/ ?: ?/);
+            const newOptionGroup = { code: groupKey, options: [] };
+            item.options.push()
+            const options = optionsString.split(/[ ,]+/g);
+            options.forEach(o => {
+                const [key, value] = o.split('=');
+                newOptionGroup.options.push({
+                    code: key,
+                    mod: value || 0
+                })
+            });
+            item.options.push(newOptionGroup);
+            console.log(item.options);
+        });
+            // {
+            //     code: 'price',
+            //     options: [
+            //         {
+            //             code: 'small'
+            //         }, {
+            //             code: 'large',
+            //             mod: 2
+            //         }
+            //     ]
+            // }, {
+            //     code: 'color',
+            //     options: [
+            //         {
+            //             code: 'red'
+            //         }, {
+            //             code: 'black',
+            //             mod: 1
+            //         }, {
+            //             code: 'clear',
+            //             mod: -1
+            //         }
+            //     ]
+            // }
         return item;
     }
 
     handleChanges(ev) {
+        console.log(ev.target.name);
         ev.preventDefault();
         const key = ev.target.name;
         const value = fieldHandlers[key]
@@ -137,26 +149,6 @@ export class ItemForm extends Component {
         }}/>), type: 'success'});
     }
 
-    getSpaces() {
-        const {session} = store.getState();
-        return session.spaces || [];
-    }
-
-    addOption(e) {
-        this.setState(state => ({
-            options: [
-                ...state.options, {}
-            ]
-        }));
-    }
-
-    removeOption(index) {
-        this
-            .state
-            .options
-            .splice(index, 1);
-    }
-
     deleteImage(index) {
         return () => {
             this.setState(state => {
@@ -180,7 +172,7 @@ export class ItemForm extends Component {
 
     render() {
         const {_id} = this.props;
-        const spaces = this.getSpaces();
+        const spaces = getSpaces();
         const formulaEval = formula(this.state.price, {});
         const formulaState = formulaEval.isValid
             ? 'info'
@@ -193,7 +185,7 @@ export class ItemForm extends Component {
             description,
             price = 0,
             labels = [],
-            options = [],
+            options = '',
             width,
             height,
             depth,
@@ -301,7 +293,7 @@ export class ItemForm extends Component {
                             </BSFormField>
                             <hr/>
                             <BSFormField label={(<Translate content="option_group"/>)} icon="th-list">
-                                <textarea name="options" className="form-control" value={options} rows="3"></textarea>
+                                <textarea name="options" className="form-control" defaultValue={options} rows="3"></textarea>
                             </BSFormField>
                             <p>
                                 <b>Example</b>

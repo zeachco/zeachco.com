@@ -1,3 +1,5 @@
+import store from '../store'
+
 export const bind = (object, ...methods) => {
     methods.forEach(m => {
         object[m] = object[m].bind(object);
@@ -19,4 +21,9 @@ export const formula = (formula, context) => {
         out.error = error.message;
     }
     return out;
+}
+
+export const getSpaces = () => {
+    const {session} = store.getState();
+    return session.spaces || [];
 }
