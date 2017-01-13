@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Uploader, EditorImage, Translate, BSFormField, ProductOptionGroup} from '..'
+import {Uploader, EditorImage, Translate, BSFormField} from '..'
 import actions from '../../store/actions'
 import store from '../../store'
 import axios from 'axios'
@@ -44,6 +44,48 @@ export class ItemForm extends Component {
     }
 
     mapItemIn(get) {
+        get.options = [
+            {
+                code: 'price',
+                options: [
+                    {
+                        code: 'small'
+                    }, {
+                        code: 'large',
+                        mod: 2
+                    }
+                ]
+            },
+            {
+                code: 'color',
+                options: [
+                    {
+                        code: 'red'
+                    }, {
+                        code: 'black',
+                        mod: 1
+                    }, {
+                        code: 'clear',
+                        mod: -1
+                    }
+                ]
+            }
+        ]
+        let options = '';
+        get
+            .options
+            .forEach(og => {
+                const children = og
+                    .options
+                    .map(o => (o.code + (o.mod
+                        ? `=${o.mod}`
+                        : '')));
+                options += `${og
+                    .code}  : ${children
+                    .join(', ')} \n`;
+            });
+
+        console.log(get.options, options);
         const item = {
             ...get,
             labels: typeof get.labels !== 'string'
@@ -51,7 +93,8 @@ export class ItemForm extends Component {
                     .labels
                     .join(', ')
                 : get.labels,
-            __v: undefined
+            __v: undefined,
+            options
         };
         return item;
     }
@@ -262,11 +305,10 @@ export class ItemForm extends Component {
                                 <textarea
                                     name="options"
                                     className="form-control"
-                                    value={`size: small, medium, large, xlarge=2\ncolor: red, green, blue, black=1, transparent=-1 `}
+                                    palceholder={`size: small, medium, large, xlarge=2\ncolor: red, green, blue, black=1, transparent=-1 `}
+                                    value={options}
                                     rows="10"></textarea>
                             </BSFormField>
-                            {options.map((opt, index) => (<ProductOptionGroup onChange={e => console.log(e)} option={opt}/>))}
-                            <ProductOptionGroup onClick={this.addOption}/>
                             <hr/>
                             <BSFormField
                                 label={(<Translate content="price"/>)}
