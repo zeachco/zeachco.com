@@ -15,7 +15,8 @@ export const formula = (formula, context) => {
             .join(', ');
         const initVars = vars ? `var ${vars}; ` : '';
         // eslint-disable-next-line
-        out.value = eval(initVars + formula);
+        out.eval = initVars + formula;
+        out.value = eval(out.eval);
         out.isValid = isFinite(out.value);
     } catch (error) {
         out.error = error.message;

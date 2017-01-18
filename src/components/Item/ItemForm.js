@@ -4,10 +4,18 @@ import actions from '../../store/actions'
 import axios from 'axios'
 import {Row, Col} from 'react-bootstrap';
 import {bind, formula, getSpaces} from '../../core/utils';
+import {ItemOptions} from '../../core/converter';
 
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications
-const fieldHandlers = {};
+const fieldHandlers = {
+    optionString: function (value) {
+        this.setState({
+            optionString: value,
+            options: ItemOptions.toObject(value)
+        });
+    }
+};
 
 export class ItemForm extends Component {
     constructor(args) {
@@ -41,19 +49,6 @@ export class ItemForm extends Component {
     }
 
     mapItemIn(get) {
-        let options = '';
-        get
-            .options
-            .forEach(og => {
-                const children = og
-                    .options
-                    .map(o => (o.code + (o.mod
-                        ? `=${o.mod}`
-                        : '')));
-                options += `${og
-                    .code}: ${children
-                    .join(', ')} \n`;
-            });
         return {
             ...get,
             labels: typeof get.labels !== 'string'
@@ -61,67 +56,31 @@ export class ItemForm extends Component {
                     .labels
                     .join(', ')
                 : get.labels,
-            __v: undefined,
-            options
+            optionString: ItemOptions.toString(get.options)
         };
     }
 
     mapItemOut(post) {
-        const item = {
+        return {
             ...post,
+            __v: undefined,
+            optionString: undefined,
             labels: post
                 .labels
                 .split(/[ ,]/g)
                 .filter(l => !!l)
         };
-        item.options = [];
-        const optionGroups = post
-            .options
-            .split(/[\n\r]/)
-            .map(s => s.trim())
-            .filter(f => !!f);
-        optionGroups.forEach(og => {
-            const [groupKey,
-                optionsString] = og.split(':')
-            const newOptionGroup = {
-                code: groupKey,
-                options: []
-            };
-            item
-                .options
-                .push()
-            const options = optionsString
-                .split(',')
-                .map(s => s.trim())
-                .filter(f => !!f);
-            options.forEach(o => {
-                const [key,
-                    value] = o
-                    .split('=')
-                    .map(s => s.trim())
-                    .filter(f => !!f);
-                newOptionGroup
-                    .options
-                    .push({
-                        code: key,
-                        mod: value || 0
-                    })
-            });
-            item
-                .options
-                .push(newOptionGroup);
-        });
-        return item;
     }
 
     handleChanges(ev) {
-        console.log(ev.target.name);
         ev.preventDefault();
         const key = ev.target.name;
-        const value = fieldHandlers[key]
-            ? fieldHandlers[key](ev.target.value)
-            : ev.target.value;
-        this.setState({[key]: value});
+        let value = ev.target.value;
+        if (fieldHandlers[key]) {
+            fieldHandlers[key].call(this, value);
+        } else {
+            this.setState({[key]: value});
+        }
     }
 
     submit(e) {
@@ -167,10 +126,6 @@ export class ItemForm extends Component {
     render() {
         const {_id} = this.props;
         const spaces = getSpaces();
-        const formulaEval = formula(this.state.price, {});
-        const formulaState = formulaEval.isValid
-            ? 'info'
-            : 'warning';
         const {
             space,
             code,
@@ -179,13 +134,24 @@ export class ItemForm extends Component {
             description,
             price = 0,
             labels = [],
-            options = '',
+            options = [],
+            optionString = '',
             width,
             height,
             depth,
             weight,
-            files = []
+            files = [],
+            customOptions = {}
         } = this.state;
+
+        const evalContext = {};
+        options.forEach(og => {
+            evalContext[og.code] = +customOptions[og.code] || 0;
+        });
+        const formulaEval = formula(price, evalContext);
+        const formulaState = formulaEval.isValid
+            ? 'info'
+            : 'warning';
         return (
             <form
                 className="form-horizontal well"
@@ -287,7 +253,11 @@ export class ItemForm extends Component {
                             </BSFormField>
                             <hr/>
                             <BSFormField label={(<Translate content="option_group"/>)} icon="th-list">
-                                <textarea name="options" className="form-control" value={options} rows="3"></textarea>
+                                <textarea
+                                    name="optionString"
+                                    className="form-control"
+                                    value={optionString}
+                                    rows="3"></textarea>
                             </BSFormField>
                             <p>
                                 <b>Example</b>
@@ -301,7 +271,30 @@ export class ItemForm extends Component {
                                 sign.
                             </p>
                             <p>A line can be jumped for a new option group</p>
-                            <hr/>
+                            <hr/> {options.map(og => {
+                                return (
+                                    <BSFormField label={og.code} icon="th-list">
+                                        <select
+                                            name={og.code}
+                                            className="form-control"
+                                            onChange={e => {
+                                                const value = e.target.value;
+                                                this.setState(state => ({
+                                                    customOptions: {
+                                                        ...state.customOptions,
+                                                        [og.code]: value
+                                                    }
+                                                }))
+                                            } }>
+                                                <option>Choose an option to test</option>
+                                                {og
+                                                .options
+                                                .map(o => (
+                                                    <option value={o.value} title={o.value}>{o.code}</option>
+                                                ))}</select>
+                                    </BSFormField>
+                                )
+                            })}
                             <BSFormField
                                 label={(<Translate content="price"/>)}
                                 icon="usd"
@@ -311,8 +304,10 @@ export class ItemForm extends Component {
                                     name="price"
                                     placeholder="(10.15 + size) + qty"
                                     className="form-control "
+                                    title={formulaEval.eval}
                                     type="text"
-                                    value={price}/>
+                                    value={price} />
+                                    <span className="input-group-addon" >{formulaEval.value}</span>
                             </BSFormField>
                         </Col>
                         <Col sm={5} md={4} lg={6}>
