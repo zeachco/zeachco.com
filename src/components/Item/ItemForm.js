@@ -205,7 +205,7 @@ export class ItemForm extends Component {
                             </BSFormField>
                             <BSFormField label={(<Translate content="item_short_description"/>)}>
                                 <input
-                                    name="short_description"
+                                    name="shortDescription"
                                     placeholder="Shirt with a unicorn design"
                                     className="form-control"
                                     value={shortDescription}
@@ -214,7 +214,7 @@ export class ItemForm extends Component {
                             <BSFormField label={(<Translate content="item_full_description"/>)}>
                                 <textarea
                                     className="form-control"
-                                    name="long_description"
+                                    name="description"
                                     placeholder="This shirt is made of 97% coton and 4% magic"
                                     rows={12}
                                     value={description}></textarea>
