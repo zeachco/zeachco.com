@@ -14,8 +14,8 @@ export const formula = (formula, context) => {
             .map(k => `${k} = context['${k}']`)
             .join(', ');
         const initVars = vars ? `var ${vars}; ` : '';
-        // eslint-disable-next-line
         out.eval = initVars + formula;
+        // eslint-disable-next-line
         out.value = eval(out.eval);
         out.isValid = isFinite(out.value);
     } catch (error) {
