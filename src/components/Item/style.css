@@ -6,3 +6,8 @@
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+.published_checkbox {
+  font-size: .8em;
+  float: left;
+}

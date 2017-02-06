@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Uploader, EditorImage, Translate, BSFormField} from '..'
+import {Uploader, EditorImage, Translate, BSFormField, Checkbox} from '..'
 import actions from '../../store/actions'
 import axios from 'axios'
 import {Row, Col} from 'react-bootstrap';
@@ -130,6 +130,7 @@ export class ItemForm extends Component {
             space,
             code,
             name,
+            visible,
             shortDescription,
             description,
             price = 0,
@@ -161,14 +162,25 @@ export class ItemForm extends Component {
                     <legend
                         style={{
                         textAlign: 'center'
-                    }}>{_id
+                        }}>
+                        <Checkbox
+                            className="published_checkbox"
+                            checked={!!visible}
+                            onChange={ bol => this.setState({ visible: bol}) } >
+                            <strong>
+                                <Translate content="item_field_published" />
+                            </strong>
+                        </Checkbox>
+                        <br/>
+                        {_id
                             ? (
                                 <h2>
                                     <Translate content="item_modification"/><br/>
                                     <small>{name || code || _id}</small>
                                 </h2>
                             )
-                            : (<Translate content="create_item"/>)}</legend>
+                            : (<Translate content="create_item" />)}
+                    </legend>
                     <Row className="show-grid">
                         <Col sm={7} md={8} lg={6}>
                             <BSFormField label={(<Translate content="space_name"/>)} icon="globe">

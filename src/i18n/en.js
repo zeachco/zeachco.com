@@ -38,5 +38,6 @@ module.exports = {
     item_short_description: 'Short description',
     item_full_description: 'Product full description',
     drop_image_here: 'Drop images here',
-    image_uploaded_success: '"{file}" successfully uploaded'
+    image_uploaded_success: '"{file}" successfully uploaded',
+    item_field_published: "Published"
 };
