@@ -1,0 +1,26 @@
+.rich-text-area {
+  position: relative;
+  .rich-text-area_rich {
+    background: white;
+    min-height: 12em;
+    overflow: auto;
+  }
+  .rich-text-area_toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 25;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .8em;
+    background: #222;
+    padding: .25em .5em;
+    border-radius: 0 0 0 .5em;
+    color: white;
+    text-decoration: none;
+    opacity: .25;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

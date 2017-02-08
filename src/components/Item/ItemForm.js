@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Uploader, EditorImage, Translate, BSFormField, Checkbox} from '..'
+import {Uploader, EditorImage, Translate, BSFormField, Checkbox, RichTextArea} from '..'
 import actions from '../../store/actions'
 import axios from 'axios'
 import {Row, Col} from 'react-bootstrap';
@@ -224,12 +224,13 @@ export class ItemForm extends Component {
                                     type="text"/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="item_full_description"/>)}>
-                                <textarea
+                                <RichTextArea
                                     className="form-control"
                                     name="description"
                                     placeholder="This shirt is made of 97% coton and 4% magic"
+                                    onChange={ html => this.setState({description: html}) }
                                     rows={12}
-                                    value={description}></textarea>
+                                    value={description} />
                             </BSFormField>
                             <BSFormField label={(<Translate content="width"/>)} icon="resize-horizontal">
                                 <input
