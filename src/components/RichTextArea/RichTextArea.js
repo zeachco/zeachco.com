@@ -65,7 +65,6 @@ export class RichTextArea extends Component {
     }
 
     render() {
-        const { className } = this.props;
         const { rich } = this.state;
         const content = rich ? this._renderRich() : this._renderPlain();
         const toggleText = rich ? 'plain' : 'rich';
