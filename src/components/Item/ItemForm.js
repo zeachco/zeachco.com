@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import { Uploader, EditorImage, Translate, BSFormField, Checkbox, RichTextArea } from '..';
 import actions from '../../store/actions'
 import axios from 'axios'
-import {Row, Col} from 'react-bootstrap';
-import {bind, formula, getSpaces} from '../../core/utils';
-import {ItemOptions} from '../../core/converter';
+import { Row, Col } from 'react-bootstrap';
+import { bind, formula, getSpaces } from '../../core/utils';
+import { ItemOptions } from '../../core/converter';
 
 const {createOrUpdate} = actions.items;
 const {addToastMessage} = actions.notifications
@@ -41,22 +41,16 @@ export class ItemForm extends Component {
     fetchItem(props) {
         const {_id} = this.props;
         if (_id) {
-            axios
-                .get('/api/admin/item/' + _id)
-                .then(xhr => {
-                    this.setState(this.mapItemIn(xhr.data));
-                });
+            axios.get('/api/admin/item/' + _id).then(xhr => {
+                this.setState(this.mapItemIn(xhr.data));
+            });
         }
     }
 
     mapItemIn(get) {
         return {
             ...get,
-            labels: typeof get.labels !== 'string'
-                ? get
-                    .labels
-                    .join(', ')
-                : get.labels,
+            labels: Array.isArray(get.labels) ? get.labels.join(', ') : get.labels,
             optionString: ItemOptions.toString(get.options)
         };
     }
@@ -96,11 +90,16 @@ export class ItemForm extends Component {
                 '/api/medias/' + response.filename
             ]
         });
-        addToastMessage({message: (<Translate
-            content="image_uploaded_success"
-            data={{
-            file: response.originalname
-        }}/>), type: 'success'});
+        addToastMessage({
+            message: (
+                <Translate
+                    content="image_uploaded_success"
+                    data={{
+                    file: response.originalname
+                    }}
+                />
+            ), type: 'success'
+        });
     }
 
     deleteImage(index) {
