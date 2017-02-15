@@ -12,7 +12,6 @@ const SearchFilters = ({onChange, visible, spaces}) => (
     <BSFormField label={(<Translate content="space_name"/>)} icon="globe">
       <select name="space" className="form-control" onChange={e => {
         e.preventDefault();
-        console.warn(e);
         onChange({ filterKey: 'space', filterValue: e.target.value });
       }}>
           <option value="">{Translate.content("select_space")}</option>

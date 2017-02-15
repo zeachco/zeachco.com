@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+// import { Price } from '!babel!cms-core/src/components';
 import { Uploader, EditorImage, Translate, BSFormField, Checkbox, RichTextArea } from '..';
 import actions from '../../store/actions'
 import axios from 'axios'
@@ -317,7 +318,6 @@ export class ItemForm extends Component {
                                     name="price"
                                     placeholder="(10.15 + size) + qty"
                                     className="form-control "
-                                    title={formulaEval.eval}
                                     type="text"
                                     value={price} />
                                     <span className="input-group-addon" >{formulaEval.value}</span>
