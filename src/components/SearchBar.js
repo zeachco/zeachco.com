@@ -49,8 +49,10 @@ export class SearchBar extends Component {
   }
 }
 
+const {func, string, object, oneOfType} = PropTypes;
+
 SearchBar.propTypes = {
-  onSearch: PropTypes.func.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  searchButtonText: PropTypes.string.isRequired
+  onSearch: func.isRequired,
+  placeholder: string.isRequired,
+  searchButtonText: oneOfType([string, object]).isRequired
 }

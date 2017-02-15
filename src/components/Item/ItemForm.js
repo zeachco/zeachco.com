@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Uploader, EditorImage, Translate, BSFormField, Checkbox, RichTextArea} from '..'
+import { Uploader, EditorImage, Translate, BSFormField, Checkbox, RichTextArea } from '..';
 import actions from '../../store/actions'
 import axios from 'axios'
 import {Row, Col} from 'react-bootstrap';
