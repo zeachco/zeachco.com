@@ -56,15 +56,10 @@ export class ItemForm extends Component {
     }
 
     mapItemOut(post) {
-        return {
-            ...post,
-            __v: undefined,
-            optionString: undefined,
-            labels: post
-                .labels
-                .split(/[ ,]/g)
-                .filter(l => !!l)
-        };
+        delete post.__v
+        delete post.optionString
+        post.labels = post.labels.split(/[ ,]/g).filter(l => !!l)
+        return Object.assign({}, post);
     }
 
     handleChanges(ev) {
