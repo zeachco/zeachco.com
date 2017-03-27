@@ -1,7 +1,8 @@
 import React from 'react'
+
 import './style.css';
 
-export const ItemInline = ({
+const ItemInline = ({
   space,
   name,
   labels,
@@ -31,3 +32,6 @@ ItemInline.propTypes = {
   labels: React.PropTypes.array.isRequired,
   files: React.PropTypes.array.isRequired
 };
+
+export default ItemInline
+
