@@ -1,14 +1,19 @@
 import React from 'react'
-import {TopNav, Footer, Notifications} from '.'
-// import TopNav from './TopNav';
 
-export const App = props => (
+import Notifications from './Notifications'
+import TopNav from './TopNav'
+import Footer from './Footer'
+import '../styles/theme.scss';
+
+const App = ({ children }) => (
   <div>
     <TopNav/>
     <div className="container">
-      {props.children}
+      {children}
     </div>
     <Footer/>
     <Notifications/>
   </div>
 )
+
+export default App

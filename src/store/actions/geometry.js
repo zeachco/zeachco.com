@@ -1,8 +1,6 @@
 import store from '..';
 
 const {dispatch} = store;
-window.addEventListener('scroll', dispatchScroll);
-window.addEventListener('resize', dispatchResize);
 
 function dispatchScroll() {
   dispatch({
@@ -25,3 +23,6 @@ function dispatchResize() {
     }
   });
 }
+
+window.addEventListener('scroll', dispatchScroll);
+window.addEventListener('resize', dispatchResize);

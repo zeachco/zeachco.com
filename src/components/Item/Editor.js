@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+
 import Field from '../Field';
 
 class ItemEditor extends Component {
@@ -84,7 +85,14 @@ class ItemEditor extends Component {
   }
 }
 
-const mapStatetoProps = (store, ownProps) => ({
+ItemEditor.propTypes = {
+  session: React.PropTypes.object.isRequired,
+  isLoading: React.PropTypes.bool.isRequired,
+  isAuth: React.PropTypes.bool.isRequired,
+  item: React.PropTypes.object.isRequired
+}
+
+const mapStatetoProps = (store) => ({
   isAuth: store.session.isAuth,
   isLoading: store.session.isLoading,
   session: store.session
@@ -94,6 +102,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   save: () => dispatch({type: 'ITEM_SAVE', payload: ownProps})
 });
 
-const connectedItemEditor = connect(mapStatetoProps, mapDispatchToProps)(ItemEditor);
-
-export {connectedItemEditor as ItemEditor};
+export default connect(mapStatetoProps, mapDispatchToProps)(ItemEditor);

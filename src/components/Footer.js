@@ -1,5 +1,7 @@
 import React from 'react';
-import { LangSwitcher, Translate } from '.';
+
+import LangSwitcher from './LangSwitcher'
+import Translate from './Translate'
 
 const Footer = () => (
   <footer className="footer">
@@ -11,5 +13,4 @@ const Footer = () => (
   </footer>
 );
 
-export {Footer};
 export default Footer;

@@ -1,4 +1,4 @@
-import '!style!css!sass!./EditorImage.scss'
+import './EditorImage.scss'
 import React from 'react'
 
 const preventDefault = callback => event => {
@@ -6,7 +6,7 @@ const preventDefault = callback => event => {
     callback()
 }
 
-export const EditorImage = ({src, alt, onDestroy, onPrimary}) => (
+const EditorImage = ({src, alt, onDestroy, onPrimary}) => (
     <div className="editor-thumb">
         <div className="controls">
             {onPrimary && (<a onClick={preventDefault(onPrimary)} className="btn btn-primary btn-sm">Principale</a>)}
@@ -21,4 +21,6 @@ EditorImage.propTypes = {
   alt: React.PropTypes.string.isRequired,
   onDestroy: React.PropTypes.func,
   onPrimary: React.PropTypes.func
-}
+};
+
+export default EditorImage

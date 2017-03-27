@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const FormField = ({
+const FormField = ({
     attributes,
     label,
     force,
@@ -37,3 +37,5 @@ export const FormField = ({
         field
     ]);
 };
+
+export default FormField

@@ -1,9 +1,11 @@
 import React from 'react'
 
-export const Logo = props => {
+const Logo = () => {
   return (
     <span className="logo">
       Z<small>EACH</small>CO
     </span>
   )
 }
+
+export default Logo

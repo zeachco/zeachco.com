@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {session} from '../store/actions'
-import {Base} from '.'
+
+import session from '../store/actions/session'
+import Base from './Base'
 
 class Logout extends React.Component {
   componentDidMount() {
@@ -16,8 +17,10 @@ class Logout extends React.Component {
   }
 }
 
-const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, isLoading: store.session.isLoading, session: store.session});
-const mapDispatchToProps = (dispatch, ownProps) => ({})
-const ConnectedLogout = connect(mapStatetoProps, mapDispatchToProps)(Logout)
+const mapStatetoProps = (store) => ({
+  isAuth: store.session.isAuth,
+  isLoading: store.session.isLoading,
+  session: store.session
+});
 
-export {ConnectedLogout as Logout}
+export default connect(mapStatetoProps)(Logout)

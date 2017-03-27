@@ -17,7 +17,7 @@ const session = (state = initialState, action) => {
     case 'SESSION_FETCH_DONE':
       return Object.assign({
         isLoading: false,
-        isAuth: !!action.payload,
+        isAuth: !!action.payload
       }, action.payload);
     case 'SESSION_FETCH_FAIL':
       return {

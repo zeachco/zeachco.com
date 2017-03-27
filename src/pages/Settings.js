@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileForm from '../components/ProfileForm';
-import {Base} from '.';
+import Base from './Base';
 
 export const Settings = () => (
   <Base>

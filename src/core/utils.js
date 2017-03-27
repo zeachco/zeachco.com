@@ -6,7 +6,7 @@ export const bind = (object, ...methods) => {
     });
 }
 
-export const formula = (formula, context) => {
+export const formula = (formule, context) => {
     const out = {};
     try {
         const vars = Object
@@ -14,7 +14,7 @@ export const formula = (formula, context) => {
             .map(k => `${k} = context['${k}']`)
             .join(', ');
         const initVars = vars ? `var ${vars}; ` : '';
-        out.eval = initVars + formula;
+        out.eval = initVars + formule;
         // eslint-disable-next-line
         out.value = eval(out.eval);
         out.isValid = isFinite(out.value);
@@ -27,4 +27,4 @@ export const formula = (formula, context) => {
 export const getSpaces = () => {
     const {session} = store.getState();
     return session.spaces || [];
-}
+};

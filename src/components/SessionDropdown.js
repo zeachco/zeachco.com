@@ -1,8 +1,9 @@
 import React from 'react'
-import {Translate} from '.'
 import {MenuItem, NavDropdown, Nav, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
+
+import Translate from './Translate'
 
 const SessionDropdown = props => {
   const {session, isAuth} = props;
@@ -37,12 +38,15 @@ const SessionDropdown = props => {
   )
 };
 
+SessionDropdown.propTypes = {
+  isAuth: React.PropTypes.bool.isRequired,
+  session: React.PropTypes.object.isRequired
+}
+
 const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, session: store.session, props: ownProps});
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch({type: 'LOGOUT_REQUEST'})
 });
 
-const ConnectedSessionDropdown = connect(mapStatetoProps, mapDispatchToProps)(SessionDropdown);
-
-export {ConnectedSessionDropdown as SessionDropdown};
+export default connect(mapStatetoProps, mapDispatchToProps)(SessionDropdown);

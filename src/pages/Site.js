@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import {Translate} from '../components'
+
+import Translate from '../components/Translate'
 
 class Site extends Component {
   render() {
@@ -18,13 +19,16 @@ class Site extends Component {
   }
 }
 
-const mapStatetoProps = (store, ownProps) => ({
+Site.propTypes = {
+  params: React.PropTypes.object.isRequired,
+  sites: React.PropTypes.array.isRequired
+};
+
+const mapStatetoProps = (store) => ({
   isAuth: store.session.isAuth,
   isLoading: store.session.isLoading,
   session: store.session,
   sites: (store.session && store.session.sites) || []
 })
 
-const ConnectedSite = connect(mapStatetoProps)(Site)
-
-export {ConnectedSite as Site};
+export default connect(mapStatetoProps)(Site)

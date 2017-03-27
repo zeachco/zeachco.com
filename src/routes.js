@@ -1,25 +1,38 @@
 import React from 'react'
-import {App, requireAuth} from './components'
-import * as Page from './pages'
-import {Router, Route, browserHistory, IndexRoute} from 'react-router'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
-export const Routes = props => (
-    <Router history={browserHistory}>
+import App from './components/App' 
+import requireAuth from './components/utils/requireAuth'
+import Signup from './pages/Signup'
+import Logout from './pages/Logout'
+import Site from './pages/Site'
+import Categories from './pages/Categories'
+import EditItem from './pages/EditItem'
+import Settings from './pages/Settings'
+import Inventory from './pages/Inventory'
+import Users from './pages/Users'
+import Home from './pages/Home'
+import NotFound from './pages/NotFound'
+
+const Routes = () => (
+    <Router history={ browserHistory }>
         <Route path="/" component={App}>
-            <IndexRoute component={Page.Home}/>
-            <Route path="login" component={requireAuth(Page.Home)}/>
-            <Route path="signup" component={Page.Signup}/>
-            <Route path="logout" component={Page.Logout}/>
-            <Route path="site/:_id" component={requireAuth(Page.Site)}/>
-            <Route path="users" component={requireAuth(Page.Users)}/>
-            <Route path="categories" component={requireAuth(Page.Categories)}/>
+            <IndexRoute component={Home}/>
+            <Route path="login" component={(Home)}/>
+            <Route path="signup" component={Signup}/>
+            <Route path="logout" component={Logout}/>
+            <Route path="site/:_id" component={requireAuth(Site)}/>
+            <Route path="users" component={requireAuth(Users)}/>
+            <Route path="categories" component={requireAuth(Categories)}/>
             <Route path="inventory">
-                <IndexRoute component={requireAuth(Page.Inventory)}/>
-                <Route path="new" component={requireAuth(Page.EditItem)}/>
-                <Route path="item/:_id" component={requireAuth(Page.EditItem)}/>
+                <IndexRoute component={requireAuth(Inventory)}/>
+                <Route path="new" component={requireAuth(EditItem)}/>
+                <Route path="item/:_id" component={requireAuth(EditItem)}/>
             </Route>
-            <Route path="settings" component={requireAuth(Page.Settings)}/>
-            <Route path="*" component={Page.NotFound}/>
+            <Route path="settings" component={requireAuth(Settings)}/>
+            <Route path="*" component={NotFound}/>
         </Route>
     </Router>
 );
+
+export default Routes;

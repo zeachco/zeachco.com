@@ -1,7 +1,8 @@
 import React from 'react';
-import {language} from '../store/actions';
 import {Nav, NavItem} from 'react-bootstrap';
 import {connect} from 'react-redux';
+
+import { setLanguage } from '../store/actions/language';
 
 const LANGS = [
     {
@@ -25,19 +26,17 @@ const LANGS = [
     }
 ];
 
-const switchLang = e => {
-    language.setLanguage(e);
-}
-
-const LangSwitcher = props => (
-    <Nav bsStyle="pills" activeKey={props.lang} onSelect={switchLang}>
+const LangSwitcher = ({lang}) => (
+    <Nav bsStyle="pills" activeKey={lang} onSelect={setLanguage}>
         {LANGS.map(l => (
             <NavItem eventKey={l.key} key={l.key} disabled={l.disabled}>{l.label}</NavItem>
         ))}
     </Nav>
 )
 
-const mapStatetoProps = (store) => ({lang: store.language});
-const ConnectedLangSwitcher = connect(mapStatetoProps)(LangSwitcher);
+LangSwitcher.propTypes = {
+    lang: React.PropTypes.string.isRequired
+}
 
-export {ConnectedLangSwitcher as LangSwitcher};
+const mapStatetoProps = (store) => ({lang: store.language});
+export default connect(mapStatetoProps)(LangSwitcher);

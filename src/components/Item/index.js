@@ -2,7 +2,6 @@ import React from 'react'
 import './style.css'
 
 export * from './Inline'
-export * from './Editor'
 export * from './ItemForm'
 
 export const Item = ({

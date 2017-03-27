@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {Translate} from '.'
-import actions from '../store/actions';
+
+import Translate from './Translate'
+import { profileUpdate } from '../store/actions/session';
 
 class ProfileForm extends Component {
   constructor(...props) {
@@ -22,7 +23,7 @@ class ProfileForm extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    actions.session.profileUpdate(this.state);
+    profileUpdate(this.state);
   }
 
   render() {
@@ -67,14 +68,18 @@ class ProfileForm extends Component {
   }
 }
 
-const mapStatetoProps = (store, ownProps) => ({
+ProfileForm.propTypes = {
+  isAuth: React.PropTypes.bool.isRequired,
+  isLoading: React.PropTypes.bool.isRequired,
+  session: React.PropTypes.bool.isRequired,
+  items: React.PropTypes.array.isRequired
+}
+
+const mapStatetoProps = (store) => ({
   isAuth: store.session.isAuth,
   isLoading: store.session.isLoading,
   session: store.session,
   items: store.items || []
 });
 
-// const ProfileForm = props => (<pre>Unavailable...</pre>);
-
-const mapDispatchToProps = (dispatch, ownProps) => ({});
-module.exports = connect(mapStatetoProps, mapDispatchToProps)(ProfileForm);
+module.exports = connect(mapStatetoProps)(ProfileForm);

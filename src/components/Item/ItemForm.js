@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
-// import { Price } from '!babel!cms-core/src/components';
-import { Uploader, EditorImage, Translate, BSFormField, Checkbox, RichTextArea } from '..';
-import actions from '../../store/actions'
 import axios from 'axios'
 import { Row, Col } from 'react-bootstrap';
+
+import Translate from '../Translate'
+import Uploader from '../Uploader'
+import EditorImage from '../edit/EditorImage'
+import BSFormField from '../BSFormField'
+import Checkbox from '../Checkbox'
+import RichTextArea from '../RichTextArea'
 import { bind, formula, getSpaces } from '../../core/utils';
 import { ItemOptions } from '../../core/converter';
+import { createOrUpdate } from '../../store/actions/items'
+import { addToastMessage } from '../../store/actions/notifications'
 
-const {createOrUpdate} = actions.items;
-const {addToastMessage} = actions.notifications
 const fieldHandlers = {
     optionString: function (value) {
         this.setState({
@@ -18,7 +22,7 @@ const fieldHandlers = {
     }
 };
 
-export class ItemForm extends Component {
+class ItemForm extends Component {
     constructor(args) {
         super(args)
         this.state = {
@@ -38,7 +42,7 @@ export class ItemForm extends Component {
         this.fetchItem();
     }
 
-    fetchItem(props) {
+    fetchItem() {
         const {_id} = this.props;
         if (_id) {
             axios.get('/api/admin/item/' + _id).then(xhr => {
@@ -181,8 +185,8 @@ export class ItemForm extends Component {
                             <BSFormField label={(<Translate content="space_name"/>)} icon="globe">
                                 <select name="space" className="form-control" value={space}>
                                     <option value="">{Translate.content("select_space")}</option>
-                                    {spaces.map(space => (
-                                        <option value={space} key={space}>{space}</option>
+                                    {spaces.map(s => (
+                                        <option value={s} key={s}>{s}</option>
                                     ))}
                                 </select>
                             </BSFormField>
@@ -352,3 +356,9 @@ export class ItemForm extends Component {
         );
     }
 }
+
+ItemForm.propTypes = {
+    _id: React.PropTypes.string.isRequired
+};
+
+export default ItemForm

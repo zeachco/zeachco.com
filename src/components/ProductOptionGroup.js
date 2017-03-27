@@ -6,7 +6,6 @@ export const ProductOptionGroup = props => {
         <a className="btn btn-info"
             onClick={e => {
             e.preventDefault();
-            console.log('clicked!');
             props.onClick();
         }}><Translate content="add_option_group"/></a>
     );
@@ -20,11 +19,8 @@ export const ProductOptionGroup = props => {
     return (
         <BSFormField>
             <div className="form-control2">
-
-            {props.option
-                ? renderList()
-                    : renderGhost()}
-                </div>
+            {props.option ? renderList() : renderGhost()}
+            </div>
         </BSFormField>
     )
 
@@ -36,3 +32,8 @@ export const ProductOptionGroup = props => {
     //          ))}         </select>         <span className="input-group-addon">
     //           {code}         </span>     </div> )
 };
+
+ProductOptionGroup.propTypes = {
+    option: React.PropTypes.object.isRequired,
+    onClick: React.PropTypes.func.isRequired
+}

@@ -8,15 +8,13 @@ const {
 } = store;
 
 function fetch() {
-  dispatch({
-    type: 'USER_FETCH',
-  });
+  dispatch({ type: 'USER_FETCH' });
   return axios.get('/api/admin/users').then(xhr => {
     dispatch({
       type: xhr.data ? 'USER_FETCH_DONE' : 'USER_FETCH_FAIL',
       payload: xhr.data
     });
-  }).catch(data => {
+  }).catch(() => {
     dispatch({
       type: 'USER_FETCH_FAIL'
     });
@@ -53,7 +51,7 @@ function destroy(id) {
       type: xhr.data ? 'USER_DESTROY_DONE' : 'USER_DESTROY_FAIL',
       payload: xhr.data
     });
-  }).catch(data => {
+  }).catch(() => {
     dispatch({
       type: 'USER_DESTROY_FAIL'
     });
@@ -61,9 +59,7 @@ function destroy(id) {
 }
 
 function login(username, password) {
-  dispatch({
-    type: 'USER_FETCH',
-  });
+  dispatch({ type: 'USER_FETCH' });
   return axios.post('/api/login', {
     username,
     password
@@ -81,14 +77,10 @@ function login(username, password) {
 }
 
 function logout() {
-  dispatch({
-    type: 'DISCONNECT_START',
-  });
+  dispatch({ type: 'DISCONNECT_START' });
   return axios.delete('/api/logout').then(() => {
-    dispatch({
-      type: 'DISCONNECT_DONE',
-    });
-    browserHistory.push('/')
+    dispatch({ type: 'DISCONNECT_DONE' });
+    browserHistory.push('/');
   });
 }
 

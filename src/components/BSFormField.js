@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const BSFormField = ({
+const BSFormField = ({
     label,
     children,
     message,
@@ -16,7 +16,7 @@ export const BSFormField = ({
                 </span>
                 {children}
             </div>
-            {message === undefined
+            {typeof message === 'undefined'
                 ? null
                 : (
                     <small className="help-block">
@@ -26,3 +26,12 @@ export const BSFormField = ({
         </div>
     </div>
 )
+
+BSFormField.propTypes = {
+    label: React.PropTypes.node,
+    message: React.PropTypes.node,
+    state: React.PropTypes.object,
+    icon: React.PropTypes.string
+}
+
+export default BSFormField

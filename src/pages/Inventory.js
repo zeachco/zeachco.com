@@ -1,11 +1,14 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {ItemList, SearchBar, Translate} from '../components'
-import {Link} from 'react-router'
-import {Base} from '.'
-import actions from '../store/actions'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
-const Inventory = ({items}) => (
+import ItemList from '../components/ItemList'
+import SearchBar from '../components/SearchBar'
+import Translate from '../components/Translate'
+import Base from './Base'
+import { searchItems } from '../store/actions/items'
+
+const Inventory = ({ items }) => (
     <Base>
         <h2>
             <Translate content="inventory" />&nbsp;<Link className="btn btn-primary pull-right" to="/inventory/new"><Translate content="add_an_item" /></Link>
@@ -13,16 +16,19 @@ const Inventory = ({items}) => (
         <SearchBar
             placeholder="nom, description, code..."
             searchButtonText={(<Translate content="search" />)}
-            onSearch={actions.items.searchItems}/>
+            onSearch={searchItems}
+        />
         <hr/>
         <ItemList items={items}/>
     </Base>
-)
+);
 
-const mapStatetoProps = (store, ownProps) => ({
+Inventory.propTypes = {
+    items: React.PropTypes.array.isRequired
+}
+
+const mapStatetoProps = (store) => ({
     items: store.items || []
-})
+});
 
-const ConnectedInventory = connect(mapStatetoProps)(Inventory)
-
-export {ConnectedInventory as Inventory}
+export default connect(mapStatetoProps)(Inventory)

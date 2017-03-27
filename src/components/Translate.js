@@ -1,13 +1,12 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import I18N from '../i18n'
-import store from '../store'
 
 const hydrate = (lang = 'fr', content = 'invalid_key', data = {}) => {
     const keys = I18N[lang];
     let message = keys[content] || content;
-    if (keys[content] === undefined) {
-        console.warn(content, `not found for ${lang}`, data);
+    if (typeof keys[content] === 'undefined') {
+        console.warn(content, `not found for ${lang}`, data); // eslint-disable-line no-console
     }
 
     for (var k in data) {
@@ -25,16 +24,18 @@ const Translate = ({lang, content, data}) => {
     }}/>);
 }
 
-const mapStatetoProps = (state) => ({lang: state.language})
-
-const ConnectedTranslate = connect(mapStatetoProps)(Translate);
-
-// vanilla translate hook
-ConnectedTranslate.content = (content, data) => {
-    const lang = store
-        .getState()
-        .language;
-    return hydrate(lang, content, data);
+Translate.defaultProps = {
+    data: {}
 }
 
-export {ConnectedTranslate as Translate};
+Translate.propTypes = {
+    lang: React.PropTypes.string.isRequired,
+    content: React.PropTypes.string.isRequired,
+    data: React.PropTypes.object
+};
+
+const mapStatetoProps = (state) => ({lang: state.language})
+
+Translate.content = () => ''
+
+export default connect(mapStatetoProps)(Translate);

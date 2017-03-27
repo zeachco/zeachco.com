@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { Base } from '.'
+import React, { Component, PropTypes } from 'react'
+import Base from './Base'
 
-import { categories } from '../store/actions'
+import { fetch } from '../store/actions/categories'
 import { connect } from 'react-redux'
 
 class Categories extends Component {
@@ -12,12 +12,12 @@ class Categories extends Component {
     };
   }
 
-  componentWillMount(newprops) {
-    categories.fetch()
+  componentWillMount() {
+    fetch()
   }
 
   render() {
-    const {categories} = this.props;
+    const { categories } = this.props;
     return (
       <Base>
         <h2>Catégories ({categories.length})</h2>
@@ -28,8 +28,13 @@ class Categories extends Component {
   }
 }
 
-const mapStatetoProps = store => ({ store: store, categories: store.categories.data })
+Categories.propTypes = {
+  categories: PropTypes.array.isRequired
+};
 
-const ConnectedCategories = connect(mapStatetoProps)(Categories)
+const mapStatetoProps = store => ({
+  store: store,
+  categories: store.categories.data
+})
 
-export { ConnectedCategories as Categories }
+export default  connect(mapStatetoProps)(Categories)

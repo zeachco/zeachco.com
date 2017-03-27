@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import '!style!css!sass!./style.scss';
-export class Uploader extends Component {
+
+import './style.scss';
+
+class Uploader extends Component {
     constructor(...args) {
         super(...args);
         this.state = {
@@ -25,9 +27,7 @@ export class Uploader extends Component {
             .post('/api/item/medias', data, config)
             .then(res => {
                 this.setState({preview: res.data.preview});
-                this
-                    .props
-                    .onSuccess(res.data);
+                this.props.onSuccess(res.data);
                 this.setState({uploading: false});
             });
     }
@@ -63,3 +63,9 @@ export class Uploader extends Component {
         )
     }
 }
+
+Uploader.propTypes = {
+    onSuccess: React.PropTypes.func.isRequired
+}
+
+export default Uploader

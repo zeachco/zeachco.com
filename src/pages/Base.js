@@ -1,7 +1,7 @@
-import '!style!css!sass!./Base.scss'
+import './Base.scss'
 import React, {Component} from 'react'
 
-export class Base extends Component {
+class Base extends Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -19,9 +19,7 @@ export class Base extends Component {
   }
 
   render() {
-    const animationClasses = 'base-page' + (this.state.ready
-      ? ' ready'
-      : '')
+    const animationClasses = 'base-page' + (this.state.ready ? ' ready' : '');
     return (
       <div className={animationClasses}>
         <div>{this.props.children}</div>
@@ -30,3 +28,5 @@ export class Base extends Component {
     )
   }
 }
+
+export default Base

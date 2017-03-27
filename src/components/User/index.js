@@ -1,9 +1,10 @@
-import './style.css';
 import React, {Component} from 'react'
-import actions from '../../store/actions';
+
+import './style.css';
+import { destroy } from '../../store/actions/users';
 import store from '../../store';
 
-export class User extends Component {
+class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +47,7 @@ export class User extends Component {
         <div>{this.checkbox('images', true, 'Peut voir les images')}</div>
         <div>{this.checkbox('prices', true, 'Peut voir les prix')}</div>
         <hr/>
-        <button className="btn btn-danger" onClick={e => actions.users.destroy(_id)}>Détruire</button>
+        <button className="btn btn-danger" onClick={() => destroy(_id)}>Détruire</button>
       </div>
     );
   }
@@ -64,3 +65,14 @@ export class User extends Component {
     )
   }
 }
+
+User.propTypes = {
+  username: React.PropTypes.string.isRequired,
+  space: React.PropTypes.string.isRequired,
+  _id: React.PropTypes.string.isRequired,
+  firstName: React.PropTypes.string.isRequired,
+  lastName: React.PropTypes.string.isRequired,
+  email: React.PropTypes.string.isRequired
+}
+
+export default User

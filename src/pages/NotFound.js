@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-export const HomePage = props => (
+const HomePage = props => (
   <div>
     <div id="home_content">
       <big>Ooops! "{props.params.splat}" does not exist</big>
@@ -10,3 +10,9 @@ export const HomePage = props => (
     </div>
   </div>
 );
+
+HomePage.propTypes = {
+  params: React.PropTypes.object.isRequired
+};
+
+export default HomePage

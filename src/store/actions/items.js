@@ -5,10 +5,10 @@ import {browserHistory} from 'react-router';
 
 const {dispatch} = store;
 
-function searchItems({search='_', visible, space}) {
+export function searchItems({search = '_', visible, space}) {
     // if (!search) return dispatch({ type: 'SEARCH_ITEMS_DONE', payload: [] });
     dispatch({ type: 'SEARCH_ITEMS_START' });
-    axios.get(`/api/admin/items/search/${search}`, {params : {visible, space}}).then(xhr => {
+    axios.get(`/api/admin/items/search/${search}`, { params: { visible, space } }).then(xhr => {
         dispatch({ type: 'SEARCH_ITEMS_DONE', payload: xhr.data });
         addToastMessage({ message: `${xhr.data.length} articles trouvés` });
     });
@@ -19,14 +19,14 @@ function error(xhr) {
     if (xhr.response && xhr.response.data && xhr.response.data.errors) {
         for (var err in xhr.response.data.errors) {
             if (xhr.response.data.errors.hasOwnProperty(err)) {
-                var error = xhr.response.data.errors[err];
-                addToastMessage({message: error.message, type: 'danger'});
+                var e = xhr.response.data.errors[err];
+                addToastMessage({message: e.message, type: 'danger'});
             }
         }
     }
 }
 
-function createOrUpdate(item) {
+export function createOrUpdate(item) {
     if (item._id) {
         dispatch({type: 'UPDATE_ITEM_START'});
         axios.put('/api/admin/item/' + item._id, item).then(xhr => {
@@ -44,12 +44,7 @@ function createOrUpdate(item) {
                 message: `article ${xhr.data.name || xhr.data._id} créé`,
                 type: 'success'
             });
-            browserHistory.push('/inventory/item/'+xhr.data._id);
+            browserHistory.push('/inventory/item/' + xhr.data._id);
         }).catch(error);
     }
 }
-
-module.exports = {
-    searchItems,
-    createOrUpdate
-};

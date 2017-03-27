@@ -2,7 +2,9 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 
-import { Translate, Checkbox, BSFormField } from '.';
+import Translate from './Translate'  
+import Checkbox from './Checkbox'  
+import BSFormField from './BSFormField'
 
 const SearchFilters = ({onChange, visible, spaces}) => (
   <div className="well">
@@ -29,15 +31,14 @@ const SearchFilters = ({onChange, visible, spaces}) => (
   </div>
 );
 
-SearchFilters.protoTypes = {
+SearchFilters.propTypes = {
   onChange: PropTypes.func.isRequired,
-  visible: PropTypes.bool.isRequired
+  visible: PropTypes.bool,
+  spaces: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({
   spaces: state.session.spaces
 });
 
-const ConnectedSearchFilters = connect(mapStateToProps)(SearchFilters);
-
-export { ConnectedSearchFilters as SearchFilters };
+export default connect(mapStateToProps)(SearchFilters);

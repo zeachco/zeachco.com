@@ -2,6 +2,10 @@ import store from '..';
 
 let messageId = 0;
 
+function removeToastMessage(id) {
+    store.dispatch({type: 'REMOVE_TOAST_MESSAGE', payload: id});
+}
+
 function addToastMessage(messageObject) {
     messageObject.time = messageObject.time || 4000;
     messageObject.expire = Date.now() + messageObject.time;
@@ -11,10 +15,6 @@ function addToastMessage(messageObject) {
     }
     store.dispatch({type: 'ADD_TOAST_MESSAGE', payload: messageObject});
     setTimeout(removeToastMessage, messageObject.time + 10, messageId);
-}
-
-function removeToastMessage(id) {
-    store.dispatch({type: 'REMOVE_TOAST_MESSAGE', payload: id});
 }
 
 module.exports = {

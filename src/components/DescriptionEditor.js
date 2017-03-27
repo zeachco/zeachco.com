@@ -1,7 +1,7 @@
 import React from 'react';
 import {Editor, EditorState} from 'draft-js';
 
-export class DescriptionEditor extends React.Component {
+class DescriptionEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,3 +18,5 @@ export class DescriptionEditor extends React.Component {
         );
     }
 }
+
+export default DescriptionEditor

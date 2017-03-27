@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Notification} from '.';
+
+import Notification from './Notification';
 
 const style = {
     position: 'fixed',
@@ -11,16 +12,15 @@ const style = {
     zIndex: 9
 };
 
-function filterByDate(notif) {
-    return notif.expire > Date.now();
+const filterByDate = notif => notif.expire > Date.now();
+const filter5Firsts = (n, i) => i < 5;
+const mapNotif = n => <Notification key={n.messageId} data={n} />;
+const Notifications = ({notifications}) => <div style={style}>{notifications.filter(filterByDate).filter(filter5Firsts).map(mapNotif)}</div>;
+
+Notifications.propTypes = {
+    notifications: React.PropTypes.array.isRequired
 }
 
-const Notifications = ({notifications}) => (
-    <div style={style}>{notifications.filter(filterByDate).filter((n, i) => i < 5).map(n => (<Notification key={n.messageId} data={n}/>))}</div>
-);
+const mapStatetoProps = (store) => ({notifications: store.notifications});
 
-const mapStatetoProps = (store, ownProps) => ({notifications: store.notifications});
-
-const ConnectedNotifications = connect(mapStatetoProps)(Notifications);
-
-export {ConnectedNotifications as Notifications};
+export default connect(mapStatetoProps)(Notifications);

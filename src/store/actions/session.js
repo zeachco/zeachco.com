@@ -14,7 +14,6 @@ axios
             store.dispatch({type: 'SESSION_LOGIN_FAIL'});
             addToastMessage({message: 'Veuillez vous reconnecter', type: 'danger'});
         } else {
-            console.error(err);
             addToastMessage({message: 'Une erreur est survenue', type: 'danger'});
         }
         return Promise.reject(err);
@@ -31,10 +30,9 @@ function fetch() {
                     : 'SESSION_FETCH_FAIL',
                 payload: xhr.data
             });
-            console.warn('Session récupéré');
             // addToastMessage({message: 'Session récupérée', type: 'success'});
         })
-        .catch(data => {
+        .catch(() => {
             store.dispatch({type: 'SESSION_FETCH_FAIL'});
             addToastMessage({message: 'impossible de récupérée la session', type: 'danger'});
         });

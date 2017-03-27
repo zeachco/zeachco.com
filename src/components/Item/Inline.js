@@ -2,12 +2,10 @@ import React from 'react'
 import './style.css';
 
 export const ItemInline = ({
-  _id,
   space,
   name,
   labels,
-  files = [],
-  ...attrs
+  files = []
 }) => (
   <div>
     <h4>
@@ -26,3 +24,10 @@ export const ItemInline = ({
       </h4>
   </div>
 );
+
+ItemInline.propTypes = {
+  space: React.PropTypes.string.isRequired,
+  name: React.PropTypes.string.isRequired,
+  labels: React.PropTypes.array.isRequired,
+  files: React.PropTypes.array.isRequired
+};

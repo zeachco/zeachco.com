@@ -1,8 +1,12 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import actions from '../store/actions';
-import {UserList, EditUser, Translate} from '../components';
-import {Base} from '.';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+
+import { fetch } from '../store/actions/users';
+import UserList from '../components/UserList'
+import EditUser from '../components/EditUser'
+import Translate from '../components/Translate'
+import Base from './Base';
+
 class Users extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +15,7 @@ class Users extends Component {
     };
   }
   componentDidMount() {
-    actions.users.fetch();
+    fetch();
   }
 
   searchFilter(user) {
@@ -42,17 +46,19 @@ class Users extends Component {
           right: '2em',
           bottom: '1em'
         }}>Nouveau</button>
-        {showAdd && <EditUser onClose={e => this.setState({showAdd: false})}/>}
+        {showAdd && <EditUser onClose={() => this.setState({showAdd: false})}/>}
       </Base>
     )
   }
 }
 
-const mapStatetoProps = (store, ownProps) => ({
+Users.propTypes = {
+  users: PropTypes.array.isRequired
+};
+
+const mapStatetoProps = (store) => ({
   isLoading: store.users.isLoading,
   users: store.users.data || []
 });
 
-const ConnectedUsers = connect(mapStatetoProps)(Users);
-export {ConnectedUsers as Users};
-export default ConnectedUsers;
+export default connect(mapStatetoProps)(Users);

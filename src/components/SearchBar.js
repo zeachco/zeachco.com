@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { SearchFilters } from '.';
 import autoBind from 'auto-bind';
 
-export class SearchBar extends Component {
+import SearchFilters from './SearchFilters';
+
+class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -49,10 +50,17 @@ export class SearchBar extends Component {
   }
 }
 
-const {func, string, object, oneOfType} = PropTypes;
+const {func, string, object, oneOfType, bool} = PropTypes;
+
+SearchBar.defaultProps = {
+  autoFocus: true
+}
 
 SearchBar.propTypes = {
   onSearch: func.isRequired,
   placeholder: string.isRequired,
+  autoFocus: bool,
   searchButtonText: oneOfType([string, object]).isRequired
 }
+
+export default SearchBar

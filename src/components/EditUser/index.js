@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import actions from '../../store/actions';
-import store from '../../store';
-import './style.css';
 
-export class EditUser extends Component {
+import './style.css';
+import { create } from '../../store/actions/users';
+import store from '../../store';
+
+class EditUser extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   save(user) {
-    actions.users.create(user);
+    create(user);
   }
 
   render() {
@@ -58,3 +59,9 @@ export class EditUser extends Component {
     );
   }
 }
+
+EditUser.propTypes = {
+  onClose: React.PropTypes.func.isRequired
+}
+
+export default EditUser

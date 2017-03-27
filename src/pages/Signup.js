@@ -1,11 +1,12 @@
 import React from 'react'
 import axios from 'axios'
-import actions from '../store/actions'
-import {browserHistory} from 'react-router'
-import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
-import {Base} from '.'
+import { browserHistory } from 'react-router'
+import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 
-export class Signup extends React.Component {
+import session from '../store/actions/session'
+import Base from './Base'
+
+class Signup extends React.Component {
   constructor(...props) {
     super(...props)
     this.state = {}
@@ -22,11 +23,9 @@ export class Signup extends React.Component {
       this.setState({message: 'Vérification...', msgType: 'info', loading: true})
       axios
         .post('/api/users', {username, password})
-        .then(data => {
+        .then(() => {
           this.setState({message: 'Utilisateur Créé!', msgType: 'success', loading: false})
-          actions
-            .session
-            .login(username, password)
+          session.login(username, password)
           browserHistory.push('/')
         })
         .catch(xhr => {
@@ -53,7 +52,7 @@ export class Signup extends React.Component {
           {message && (
             <p className={`alert alert-${msgType || 'info'}`}>{message}</p>
           )}
-          <p>
+          <div>
             <FormGroup controlId="user">
               <ControlLabel>Utilisateur</ControlLabel>
               <FormControl type="text" autoFocus placeholder="email@domain.xyz"/>
@@ -67,9 +66,11 @@ export class Signup extends React.Component {
               <FormControl type="password" placeholder="********"/>
             </FormGroup>
             <Button bsStyle="primary" type="submit">Valider</Button>
-          </p>
+          </div>
         </form>
       </Base>
     );
   }
 }
+
+export default Signup
