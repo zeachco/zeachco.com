@@ -8,6 +8,7 @@ import EditorImage from '../edit/EditorImage'
 import BSFormField from '../BSFormField'
 import Checkbox from '../Checkbox'
 import RichTextArea from '../RichTextArea'
+// import Price from 'cms-core/src/components/Price'
 import { bind, formula, getSpaces } from '../../core/utils';
 import { ItemOptions } from '../../core/converter';
 import { createOrUpdate } from '../../store/actions/items'

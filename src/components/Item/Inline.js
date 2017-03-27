@@ -3,6 +3,7 @@ import React from 'react'
 import './style.css';
 
 const ItemInline = ({
+  _id,
   space,
   name,
   labels,
@@ -20,13 +21,14 @@ const ItemInline = ({
         <br />
         <small>
           <span className="label label-primary">{space}</span>
-          {labels.map(label => (<span> <span className="label label-info">{label}</span></span>))}
+          {labels.map(label => (<span key={`item_${_id}_label_${label}`}> <span className="label label-info">{label}</span></span>))}
         </small>
       </h4>
   </div>
 );
 
 ItemInline.propTypes = {
+  _id: React.PropTypes.string.isRequired,
   space: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
   labels: React.PropTypes.array.isRequired,

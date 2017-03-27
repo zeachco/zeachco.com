@@ -30,7 +30,7 @@ const BSFormField = ({
 BSFormField.propTypes = {
     label: React.PropTypes.node,
     message: React.PropTypes.node,
-    state: React.PropTypes.object,
+    state: React.PropTypes.any,
     icon: React.PropTypes.string
 }
 
