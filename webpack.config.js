@@ -1,7 +1,7 @@
 const wps = require('webpack-production-setup');
 
 module.exports = args => wps(Object.assign({}, args, {
-    es6Modules: [/cms-core/, /axios/],
+    es6Modules: [/cms-core/, /axios/, /auto\-bind/],
     proxy: {
         '/api/': {
             target: {
