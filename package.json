@@ -13,7 +13,7 @@
     "axios": "^0.15.2",
     "bootstrap-sass": "^3.3.7",
     "bootstrap-sass-webpack": "^0.0.3",
-    "cms-core": "^1.1.0",
+    "cms-core": "^2.0.0",
     "draft-js": "^0.10.0",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.8",
