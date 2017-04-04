@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Row, Col } from 'react-bootstrap';
+import AutoBind from 'auto-bind';
 
 import Translate from '../Translate'
 import Uploader from '../Uploader'
@@ -9,7 +10,7 @@ import BSFormField from '../BSFormField'
 import Checkbox from '../Checkbox'
 import RichTextArea from '../RichTextArea'
 // import Price from 'cms-core/src/components/Price'
-import { bind, formula, getSpaces } from '../../core/utils';
+import { formula, getSpaces } from '../../core/utils';
 import { ItemOptions } from '../../core/converter';
 import { createOrUpdate } from '../../store/actions/items'
 import { addToastMessage } from '../../store/actions/notifications'
@@ -30,7 +31,7 @@ class ItemForm extends Component {
             files: [],
             ...this.props
         };
-        bind(this, 'handleChanges', 'submit', 'fileUploaded', 'fetchItem', 'setPrimaryImage', 'deleteImage');
+        AutoBind(this);
         this.fetchItem();
     }
 
@@ -49,6 +50,24 @@ class ItemForm extends Component {
             axios.get('/api/admin/item/' + _id).then(xhr => {
                 this.setState(this.mapItemIn(xhr.data));
             });
+        }
+    }
+
+    deleteItem(e) {
+        e.preventDefault();
+        const { _id } = this.props;
+        const proceed = confirm('are you sure?');
+        if(proceed) {
+            axios
+            .delete('/api/admin/item/' + _id)
+            .then(() => addToastMessage({
+                message: 'item have been deleted',
+                type: 'success'
+            }))
+            .catch(err => addToastMessage({
+                message: JSON.stringify(err),
+                type: 'danger'
+            }));
         }
     }
 
@@ -153,6 +172,35 @@ class ItemForm extends Component {
         const formulaState = formulaEval.isValid
             ? 'info'
             : 'warning';
+
+
+        let actions = (
+            <Row>
+                <Col sm={7} md={8} lg={6}>
+                    <BSFormField icon="save">
+                        <button className="btn btn-primary" type="submit">
+                            <Translate content="create_item"/>
+                        </button>
+                    </BSFormField>
+                </Col>
+            </Row>
+        );
+        if(this.state._id) {
+            actions = (
+                <Row>
+                    <Col sm={7} md={8} lg={6}>
+                        <BSFormField icon="save">
+                            <button className="btn btn-primary" type="submit">
+                                <Translate content="save_item"/>
+                            </button>
+                            <button className="btn btn-danger" onClick={this.deleteItem}>
+                                <Translate content="delete_item"/>
+                            </button>
+                        </BSFormField>
+                    </Col>
+                </Row>
+            );
+        }
         return (
             <form
                 className="form-horizontal well"
@@ -343,15 +391,7 @@ class ItemForm extends Component {
                             </Uploader>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col sm={7} md={8} lg={6}>
-                            <BSFormField icon="save">
-                                <button className="btn btn-primary" type="submit">{this.state._id
-                                        ? (<Translate content="save_item"/>)
-                                        : (<Translate content="create_item"/>)}</button>
-                            </BSFormField>
-                        </Col>
-                    </Row>
+                    {actions}
                 </fieldset>
             </form>
         );
