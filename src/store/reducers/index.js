@@ -7,13 +7,14 @@ import notifications from './notifications';
 import language from './language';
 
 export default (state = {}, action) => {
+    const newState = { ...state };
     return {
-      session: session(state.session, action, state),
-      items: items(state.items, action, state),
-      users: users(state.users, action, state),
-      categories: categories(state.categories, action, state),
-      geometry: geometry(state.geometry, action, state),
-      notifications: notifications(state.notifications, action, state),
-      language: language(state.language, action, state)
+      session: session(state.session, action, newState),
+      items: items(state.items, action, newState),
+      users: users(state.users, action, newState),
+      categories: categories(state.categories, action, newState),
+      geometry: geometry(state.geometry, action, newState),
+      notifications: notifications(state.notifications, action, newState),
+      language: language(state.language, action, newState)
     };
 };
