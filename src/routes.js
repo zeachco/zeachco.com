@@ -3,6 +3,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
 import App from './components/App' 
 import requireAuth from './components/utils/requireAuth'
+import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Logout from './pages/Logout'
 import Site from './pages/Site'
@@ -18,9 +19,9 @@ const Routes = () => (
     <Router history={ browserHistory }>
         <Route path="/" component={App}>
             <IndexRoute component={Home}/>
-            <Route path="login" component={(Home)}/>
-            <Route path="signup" component={Signup}/>
-            <Route path="logout" component={Logout}/>
+            <Route path="login" component={requireAuth(Login, Home)}/>
+            <Route path="signup" component={requireAuth(Signup, Home)}/>
+            <Route path="logout" component={requireAuth(Logout)}/>
             <Route path="site/:_id" component={requireAuth(Site)}/>
             <Route path="users" component={requireAuth(Users)}/>
             <Route path="categories" component={requireAuth(Categories)}/>
