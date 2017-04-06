@@ -40,6 +40,7 @@ module.exports = {
     drop_image_here: 'Drop images here',
     image_uploaded_success: '"{file}" successfully uploaded',
     item_field_published: 'Published',
+    item_delete: 'Delete',
     disconnect: 'Disconnect',
     disconnect_title: 'This will terminate your current session'
 };

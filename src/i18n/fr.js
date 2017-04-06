@@ -41,6 +41,7 @@ module.exports = {
     drop_image_here: 'Déposez les images ici',
     image_uploaded_success: '"{file}" a bien été téléchargée',
     item_field_published: 'Publié',
+    item_delete: 'Supprimer',
     disconnect: 'Déconnexion',
     disconnect_title: 'Cette action met fin à votre session courrante'
 };

@@ -53,11 +53,11 @@ class User extends Component {
   }
 
   render() {
-    const {username, space} = this.props;
+    const {username, firstName, lastName, space} = this.props;
     return (
       <div>
         <div onClick={this.toggle.bind(this)} className="user_row">
-          <h3>{username}</h3>
+          <h3>{[firstName, lastName].join(' ')}<small>({username})</small></h3>
           <span className="label label-default">{space}</span>
         </div>
         {this.state.opened && this.renderDetails()}

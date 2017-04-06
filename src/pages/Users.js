@@ -56,7 +56,7 @@ Users.propTypes = {
   users: PropTypes.array.isRequired
 };
 
-const mapStatetoProps = (store) => ({
+const mapStatetoProps = store => ({
   isLoading: store.users.isLoading,
   users: store.users.data || []
 });
