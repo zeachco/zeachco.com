@@ -1,19 +1,19 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
 import AutoBind from 'auto-bind';
 
-import Translate from '../Translate'
-import Uploader from '../Uploader'
-import EditorImage from '../edit/EditorImage'
-import BSFormField from '../BSFormField'
-import Checkbox from '../Checkbox'
-import RichTextArea from '../RichTextArea'
-// import Price from 'cms-core/src/components/Price'
+import Translate from '../Translate';
+import Uploader from '../Uploader';
+import EditorImage from '../edit/EditorImage';
+import BSFormField from '../BSFormField';
+import Checkbox from '../Checkbox';
+import RichTextArea from '../RichTextArea';
+import { Price } from 'cms-core/src/components/Price/Price';
 import { formula, getSpaces } from '../../core/utils';
 import { ItemOptions } from '../../core/converter';
-import { createOrUpdate } from '../../store/actions/items'
-import { addToastMessage } from '../../store/actions/notifications'
+import { createOrUpdate } from '../../store/actions/items';
+import { addToastMessage } from '../../store/actions/notifications';
 
 const fieldHandlers = {
     optionString: function (value) {
@@ -56,7 +56,7 @@ class ItemForm extends Component {
     deleteItem(e) {
         e.preventDefault();
         const { _id } = this.props;
-        const proceed = confirm('are you sure?');
+        const proceed = confirm('are you sure?'); // eslint-disable-line no-alert
         if(proceed) {
             axios
             .delete('/api/admin/item/' + _id)
@@ -367,7 +367,7 @@ class ItemForm extends Component {
                                     className="form-control "
                                     type="text"
                                     value={price} />
-                                    <span className="input-group-addon" >{formulaEval.value}</span>
+                                    <span className="input-group-addon" ><Price value={formulaEval.value} /></span>
                             </BSFormField>
                         </Col>
                         <Col sm={5} md={4} lg={6}>
