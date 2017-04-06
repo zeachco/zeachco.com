@@ -46,7 +46,7 @@ class Users extends Component {
           right: '2em',
           bottom: '1em'
         }}>Nouveau</button>
-        {showAdd && <EditUser onClose={() => this.setState({showAdd: false})}/>}
+        {showAdd && <EditUser onClose={() => this.setState({ showAdd: false })}/>}
       </Base>
     )
   }

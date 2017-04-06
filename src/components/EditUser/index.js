@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import AutoBin from 'auto-bind';
 
 import './style.css';
 import { create } from '../../store/actions/users';
@@ -8,10 +9,25 @@ class EditUser extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    AutoBin(this);
   }
 
   save(user) {
     create(user);
+  }
+
+  handleSaveSubmit(e) {
+      e.preventDefault();
+      const user = {};
+      [
+        'username',
+        'firstName',
+        'lastName',
+        'space',
+        'password'
+      ].forEach(f => user[f] = e.target.querySelector('[name="' + f + '"]').value);
+      
+      this.save(user).then(this.props.onClose);
   }
 
   render() {
@@ -28,15 +44,20 @@ class EditUser extends Component {
           {message && (
             <div className={'alert alert-' + messageType}>{message}</div>
           )}
-          <form onSubmit={e => {
-            e.preventDefault();
-            const user = {};
-            ['username', 'space', 'password'].forEach(f => user[f] = e.target.querySelector('[name="' + f + '"]').value);
-            this.save(user).then(this.props.onClose);
-          }}>
+          <form onSubmit={this.handleSaveSubmit}>
             <div className="form-group">
               <label htmlFor="username" className="control-label">Utilisateur</label>
-              <input type="text" className="form-control" name="username" placeholder="Utilisateur"/>
+              <input type="text" className="form-control" name="username" placeholder="username@email.com"/>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="firstName" className="control-label">Prénom</label>
+              <input type="text" className="form-control" name="firstName" placeholder="John"/>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="lastName" className="control-label">Nom</label>
+              <input type="text" className="form-control" name="lastName" placeholder="Smith"/>
             </div>
 
             <div className="form-group">
