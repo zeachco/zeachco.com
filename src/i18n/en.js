@@ -1,6 +1,7 @@
 module.exports = {
     switched_to_this_language: 'You have switched to English',
     search: 'Search',
+    spaces: 'Spaces',
     users: 'Users',
     first_name: 'First name',
     last_name: 'Last name',
