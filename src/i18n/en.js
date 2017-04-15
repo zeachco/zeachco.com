@@ -25,6 +25,7 @@ module.exports = {
     item_modification: 'Update item',
     save_item: 'Save item',
     create_item: 'Create item',
+    create_user: 'Create user',
     save: 'Save',
     price: 'Price',
     space_name: 'Site',

@@ -26,6 +26,7 @@ module.exports = {
     item_modification: 'Modifier un article',
     save_item: 'Enregistrer l\'article',
     create_item: 'Créer l\'article',
+    create_user: 'Créer un usager',
     save: 'Enregistrer',
     price: 'Prix',
     space_name: 'Site',
