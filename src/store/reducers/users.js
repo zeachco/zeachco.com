@@ -31,10 +31,18 @@ const session = (state = initialState, {type, payload}) => {
         isAuth: false,
         errorMessage: 'Authentification échouée'
       };
-    case 'EDIT_USER': 
+    case 'EDIT_USER':
+      const newUser = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        username: '',
+        password: '',
+        space: ''
+      } 
       return {
         ...state,
-        editedUser: payload === 'new' ? {} : state.data.filter(u => u._id === payload)[0]
+        editedUser: payload === 'new' ? newUser : state.data.filter(u => u._id === payload)[0]
       };
     case 'USER_CREATE':
       return {

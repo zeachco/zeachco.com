@@ -3,8 +3,8 @@ import AutoBin from 'auto-bind';
 import {connect} from 'react-redux';
 
 import './style.css';
-import { create, update, editUser } from '../../store/actions/users';
-import store from '../../store';
+import Translate from '../Translate';
+import { createOrUpdate, editUser } from '../../store/actions/users';
 
 class EditUser extends Component {
   constructor(props) {
@@ -14,72 +14,92 @@ class EditUser extends Component {
   }
 
   componentWillReceiveProps({ user }) {
-    this.setState({ user });
+    this.setState(user);
   }
 
-  save(user) {
-    if(user._id) update(user);
-    else create(user);
+  updateState(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
 
   handleSaveSubmit(e) {
       e.preventDefault();
-      const user = {};
-      [
-        'username',
-        'firstName',
-        'lastName',
-        'space',
-        'password'
-      ].forEach(f => user[f] = e.target.querySelector('[name="' + f + '"]').value);
-      
-      this.save(user).then(() => editUser(null));
+      createOrUpdate(this.state).then(() => editUser(null));
   }
 
   render() {
-    // TODO user connect instead
-    const {spaces} = store.getState().session;
     const {
-      message,
-      messageType = 'default'
-    } = store.getState().users;
-    const {user} = this.props;
+      user,
+      spaces
+    } = this.props;
+
+    // No user to edit... don't show
     if(!user) return null;
+
+
+    const {
+      firstName,
+      lastName,
+      username,
+      space,
+      password
+    } = this.state;
+    
     return (
       <div className="user-editor">
         <div className="user-editor__mask" onClick={() => editUser(null)}></div>
         <div className="user-editor__content">
-          <h2>Création d'un usager</h2>
-          {message && (
-            <div className={'alert alert-' + messageType}>{message}</div>
-          )}
-          <form onSubmit={this.handleSaveSubmit}>
+          <h2><Translate content="create_user" /></h2>
+          <form onChange={this.updateState} onSubmit={this.handleSaveSubmit}>
             <div className="form-group">
-              <label htmlFor="username" className="control-label">Utilisateur</label>
-              <input type="text" className="form-control" name="username" placeholder="username@email.com"/>
+              <label htmlFor="username" className="control-label"><Translate content="user" /></label>
+              <input
+                type="text"
+                className="form-control"
+                name="username"
+                placeholder="username@email.com"
+                value={username}
+              />
             </div>
 
             <div className="form-group">
-              <label htmlFor="firstName" className="control-label">Prénom</label>
-              <input type="text" className="form-control" name="firstName" placeholder="John"/>
+              <label htmlFor="firstName" className="control-label"><Translate content="first_name" /></label>
+              <input
+                type="text"
+                className="form-control"
+                name="firstName"
+                placeholder="John"
+                value={firstName}
+              />
             </div>
 
             <div className="form-group">
-              <label htmlFor="lastName" className="control-label">Nom</label>
-              <input type="text" className="form-control" name="lastName" placeholder="Smith"/>
+              <label htmlFor="lastName" className="control-label"><Translate content="last_name" /></label>
+              <input
+                type="text"
+                className="form-control"
+                name="lastName"
+                placeholder="Smith"
+                value={lastName}
+              />
             </div>
 
             <div className="form-group">
-              <label htmlFor="space" className="control-label">Espace</label>
-              <select className="form-control" name="space">
-                {spaces.map(space => (
-                  <option key={space} value={space}>{space}</option>
-                ))}
+              <label htmlFor="space" className="control-label"><Translate content="space_name" /></label>
+              <select className="form-control" name="space" value={space}>
+                {spaces.map(s => (<option key={s} value={s}>{s}</option>))}
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="pass" className="control-label">Mot de passe</label>
-              <input type="text" className="form-control" name="password" placeholder="Mot de passe"/>
+              <label htmlFor="pass" className="control-label"><Translate content="password" /></label>
+              <input
+                type="text"
+                className="form-control"
+                name="password"
+                placeholder="********"
+                value={password}
+              />
             </div>
             <input className="btn btn-primary" type="submit" defaultValue="Création"/>&nbsp;
             <input className="btn btn-secondary" type="button" onClick={() => editUser(null)} defaultValue="Fermer"/>
@@ -91,6 +111,7 @@ class EditUser extends Component {
 }
 
 EditUser.propTypes = {
+  spaces: PropTypes.array.isRequired,
   user: PropTypes.shape({
     _id: PropTypes.string,
     firstName: PropTypes.string,
@@ -101,10 +122,11 @@ EditUser.propTypes = {
     roles: PropTypes.array,
     meta: PropTypes.object
   })
-}
+};
 
-const mapStateToProps = state => ({
-  user: state.users.editedUser
+const mapStateToProps = ({users, session}) => ({
+  user: users.editedUser,
+  spaces: session.spaces
 });
 
 export default connect(mapStateToProps)(EditUser);
