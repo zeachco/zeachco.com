@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 
 import './style.css';
 import { destroy } from '../../store/actions/users';
@@ -53,10 +53,10 @@ class User extends Component {
   }
 
   render() {
-    const {username, firstName, lastName, space} = this.props;
+    const {username, firstName, lastName, space, onClick} = this.props;
     return (
       <div>
-        <div onClick={this.toggle.bind(this)} className="user_row">
+        <div onClick={onClick(this).toggle} className="user_row">
           <h3>{[firstName, lastName].join(' ')}<small>({username})</small></h3>
           <span className="label label-default">{space}</span>
         </div>
@@ -67,12 +67,13 @@ class User extends Component {
 }
 
 User.propTypes = {
-  username: React.PropTypes.string.isRequired,
-  space: React.PropTypes.string.isRequired,
-  _id: React.PropTypes.string.isRequired,
-  firstName: React.PropTypes.string.isRequired,
-  lastName: React.PropTypes.string.isRequired,
-  email: React.PropTypes.string.isRequired
+  username: PropTypes.string.isRequired,
+  space: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
-export default User
+export default User;

@@ -11,27 +11,23 @@ fetch();
 const browsersLang = navigator.language || navigator.userLanguage;
 setLanguage(browsersLang.split('-')[0]);
 
+import store from './store';
 let Routes = require('./routes');
-let store = require('./store');
 
 const Hook = () => {
 	console.clear(); // eslint-disable-line no-console
 	Routes = require('./routes').default;
-	store = require('./store').default;
 	render(
     <AppContainer>
       <Provider store={store}>
         <Routes />
       </Provider>
     </AppContainer>,
-    document.querySelector("#root")
+    document.getElementById('root')
   );
 }
 
 Hook();
 
 // HRM functionality
-if (module && module.hot) {
-  module.hot.accept('./routes', Hook);
-  module.hot.accept('./store', Hook);
-}
+if (module && module.hot) module.hot.accept('./routes', Hook);
