@@ -13,7 +13,7 @@ const session = (state = initialState, action) => {
     case 'USER_FETCH_DONE':
       return {
         isLoading: false,
-        data: action.payload
+        data: action.payload.sort((a, b) => a.firstName.toLowerCase() < b.firstName.toLowerCase() ? -1 : 1)
       };
     case 'USER_FETCH_FAIL':
       return {
