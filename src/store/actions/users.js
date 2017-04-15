@@ -21,20 +21,24 @@ function fetch() {
   });
 }
 
-function create(data) {
-  dispatch({ type: 'USER_CREATE', payload: data });
-  return axios.post('/api/admin/users', data).then(xhr => {
-    fetch();
-    dispatch({ type: xhr.data ? 'USER_CREATE_DONE' : 'USER_CREATE_FAIL', payload: xhr.data });
-  }).catch(xhr => dispatch({ type: 'USER_CREATE_FAIL', payload: xhr }));
-}
-
-function update(data) {
-  dispatch({ type: 'USER_UPDATE', payload: data });
-  return axios.put('/api/admin/users', data).then(xhr => {
-    fetch();
-    dispatch({ type: xhr.data ? 'USER_UPDATE_DONE' : 'USER_UPDATE_FAIL', payload: xhr.data });
-  }).catch(xhr => dispatch({ type: 'USER_UPDATE_FAIL', payload: xhr }));
+function createOrUpdate(data) {
+  if(data._id) {
+    dispatch({ type: 'USER_UPDATE', payload: data });
+    return axios
+      .post('/api/admin/users', data).then(xhr => {
+        dispatch({ type: xhr.data ? 'USER_UPDATE_DONE' : 'USER_UPDATE_FAIL', payload: xhr.data });
+        fetch();
+      })
+      .catch(xhr => dispatch({ type: 'USER_UPDATE_FAIL', payload: xhr }));
+  } else {
+    dispatch({ type: 'USER_CREATE', payload: data });
+    return axios
+      .post('/api/admin/users', data).then(xhr => {
+        dispatch({ type: xhr.data ? 'USER_CREATE_DONE' : 'USER_CREATE_FAIL', payload: xhr.data });
+        fetch();
+      })
+      .catch(xhr => dispatch({ type: 'USER_CREATE_FAIL', payload: xhr }));
+  }
 }
 
 function destroy(id) {
@@ -101,8 +105,7 @@ function profileUpdate(profile) {
 module.exports = {
   fetch,
   destroy,
-  create,
-  update,
+  createOrUpdate,
   login,
   logout,
   profileUpdate,
