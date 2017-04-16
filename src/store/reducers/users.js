@@ -48,23 +48,34 @@ const session = (state = initialState, {type, payload}) => {
     case 'USER_CREATE':
       return {
         ...state,
-        isLoading: false,
-        message: 'Création...',
-        messageType: 'info'
+        isLoading: false
       }
     case 'USER_CREATE_DONE':
       return {
         ...state,
         isLoading: false,
-        message: 'Utilisateur créé',
-        messageType: 'success'
+        editedUser: null
       }
     case 'USER_CREATE_FAIL':
       return {
         ...state,
+        isLoading: false
+      }
+    case 'USER_UPDATE':
+      return {
+        ...state,
+        isLoading: false
+      }
+    case 'USER_UPDATE_DONE':
+      return {
+        ...state,
         isLoading: false,
-        message: 'impossible de créer cet utilisateur',
-        messageType: 'danger'
+        editedUser: null
+      }
+    case 'USER_UPDATE_FAIL':
+      return {
+        ...state,
+        isLoading: false
       }
     default:
       return state;

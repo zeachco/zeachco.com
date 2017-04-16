@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import './EditUser.css';
 import Translate from './Translate';
-import { createOrUpdate, editUser } from '.././store/actions/users';
+import { createOrUpdate, editUser, destroy } from '.././store/actions/users';
 
 class EditUser extends Component {
   constructor(props) {
@@ -60,7 +60,7 @@ class EditUser extends Component {
                 className="form-control"
                 name="username"
                 placeholder="username@email.com"
-                defaultValue={username}
+                value={username}
               />
             </div>
 
@@ -71,7 +71,7 @@ class EditUser extends Component {
                 className="form-control"
                 name="firstName"
                 placeholder="John"
-                defaultValue={firstName}
+                value={firstName}
               />
             </div>
 
@@ -82,13 +82,13 @@ class EditUser extends Component {
                 className="form-control"
                 name="lastName"
                 placeholder="Smith"
-                defaultValue={lastName}
+                value={lastName}
               />
             </div>
 
             <div className="form-group">
               <label htmlFor="space" className="control-label"><Translate content="space_name" /></label>
-              <select className="form-control" name="space" defaultValue={space}>
+              <select className="form-control" name="space" value={space}>
                 <option value={' '}><Translate content="select_space"/></option>
                 {spaces.map(s => (<option key={s} value={s}>{s}</option>))}
               </select>
@@ -100,11 +100,11 @@ class EditUser extends Component {
                 className="form-control"
                 name="password"
                 placeholder="********"
-                defaultValue={password}
+                value={password}
               />
             </div>
             <button className="btn btn-primary" type="submit"><Translate content={_id ? 'save' : 'create_user'}/></button>&nbsp;
-            {_id && <button className="btn btn-danger" type="button" onClick={() => editUser(null)}><Translate content="delete"/></button>}&nbsp;
+            {_id && <button className="btn btn-danger" type="button" onClick={() => destroy(_id)}><Translate content="delete"/></button>}&nbsp;
             <button className="btn btn-secondary" type="button" onClick={() => editUser(null)}><Translate content="close"/></button>
           </form>
         </div>
