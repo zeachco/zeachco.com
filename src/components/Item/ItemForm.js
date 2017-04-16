@@ -194,7 +194,7 @@ class ItemForm extends Component {
                                 <Translate content="save_item"/>
                             </button>
                             <button className="btn btn-danger" onClick={this.deleteItem}>
-                                <Translate content="item_delete"/>
+                                <Translate content="delete"/>
                             </button>
                         </BSFormField>
                     </Col>

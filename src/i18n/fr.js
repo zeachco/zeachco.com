@@ -1,6 +1,7 @@
 module.exports = {
     switched_to_this_language: 'Vous avez choisi l\'affichage en Français',
     search: 'Rechercher',
+    close: 'Fermer',
     spaces: 'Espaces',
     users: 'Utilisateurs',
     user: 'Utilisateur',
@@ -43,7 +44,7 @@ module.exports = {
     drop_image_here: 'Déposez les images ici',
     image_uploaded_success: '"{file}" a bien été téléchargée',
     item_field_published: 'Publié',
-    item_delete: 'Supprimer',
+    delete: 'Supprimer',
     disconnect: 'Déconnexion',
     disconnect_title: 'Cette action met fin à votre session courrante'
 };

@@ -33,6 +33,7 @@ const session = (state = initialState, {type, payload}) => {
       };
     case 'EDIT_USER':
       const newUser = {
+        _id: '',
         firstName: '',
         lastName: '',
         email: '',

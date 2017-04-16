@@ -1,6 +1,7 @@
 module.exports = {
     switched_to_this_language: 'You have switched to English',
     search: 'Search',
+    close: 'Close',
     spaces: 'Spaces',
     users: 'Users',
     first_name: 'First name',
@@ -26,6 +27,7 @@ module.exports = {
     save_item: 'Save item',
     create_item: 'Create item',
     create_user: 'Create user',
+    update_user: 'Update user',
     save: 'Save',
     price: 'Price',
     space_name: 'Site',
@@ -42,7 +44,7 @@ module.exports = {
     drop_image_here: 'Drop images here',
     image_uploaded_success: '"{file}" successfully uploaded',
     item_field_published: 'Published',
-    item_delete: 'Delete',
+    delete: 'Delete',
     disconnect: 'Disconnect',
     disconnect_title: 'This will terminate your current session'
 };

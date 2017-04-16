@@ -2,9 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import AutoBin from 'auto-bind';
 import {connect} from 'react-redux';
 
-import './style.css';
-import Translate from '../Translate';
-import { createOrUpdate, editUser } from '../../store/actions/users';
+import './EditUser.css';
+import Translate from './Translate';
+import { createOrUpdate, editUser } from '.././store/actions/users';
 
 class EditUser extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class EditUser extends Component {
   }
 
   componentWillReceiveProps({ user }) {
-    this.setState(user);
+    this.setState({...user});
   }
 
   updateState(e) {
@@ -39,6 +39,7 @@ class EditUser extends Component {
 
 
     const {
+      _id,
       firstName,
       lastName,
       username,
@@ -50,7 +51,7 @@ class EditUser extends Component {
       <div className="user-editor">
         <div className="user-editor__mask" onClick={() => editUser(null)}></div>
         <div className="user-editor__content">
-          <h2><Translate content="create_user" /></h2>
+          <h2><Translate content={_id ? 'user' : 'create_user'}/>{' '}<small>{_id}</small></h2>
           <form onChange={this.updateState} onSubmit={this.handleSaveSubmit}>
             <div className="form-group">
               <label htmlFor="username" className="control-label"><Translate content="user" /></label>
@@ -59,7 +60,7 @@ class EditUser extends Component {
                 className="form-control"
                 name="username"
                 placeholder="username@email.com"
-                value={username}
+                defaultValue={username}
               />
             </div>
 
@@ -70,7 +71,7 @@ class EditUser extends Component {
                 className="form-control"
                 name="firstName"
                 placeholder="John"
-                value={firstName}
+                defaultValue={firstName}
               />
             </div>
 
@@ -81,13 +82,14 @@ class EditUser extends Component {
                 className="form-control"
                 name="lastName"
                 placeholder="Smith"
-                value={lastName}
+                defaultValue={lastName}
               />
             </div>
 
             <div className="form-group">
               <label htmlFor="space" className="control-label"><Translate content="space_name" /></label>
-              <select className="form-control" name="space" value={space}>
+              <select className="form-control" name="space" defaultValue={space}>
+                <option value={' '}><Translate content="select_space"/></option>
                 {spaces.map(s => (<option key={s} value={s}>{s}</option>))}
               </select>
             </div>
@@ -98,11 +100,12 @@ class EditUser extends Component {
                 className="form-control"
                 name="password"
                 placeholder="********"
-                value={password}
+                defaultValue={password}
               />
             </div>
-            <input className="btn btn-primary" type="submit" defaultValue="Création"/>&nbsp;
-            <input className="btn btn-secondary" type="button" onClick={() => editUser(null)} defaultValue="Fermer"/>
+            <button className="btn btn-primary" type="submit"><Translate content={_id ? 'save' : 'create_user'}/></button>&nbsp;
+            {_id && <button className="btn btn-danger" type="button" onClick={() => editUser(null)}><Translate content="delete"/></button>}&nbsp;
+            <button className="btn btn-secondary" type="button" onClick={() => editUser(null)}><Translate content="close"/></button>
           </form>
         </div>
       </div>
@@ -113,11 +116,11 @@ class EditUser extends Component {
 EditUser.propTypes = {
   spaces: PropTypes.array.isRequired,
   user: PropTypes.shape({
-    _id: PropTypes.string,
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
+    _id: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
     email: PropTypes.string,
-    username: PropTypes.string,
     key: PropTypes.string,
     roles: PropTypes.array,
     meta: PropTypes.object
