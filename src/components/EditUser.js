@@ -57,6 +57,7 @@ class EditUser extends Component {
               <label htmlFor="username" className="control-label"><Translate content="user" /></label>
               <input
                 type="text"
+                autoComplete={false}
                 className="form-control"
                 name="username"
                 placeholder="username@email.com"
@@ -68,6 +69,7 @@ class EditUser extends Component {
               <label htmlFor="firstName" className="control-label"><Translate content="first_name" /></label>
               <input
                 type="text"
+                autoComplete={false}
                 className="form-control"
                 name="firstName"
                 placeholder="John"
@@ -79,6 +81,7 @@ class EditUser extends Component {
               <label htmlFor="lastName" className="control-label"><Translate content="last_name" /></label>
               <input
                 type="text"
+                autoComplete={false}
                 className="form-control"
                 name="lastName"
                 placeholder="Smith"
@@ -97,9 +100,10 @@ class EditUser extends Component {
               <label htmlFor="pass" className="control-label"><Translate content="password" /></label>
               <input
                 type="text"
+                autoComplete={false}
                 className="form-control"
                 name="password"
-                placeholder="********"
+                placeholder="[unchanged]"
                 value={password}
               />
             </div>
