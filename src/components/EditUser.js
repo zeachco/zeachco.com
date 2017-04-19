@@ -14,7 +14,7 @@ class EditUser extends Component {
   }
 
   componentWillReceiveProps({ user }) {
-    this.setState({...user});
+    this.setState({...user, password: ''});
   }
 
   updateState(e) {
@@ -44,7 +44,7 @@ class EditUser extends Component {
       lastName,
       username,
       space,
-      password
+      password = ''
     } = this.state;
     
     return (
