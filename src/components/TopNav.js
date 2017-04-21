@@ -8,14 +8,18 @@ import SessionDropdown from './SessionDropdown'
 import Logo from './Logo'
 import Translate from './Translate'
 
-const TopNav = ({isAuth}) => {
-  const NavHeaderLink = ({name, path, roles, icon = ''}) => {
+const TopNav = ({
+  isAuth,
+  itemsCount
+}) => {
+  const NavHeaderLink = ({name, path, roles, icon = '', children}) => {
     if(!isAuth || !roles) return null;
     return (
       <LinkContainer to={`/${path || name}`}>
         <NavItem>
           <span className={`glyphicon glyphicon-${icon}`}></span>&nbsp;&nbsp;&nbsp;
           <Translate content={name} />
+          {children}
         </NavItem>
       </LinkContainer>
     );
@@ -39,7 +43,7 @@ const TopNav = ({isAuth}) => {
         <NavHeaderLink icon="globe" name="spaces" roles="admin, sites"/>
         <NavHeaderLink icon="user" name="users" roles="admin, users"/>
         <NavHeaderLink icon="tag" name="categories" roles="admin, categories"/>
-        <NavHeaderLink icon="th-list" name="inventory" roles="admin, items"/>
+        <NavHeaderLink icon="th-list" name="inventory" roles="admin, items">{itemsCount ? ` (${itemsCount})` : null}</NavHeaderLink>
       </Nav>
       <SessionDropdown/>
     </Navbar>
@@ -47,11 +51,13 @@ const TopNav = ({isAuth}) => {
 };
 
 TopNav.propTypes = {
-  isAuth: PropTypes.bool.isRequired
+  isAuth: PropTypes.bool.isRequired,
+  itemsCount: PropTypes.number
 }
 
 const mapStateToProps = state => ({
-  isAuth: state.session.isAuth
+  isAuth: state.session.isAuth,
+  itemsCount: state.items.searchResults.length
 });
 
 export default connect(mapStateToProps)(TopNav);
