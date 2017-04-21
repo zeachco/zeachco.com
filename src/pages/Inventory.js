@@ -25,10 +25,10 @@ const Inventory = ({ items }) => (
 
 Inventory.propTypes = {
     items: React.PropTypes.array.isRequired
-}
+};
 
 const mapStatetoProps = (store) => ({
-    items: store.items || []
+    items: store.items.searchResults || []
 });
 
 export default connect(mapStatetoProps)(Inventory)

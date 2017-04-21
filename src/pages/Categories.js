@@ -1,8 +1,9 @@
-import React, { Component, PropTypes } from 'react'
-import Base from './Base'
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import {Link} from'react-router';
 
-import { fetch } from '../store/actions/categories'
-import { connect } from 'react-redux'
+import Base from './Base';
+import { fetch } from '../store/actions/categories';
 
 class Categories extends Component {
   constructor(...args) {
@@ -22,7 +23,11 @@ class Categories extends Component {
       <Base>
         <h2>Catégories ({categories.length})</h2>
         <p>Cette liste est en lecture seule pour l'instant</p>
-        {categories.map(({label, value}) => (<div key={value}>{label}</div>))}
+        <ul>
+          {categories.map(({label, value}) => (
+            <li key={value}><Link to={`/inventory/?category=${value}`}>{label}</Link></li>
+          ))}
+        </ul>
       </Base>
     )
   }

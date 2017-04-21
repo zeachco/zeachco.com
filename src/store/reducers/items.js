@@ -1,11 +1,17 @@
-const defaultState = [];
-const session = (state = defaultState, action) => {
-  switch (action.type) {
+const defaultState = {
+  searchResults: [],
+  currentSearch: {
+    text: ''
+  }
+};
+
+export default (state = defaultState, {type, payload}) => {
+  const newState = {...state};
+  switch (type) {
     case 'SEARCH_ITEMS_DONE':
-      return action.payload;
+      newState.searchResults = payload;
+      return newState;
     default:
       return state;
   }
 };
-
-export default session;

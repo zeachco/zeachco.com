@@ -402,4 +402,4 @@ ItemForm.propTypes = {
     _id: React.PropTypes.string.isRequired
 };
 
-export default ItemForm
+export default ItemForm;

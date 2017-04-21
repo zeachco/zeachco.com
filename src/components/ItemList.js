@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link} from 'react-router';
 
 import ItemInline from '../components/Item/Inline';
@@ -20,6 +20,6 @@ const ItemList = ({ items }) => (
 
 ItemList.propTypes = {
   items: React.PropTypes.array.isRequired
-}
+};
 
-export default ItemList
+export default ItemList;
