@@ -10,7 +10,8 @@ import Translate from './Translate'
 
 const TopNav = ({
   isAuth,
-  itemsCount
+  itemsCount,
+  categoriesCount
 }) => {
   const NavHeaderLink = ({name, path, roles, icon = '', children}) => {
     if(!isAuth || !roles) return null;
@@ -42,7 +43,7 @@ const TopNav = ({
       <Nav>
         <NavHeaderLink icon="globe" name="spaces" roles="admin, sites"/>
         <NavHeaderLink icon="user" name="users" roles="admin, users"/>
-        <NavHeaderLink icon="tag" name="categories" roles="admin, categories"/>
+        <NavHeaderLink icon="tag" name="categories" roles="admin, categories">{categoriesCount ? ` (${categoriesCount})` : null}</NavHeaderLink>
         <NavHeaderLink icon="th-list" name="inventory" roles="admin, items">{itemsCount ? ` (${itemsCount})` : null}</NavHeaderLink>
       </Nav>
       <SessionDropdown/>
@@ -52,12 +53,14 @@ const TopNav = ({
 
 TopNav.propTypes = {
   isAuth: PropTypes.bool.isRequired,
-  itemsCount: PropTypes.number
+  itemsCount: PropTypes.number,
+  categoriesCount: PropTypes.number
 }
 
 const mapStateToProps = state => ({
   isAuth: state.session.isAuth,
-  itemsCount: state.items.searchResults.length
+  itemsCount: state.items.searchResults.length,
+  categoriesCount: state.categories.data.length
 });
 
 export default connect(mapStateToProps)(TopNav);
