@@ -53,8 +53,8 @@ Users.propTypes = {
 };
 
 const mapStatetoProps = store => ({
-  isLoading: store.users.isLoading,
-  users: store.users.data || []
+  isLoading: store.get('old').users.isLoading,
+  users: store.get('old').users.data || []
 });
 
 export default connect(mapStatetoProps)(Users);

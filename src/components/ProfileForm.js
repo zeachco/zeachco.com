@@ -75,9 +75,9 @@ ProfileForm.propTypes = {
 }
 
 const mapStatetoProps = (store) => ({
-  isAuth: store.session.isAuth,
-  isLoading: store.session.isLoading,
-  session: store.session
+  isAuth: store.get('old').session.isAuth,
+  isLoading: store.get('old').session.isLoading,
+  session: store.get('old').session
 });
 
 module.exports = connect(mapStatetoProps)(ProfileForm);

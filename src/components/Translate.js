@@ -34,7 +34,7 @@ Translate.propTypes = {
     data: React.PropTypes.object
 };
 
-const mapStatetoProps = (state) => ({lang: state.language})
+const mapStatetoProps = (state) => ({lang: state.get('old').language})
 
 Translate.content = () => ''
 

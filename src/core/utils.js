@@ -25,6 +25,6 @@ export const formula = (formule, context) => {
 };
 
 export const getSpaces = () => {
-    const {session} = store.getState();
+    const {session} = store.getState().get('old');
     return session.spaces || [];
 };

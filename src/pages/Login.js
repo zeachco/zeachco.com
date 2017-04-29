@@ -37,9 +37,9 @@ LoginPage.propTypes = {
 };
 
 const mapStatetoProps = (store) => ({
-  isAuth: store.session.isAuth,
-  isLoading: store.session.isLoading,
-  errorMessage: store.session.errorMessage
+  isAuth: store.get('old').session.isAuth,
+  isLoading: store.get('old').session.isLoading,
+  errorMessage: store.get('old').session.errorMessage
 });
 
 export default connect(mapStatetoProps)(LoginPage)

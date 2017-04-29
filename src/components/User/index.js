@@ -26,7 +26,7 @@ class User extends Component {
 
   renderDetails() {
     const {_id, firstName, lastName, email} = this.props;
-    const {spaces} = store.getState().session;
+    const {spaces} = store.getState().get('old').session;
     return (
       <div className="well">
         <small style={{

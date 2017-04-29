@@ -131,9 +131,9 @@ EditUser.propTypes = {
   })
 };
 
-const mapStateToProps = ({users, session}) => ({
-  user: users.editedUser,
-  spaces: session.spaces
+const mapStateToProps = (state) => ({
+  user: state.get('old').users.editedUser,
+  spaces: state.get('old').session.spaces
 });
 
 export default connect(mapStateToProps)(EditUser);

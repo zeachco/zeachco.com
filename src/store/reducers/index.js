@@ -1,4 +1,5 @@
-import {combineReducers} from 'redux'
+import {combineReducers} from 'redux';
+import {fromJS} from 'immutable';
 
 import session from './session';
 import items from './items';
@@ -8,7 +9,7 @@ import geometry from './geometry';
 import notifications from './notifications';
 import language from './language';
 
-export default combineReducers({
+const reducers = combineReducers({
     session,
     items,
     users,
@@ -17,3 +18,17 @@ export default combineReducers({
     notifications,
     language
 });
+
+const defaultState = fromJS({
+    session: {
+        isAuth: false
+    }
+});
+
+export default (inboundState = defaultState, action) => {
+    const state = inboundState.set('old', reducers(inboundState.get('old') || {}, action));
+    switch (action.type) {
+        case 'WINDOW_SCROLL': return state;
+        default: return state
+    }
+};

@@ -58,9 +58,9 @@ TopNav.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  isAuth: state.session.isAuth,
-  itemsCount: state.items.searchResults.length,
-  categoriesCount: state.categories.data.length
+  isAuth: state.get('old').session.isAuth,
+  itemsCount: state.get('old').items.searchResults.length,
+  categoriesCount: state.get('old').categories.data.length
 });
 
 export default connect(mapStateToProps)(TopNav);

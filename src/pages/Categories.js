@@ -29,8 +29,7 @@ Categories.propTypes = {
 };
 
 const mapStatetoProps = store => ({
-  store: store,
-  categories: store.categories.data
+  categories: store.get('old').categories.data
 })
 
 export default  connect(mapStatetoProps)(Categories)

@@ -38,7 +38,7 @@ SearchFilters.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  spaces: state.session.spaces
+  spaces: state.get('old').session.spaces
 });
 
 export default connect(mapStateToProps)(SearchFilters);

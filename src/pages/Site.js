@@ -25,10 +25,10 @@ Site.propTypes = {
 };
 
 const mapStatetoProps = (store) => ({
-  isAuth: store.session.isAuth,
-  isLoading: store.session.isLoading,
-  session: store.session,
-  sites: (store.session && store.session.sites) || []
+  isAuth: store.get('old').session.isAuth,
+  isLoading: store.get('old').session.isLoading,
+  session: store.get('old').session,
+  sites: (store.get('old').session && store.session.sites) || []
 })
 
-export default connect(mapStatetoProps)(Site)
+export default connect(mapStatetoProps)(Site);

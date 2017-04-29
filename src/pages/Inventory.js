@@ -28,7 +28,7 @@ Inventory.propTypes = {
 };
 
 const mapStatetoProps = (store) => ({
-    items: store.items.searchResults || []
+    items: store.get('old').items.searchResults || []
 });
 
-export default connect(mapStatetoProps)(Inventory)
+export default connect(mapStatetoProps)(Inventory);

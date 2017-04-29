@@ -18,7 +18,9 @@ const requireAuth = (ComposedComponent, FallbackComponent) => {
         isAuth: React.PropTypes.bool.isRequired
     };
 
-    const stateToProps = store => ({isAuth: store.session.isAuth})
+    const stateToProps = store => ({
+        isAuth: store.get('old').session.isAuth
+    })
 
     return connect(stateToProps, null)(Authenticate)
 };

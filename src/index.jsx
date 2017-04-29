@@ -2,10 +2,12 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
+import 'immutable-short-string-notation';
 
 import './store/actions/geometry'
 import { fetch } from './store/actions/session'
 import { setLanguage } from './store/actions/language'
+
 
 fetch();
 const browsersLang = navigator.language || navigator.userLanguage;

@@ -38,5 +38,5 @@ LangSwitcher.propTypes = {
     lang: React.PropTypes.string.isRequired
 }
 
-const mapStatetoProps = (store) => ({lang: store.language});
+const mapStatetoProps = (store) => ({lang: store.get('old').language});
 export default connect(mapStatetoProps)(LangSwitcher);
