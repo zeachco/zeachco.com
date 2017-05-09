@@ -14,7 +14,7 @@
     "bootstrap-sass": "^3.3.7",
     "bootstrap-sass-webpack": "^0.0.3",
     "cms-core": "^2.2.2",
-    "draft-js": "^0.10.0",
+    "draft-js": "^0.10.1",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.3.2",
