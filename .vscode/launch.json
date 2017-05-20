@@ -5,15 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-        "type": "node",
-        "request": "launch",
-        "name": "Launch Program",
-        "console": "integratedTerminal",
-        "cwd": "${workspaceRoot}",
-        "args": [
-            "node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-            "--progress"
-        ]
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceRoot}",
+            "args": [
+                "node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+                "--progress"
+            ]
         }
     ]
 }

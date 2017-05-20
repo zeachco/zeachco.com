@@ -9,7 +9,7 @@ const hydrate = (lang = 'fr', content = 'invalid_key', data = {}) => {
         console.warn(content, `not found for ${lang}`, data); // eslint-disable-line no-console
     }
 
-    for (var k in data) {
+    for (let k in data) {
         if (data.hasOwnProperty(k)) {
             message = message.replace(new RegExp(`{${k}}`, 'g'), data[k])
         }
@@ -34,8 +34,10 @@ Translate.propTypes = {
     data: React.PropTypes.object
 };
 
-const mapStatetoProps = (state) => ({lang: state.get('old').language})
+const mapStatetoProps = state => ({
+    lang: state.getIn('currentUser.lang')
+});
 
-Translate.content = () => ''
+Translate.content = () => '';
 
 export default connect(mapStatetoProps)(Translate);

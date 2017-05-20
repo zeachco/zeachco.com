@@ -9,7 +9,10 @@ import { createOrUpdate, editUser, destroy } from '.././store/actions/users';
 class EditUser extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      ...this.user,
+      password: ''
+    };
     AutoBin(this);
   }
 
@@ -17,10 +20,20 @@ class EditUser extends Component {
     this.setState({...user, password: ''});
   }
 
-  updateState(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+  updateState({target}) {
+    if(target.type === 'checkbox') {
+      const metaKey = target.name.replace('meta.', '');
+      this.setState(state => ({
+        meta: {
+          ...state.meta,
+          [metaKey]: target.checked
+        }
+      }));
+    } else {
+      this.setState({
+        [target.name]: target.value
+      });
+    }
   }
 
   handleSaveSubmit(e) {
@@ -44,8 +57,28 @@ class EditUser extends Component {
       lastName,
       username,
       space,
-      password = ''
+      password = '',
+      roles = [],
+      meta = {}
     } = this.state;
+
+    let customFields = null;
+    if(space === 'rockplusinc.com') {
+      customFields = (
+        <div>
+          <label>
+            <input name="meta.images" type="checkbox" checked={meta.images}/>
+            {' '}
+            <Translate content="can_see_images" />
+          </label><br/>
+          <label>
+            <input name="meta.prices" type="checkbox" checked={meta.prices}/>
+            {' '}
+            <Translate content="can_see_prices" />
+          </label>
+        </div>
+      );
+    }
     
     return (
       <div className="user-editor">
@@ -53,6 +86,15 @@ class EditUser extends Component {
         <div className="user-editor__content">
           <h2><Translate content={_id ? 'user' : 'create_user'}/>{' '}<small>{_id}</small></h2>
           <form onChange={this.updateState} onSubmit={this.handleSaveSubmit}>
+
+            <div className="form-group">
+              <label htmlFor="space" className="control-label"><Translate content="space_name" /></label>
+              <select className="form-control" name="space" value={space}>
+                <option value={' '}><Translate content="select_space"/></option>
+                {spaces.map(s => (<option key={s} value={s}>{s}</option>))}
+              </select>
+            </div>
+
             <div className="form-group">
               <label htmlFor="username" className="control-label"><Translate content="user" /></label>
               <input
@@ -90,12 +132,19 @@ class EditUser extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="space" className="control-label"><Translate content="space_name" /></label>
-              <select className="form-control" name="space" value={space}>
-                <option value={' '}><Translate content="select_space"/></option>
-                {spaces.map(s => (<option key={s} value={s}>{s}</option>))}
-              </select>
+              <label htmlFor="rights" className="control-label"><Translate content="rights" /></label>
+              <input
+                type="text"
+                autoComplete={false}
+                className="form-control"
+                name="rights"
+                placeholder="images, prices, edit-items, edit-categories, ..."
+                value={roles}
+              />
             </div>
+
+            {customFields}
+
             <div className="form-group">
               <label htmlFor="pass" className="control-label"><Translate content="password" /></label>
               <input
@@ -133,7 +182,7 @@ EditUser.propTypes = {
 
 const mapStateToProps = (state) => ({
   user: state.get('old').users.editedUser,
-  spaces: state.get('old').session.spaces
+  spaces: state.getIn('currentUser.spaces').toJS()
 });
 
 export default connect(mapStateToProps)(EditUser);

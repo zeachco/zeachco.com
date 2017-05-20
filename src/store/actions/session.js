@@ -57,11 +57,11 @@ function login(username, password) {
 }
 
 function logout() {
-    store.dispatch({type: 'DISCONNECT_START'});
+    store.dispatch({type: 'LOGOUT_START'});
     return axios
         .delete('/api/logout')
         .then(() => {
-            store.dispatch({type: 'DISCONNECT_DONE'});
+            store.dispatch({type: 'LOGOUT_DONE'});
             browserHistory.push('/')
         });
 }

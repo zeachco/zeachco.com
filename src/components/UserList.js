@@ -8,7 +8,7 @@ const UserList = ({users}) => {
     return (
       <div key={user._id}>
           <div onClick={() => editUser(user._id)} className="user_row">
-            <h3>{[user.firstName, user.lastName].join(' ')}<small>({user.username})</small></h3>
+            <h3>{[user.firstName, user.lastName].join(' ').trim()}<small>{' '}({user.username})</small></h3>
             <span className="label label-default">{user.space}</span>
           </div>
       </div>

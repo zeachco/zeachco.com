@@ -9,12 +9,15 @@ import Logo from './Logo'
 import Translate from './Translate'
 
 const TopNav = ({
-  isAuth,
+  // userRoles,
   itemsCount,
-  categoriesCount
+  categoriesCount,
+  spacesCount
+  // isSuperuser
 }) => {
-  const NavHeaderLink = ({name, path, roles, icon = '', children}) => {
-    if(!isAuth || !roles) return null;
+  const NavHeaderLink = ({name, path, icon = '', children}) => {
+    // const haveRoles = 
+    // if(!isAuth || !roles.contains(userRoles) && !isSuperuser) return null;
     return (
       <LinkContainer to={`/${path || name}`}>
         <NavItem>
@@ -41,7 +44,7 @@ const TopNav = ({
         </Navbar.Brand>
       </Navbar.Header>
       <Nav>
-        <NavHeaderLink icon="globe" name="spaces" roles="admin, sites"/>
+        <NavHeaderLink icon="globe" name="spaces" roles="admin, sites">{spacesCount ? ` (${spacesCount})` : null}</NavHeaderLink>
         <NavHeaderLink icon="user" name="users" roles="admin, users"/>
         <NavHeaderLink icon="tag" name="categories" roles="admin, categories">{categoriesCount ? ` (${categoriesCount})` : null}</NavHeaderLink>
         <NavHeaderLink icon="th-list" name="inventory" roles="admin, items">{itemsCount ? ` (${itemsCount})` : null}</NavHeaderLink>
@@ -52,15 +55,19 @@ const TopNav = ({
 };
 
 TopNav.propTypes = {
-  isAuth: PropTypes.bool.isRequired,
+  userRoles: PropTypes.object.isRequired,
+  isSuperuser: PropTypes.bool,
   itemsCount: PropTypes.number,
-  categoriesCount: PropTypes.number
+  categoriesCount: PropTypes.number,
+  spacesCount: PropTypes.number
 }
 
 const mapStateToProps = state => ({
-  isAuth: state.get('old').session.isAuth,
-  itemsCount: state.get('old').items.searchResults.length,
-  categoriesCount: state.get('old').categories.data.length
+  userRoles: state.getIn('currentUser.roles'),
+  isSuperuser: state.getIn('currentUser.isSuperuser'),
+  itemsCount: state.getIn('inventory.searchResults').length,
+  categoriesCount: state.getIn('categories.searchResults').length,
+  spacesCount: state.getIn('currentUser.spaces').length
 });
 
 export default connect(mapStateToProps)(TopNav);

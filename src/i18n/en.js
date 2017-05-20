@@ -9,6 +9,7 @@ module.exports = {
     email: 'Email address',
     user: 'User',
     settings: 'Settings',
+    rights: 'Rights',
     password: 'Password',
     inventory: 'Inventory',
     categories: 'Categories',
@@ -46,5 +47,7 @@ module.exports = {
     item_field_published: 'Published',
     delete: 'Delete',
     disconnect: 'Disconnect',
-    disconnect_title: 'This will terminate your current session'
+    disconnect_title: 'This will terminate your current session',
+    can_see_images: 'Can see full resolution images',
+    can_see_prices: 'Can see prices'
 };
