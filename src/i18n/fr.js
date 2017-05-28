@@ -5,6 +5,7 @@ module.exports = {
     spaces: 'Espaces',
     users: 'Utilisateurs',
     user: 'Utilisateur',
+    tracker: 'Minuteur',
     first_name: 'Prénom',
     last_name: 'Nom',
     email: 'Adresse courriel',

@@ -11,6 +11,7 @@ import Categories from './pages/Categories'
 import EditItem from './pages/EditItem'
 import Settings from './pages/Settings'
 import Inventory from './pages/Inventory'
+import TrackerPage from './pages/TrackerPage'
 import Users from './pages/Users'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
@@ -24,6 +25,7 @@ const Routes = () => (
             <Route path="logout" component={requireAuth(Logout)}/>
             <Route path="users" component={requireAuth(Users)}/>
             <Route path="categories" component={requireAuth(Categories)}/>
+            <Route path="tracker" component={TrackerPage}/>
             <Route path="inventory">
                 <IndexRoute component={requireAuth(Inventory)}/>
                 <Route path="new" component={requireAuth(EditItem)}/>

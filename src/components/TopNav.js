@@ -48,6 +48,7 @@ const TopNav = ({
         <NavHeaderLink icon="user" name="users" roles="admin, users"/>
         <NavHeaderLink icon="tag" name="categories" roles="admin, categories">{categoriesCount ? ` (${categoriesCount})` : null}</NavHeaderLink>
         <NavHeaderLink icon="th-list" name="inventory" roles="admin, items">{itemsCount ? ` (${itemsCount})` : null}</NavHeaderLink>
+        <NavHeaderLink icon="time" name="tracker" roles="admin, items"></NavHeaderLink>
       </Nav>
       <SessionDropdown/>
     </Navbar>

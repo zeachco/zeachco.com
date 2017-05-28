@@ -6,7 +6,7 @@ module.exports = args => wps(Object.assign({}, args, {
     proxy: {
         '/api/': {
             target: {
-                host: 'zeachco.com.dev',
+                host: 'zeachco.com',
                 protocol: 'http',
                 port: 8080
             },
