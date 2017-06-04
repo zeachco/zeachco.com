@@ -6,7 +6,7 @@
     "flightplan": "^0.6.14",
     "node-sass": "^4.5.1",
     "uuid": "^3.0.1",
-    "webpack-production-setup": "^4.3.0"
+    "webpack-production-setup": "^5.0.0"
   },
   "dependencies": {
     "auto-bind": "^1.1.0",
