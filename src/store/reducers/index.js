@@ -48,7 +48,7 @@ export default (inboundState = defaultState, {type, payload}) => {
         case 'WINDOW_SCROLL': return state;
         // SESSION
         case 'SESSION_FETCH_DONE': return state.mergeDeep({currentUser: payload || {isAuth: false}});
-        case 'LOGOUT_DONE': return state.setIn('currentUser.isAuth', false);
+        case 'DISCONNECT_DONE': return state.setIn('currentUser.isAuth', false);
         // CATEGORIES
         case 'CATEGORIES_SEARCH_DONE': return state.setIn('categories.searchResults', payload);
         // FORMS
