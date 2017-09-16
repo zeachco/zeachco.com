@@ -71,15 +71,13 @@ class ProfileForm extends Component {
 ProfileForm.propTypes = {
   isAuth: React.PropTypes.bool.isRequired,
   isLoading: React.PropTypes.bool.isRequired,
-  session: React.PropTypes.bool.isRequired,
-  items: React.PropTypes.array.isRequired
+  session: React.PropTypes.bool.isRequired
 }
 
 const mapStatetoProps = (store) => ({
-  isAuth: store.session.isAuth,
-  isLoading: store.session.isLoading,
-  session: store.session,
-  items: store.items || []
+  isAuth: store.get('old').session.isAuth,
+  isLoading: store.get('old').session.isLoading,
+  session: store.get('old').session
 });
 
 module.exports = connect(mapStatetoProps)(ProfileForm);

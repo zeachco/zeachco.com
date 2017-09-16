@@ -7,21 +7,12 @@ const initialState = {
   outerWidth: window.outerWidth
 }
 
-const session = (state = initialState, action) => {
+const geometryReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'WINDOW_SCROLL':
-      return {
-        ...state,
-        ...action.payload
-      };
-    case 'WINDOW_RESIZE':
-      return {
-        ...state,
-        ...action.payload
-      };
-    default:
-      return state;
+    case 'WINDOW_SCROLL': return { ...state, ...action.payload };
+    case 'WINDOW_RESIZE': return { ...state, ...action.payload };
+    default: return state;
   }
 };
 
-export default session;
+export default geometryReducer;

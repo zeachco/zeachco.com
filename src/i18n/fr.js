@@ -1,12 +1,16 @@
 module.exports = {
     switched_to_this_language: 'Vous avez choisi l\'affichage en Français',
     search: 'Rechercher',
+    close: 'Fermer',
+    spaces: 'Espaces',
     users: 'Utilisateurs',
     user: 'Utilisateur',
+    tracker: 'Minuteur',
     first_name: 'Prénom',
     last_name: 'Nom',
     email: 'Adresse courriel',
     settings: 'Paramètres',
+    rights: 'Droits',
     password: 'Mot de passe',
     inventory: 'Inventaire',
     categories: 'Categories',
@@ -25,6 +29,7 @@ module.exports = {
     item_modification: 'Modifier un article',
     save_item: 'Enregistrer l\'article',
     create_item: 'Créer l\'article',
+    create_user: 'Créer un usager',
     save: 'Enregistrer',
     price: 'Prix',
     space_name: 'Site',
@@ -40,5 +45,10 @@ module.exports = {
     item_full_description: 'Description complète du produit',
     drop_image_here: 'Déposez les images ici',
     image_uploaded_success: '"{file}" a bien été téléchargée',
-    item_field_published: "Publié"
+    item_field_published: 'Publié',
+    delete: 'Supprimer',
+    disconnect: 'Déconnexion',
+    disconnect_title: 'Cette action met fin à votre session courrante',
+    can_see_images: 'Peut voir les images haute résolution',
+    can_see_prices: 'Peut voir les prix'
 };

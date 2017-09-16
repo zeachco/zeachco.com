@@ -43,7 +43,10 @@ SessionDropdown.propTypes = {
   session: React.PropTypes.object.isRequired
 }
 
-const mapStatetoProps = (store, ownProps) => ({isAuth: store.session.isAuth, session: store.session, props: ownProps});
+const mapStatetoProps = (store) => ({
+  isAuth: store.get('old').session.isAuth,
+  session: store.get('old').session
+});
 
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch({type: 'LOGOUT_REQUEST'})

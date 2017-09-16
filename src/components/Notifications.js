@@ -21,6 +21,6 @@ Notifications.propTypes = {
     notifications: React.PropTypes.array.isRequired
 }
 
-const mapStatetoProps = (store) => ({notifications: store.notifications});
+const mapStatetoProps = (store) => ({notifications: store.get('old').notifications});
 
 export default connect(mapStatetoProps)(Notifications);

@@ -1,31 +1,27 @@
-import React, { Component, PropTypes } from 'react'
-import Base from './Base'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import {Link} from'react-router';
 
-import { fetch } from '../store/actions/categories'
-import { connect } from 'react-redux'
+import Base from './Base';
+import { fetch } from '../store/actions/categories';
+import itemsActions from '../store/actions/items';
 
-class Categories extends Component {
-  constructor(...args) {
-    super(...args)
-    this.state = {
-      categories: []
-    };
-  }
+fetch();
 
-  componentWillMount() {
-    fetch()
-  }
-
-  render() {
-    const { categories } = this.props;
-    return (
-      <Base>
-        <h2>Catégories ({categories.length})</h2>
-        <p>Cette liste est en lecture seule pour l'instant</p>
-        {categories.map(({label, value}) => (<div key={value}>{label}</div>))}
-      </Base>
-    )
-  }
+const Categories = ({
+  categories
+}) => {
+  return (
+    <Base>
+      <h2>Catégories ({categories.length})</h2>
+      <p>Cette liste est en lecture seule pour l'instant</p>
+      <ul>
+        {categories.map(({label, value}) => (
+          <li key={value}><Link onClick={() => itemsActions.search({ category: value })} to={`/inventory/?category=${value}`}>{label}</Link></li>
+        ))}
+      </ul>
+    </Base>
+  );
 }
 
 Categories.propTypes = {
@@ -33,8 +29,7 @@ Categories.propTypes = {
 };
 
 const mapStatetoProps = store => ({
-  store: store,
-  categories: store.categories.data
+  categories: store.get('old').categories.data
 })
 
 export default  connect(mapStatetoProps)(Categories)

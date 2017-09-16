@@ -9,7 +9,7 @@ const {
 
 function fetch() {
   dispatch({ type: 'USER_FETCH' });
-  return axios.get('/api/admin/users').then(xhr => {
+  return axios.get('/api/admin/users?ie=' + Date.now()).then(xhr => {
     dispatch({
       type: xhr.data ? 'USER_FETCH_DONE' : 'USER_FETCH_FAIL',
       payload: xhr.data
@@ -21,23 +21,24 @@ function fetch() {
   });
 }
 
-function create(data) {
-  dispatch({
-    type: 'USER_CREATE',
-    payload: data
-  });
-  return axios.post('/api/admin/users', data).then(xhr => {
-    fetch();
-    dispatch({
-      type: xhr.data ? 'USER_CREATE_DONE' : 'USER_CREATE_FAIL',
-      payload: xhr.data
-    });
-  }).catch(xhr => {
-    dispatch({
-      type: 'USER_CREATE_FAIL',
-      payload: xhr
-    });
-  });
+function createOrUpdate(data) {
+  if(data._id) {
+    dispatch({ type: 'USER_UPDATE', payload: data });
+    return axios
+      .put('/api/admin/users', data).then(xhr => {
+        dispatch({ type: xhr.data ? 'USER_UPDATE_DONE' : 'USER_UPDATE_FAIL', payload: xhr.data });
+        fetch();
+      })
+      .catch(xhr => dispatch({ type: 'USER_UPDATE_FAIL', payload: xhr }));
+  } else {
+    dispatch({ type: 'USER_CREATE', payload: data });
+    return axios
+      .post('/api/admin/users', data).then(xhr => {
+        dispatch({ type: xhr.data ? 'USER_CREATE_DONE' : 'USER_CREATE_FAIL', payload: xhr.data });
+        fetch();
+      })
+      .catch(xhr => dispatch({ type: 'USER_CREATE_FAIL', payload: xhr }));
+  }
 }
 
 function destroy(id) {
@@ -46,11 +47,11 @@ function destroy(id) {
     payload: id
   });
   return axios.delete('/api/users/' + id).then(xhr => {
-    fetch();
     dispatch({
       type: xhr.data ? 'USER_DESTROY_DONE' : 'USER_DESTROY_FAIL',
       payload: xhr.data
     });
+    fetch();
   }).catch(() => {
     dispatch({
       type: 'USER_DESTROY_FAIL'
@@ -85,27 +86,20 @@ function logout() {
 }
 
 function profileUpdate(profile) {
-  dispatch({
-    type: 'PROFILE_UPDATE_START'
-  });
+  dispatch({ type: 'PROFILE_UPDATE_START' });
   axios.put('/api/profile/me', profile).then(data => {
-    dispatch({
-      type: 'PROFILE_UPDATE_DONE',
-      payload: data
-    });
+    dispatch({ type: 'PROFILE_UPDATE_DONE', payload: data });
   }).catch(xhr => {
-    dispatch({
-      type: 'PROFILE_UPDATE_FAIL',
-      payload: xhr.data
-    })
+    dispatch({ type: 'PROFILE_UPDATE_FAIL', payload: xhr.data })
   });
 }
 
 module.exports = {
   fetch,
   destroy,
-  create,
+  createOrUpdate,
   login,
   logout,
-  profileUpdate
+  profileUpdate,
+  editUser: userId => dispatch({ type: 'EDIT_USER', payload: userId})
 };

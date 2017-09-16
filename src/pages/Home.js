@@ -43,6 +43,9 @@ Home.propTypes = {
   isAuth: React.PropTypes.bool.isRequired
 };
 
-const mapStatetoProps = (store) => ({isAuth: store.session.isAuth, isLoading: store.session.isLoading})
+const mapStatetoProps = (store) => ({
+  isAuth: store.get('old').session.isAuth,
+  isLoading: store.get('old').session.isLoading
+});
 
-export default connect(mapStatetoProps)(Home)
+export default connect(mapStatetoProps)(Home);

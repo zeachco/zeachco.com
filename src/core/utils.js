@@ -1,10 +1,10 @@
-import store from '../store'
+import store from '../store';
 
 export const bind = (object, ...methods) => {
     methods.forEach(m => {
         object[m] = object[m].bind(object);
     });
-}
+};
 
 export const formula = (formule, context) => {
     const out = {};
@@ -22,9 +22,9 @@ export const formula = (formule, context) => {
         out.error = error.message;
     }
     return out;
-}
+};
 
 export const getSpaces = () => {
-    const {session} = store.getState();
+    const {session} = store.getState().get('old');
     return session.spaces || [];
 };

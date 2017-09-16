@@ -1,12 +1,25 @@
-import React from 'react'
-import User from './User';
+import React, {PropTypes} from 'react';
+import { editUser } from '../store/actions/users';
 
-const UserList = (props) => (
-  <div>{props.users.map(u => (<User key={u._id} {...u}/>))}</div>
-);
+import './UserList.css';
+
+const UserList = ({users}) => {
+  const userMap = (user) => {
+    return (
+      <div key={user._id}>
+          <div onClick={() => editUser(user._id)} className="user_row">
+            <h3>{[user.firstName, user.lastName].join(' ').trim()}<small>{' '}({user.username})</small></h3>
+            <span className="label label-default">{user.space}</span>
+          </div>
+      </div>
+    );
+  } 
+
+  return (<div>{users.map(userMap)}</div>);
+};
 
 UserList.propTypes = {
-  users: React.PropTypes.array.isRequired
-}
+  users: PropTypes.array.isRequired
+};
 
-export default UserList
+export default UserList;

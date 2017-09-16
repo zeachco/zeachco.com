@@ -31,8 +31,15 @@ const LoginPage = ({ isLoading }) => (
 )
 
 LoginPage.propTypes = {
-  isLoading: React.PropTypes.bool.isRequired
-}
+  isLoading: React.PropTypes.bool.isRequired,
+  isAuth: React.PropTypes.bool.isRequired,
+  errorMessage: React.PropTypes.string
+};
 
-const mapStatetoProps = (store) => ({isAuth: store.session.isAuth, isLoading: store.session.isLoading, errorMessage: store.session.errorMessage})
+const mapStatetoProps = (store) => ({
+  isAuth: store.get('old').session.isAuth,
+  isLoading: store.get('old').session.isLoading,
+  errorMessage: store.get('old').session.errorMessage
+});
+
 export default connect(mapStatetoProps)(LoginPage)

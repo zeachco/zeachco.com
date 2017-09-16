@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { fetch } from '../store/actions/users';
+import { fetch, editUser } from '../store/actions/users';
 import UserList from '../components/UserList'
 import EditUser from '../components/EditUser'
 import Translate from '../components/Translate'
@@ -14,6 +14,7 @@ class Users extends Component {
       search: ''
     };
   }
+
   componentDidMount() {
     fetch();
   }
@@ -29,26 +30,21 @@ class Users extends Component {
     return match;
   }
 
-  add() {
-    this.setState({showAdd: true});
-  }
-
   render() {
     const {users} = this.props;
-    const {showAdd} = this.state;
     return (
       <Base>
-        <h2><Translate content="Users"/></h2>
+        <h2><Translate content="users"/></h2>
         <input type="text" className="form-control" autoFocus={true} placeholder="Recherche" onKeyUp={e => this.setState({search: e.target.value})}/>
-        <UserList users={users.filter(this.searchFilter.bind(this))}/>
-        <button onClick={this.add.bind(this)} className="btn btn-primary" style={{
+        <UserList users={users.filter(this.searchFilter.bind(this))} />
+        <button onClick={() => editUser('new')} className="btn btn-primary" style={{
           position: 'fixed',
           right: '2em',
           bottom: '1em'
         }}>Nouveau</button>
-        {showAdd && <EditUser onClose={() => this.setState({showAdd: false})}/>}
+        <EditUser/>
       </Base>
-    )
+    );
   }
 }
 
@@ -56,9 +52,9 @@ Users.propTypes = {
   users: PropTypes.array.isRequired
 };
 
-const mapStatetoProps = (store) => ({
-  isLoading: store.users.isLoading,
-  users: store.users.data || []
+const mapStatetoProps = store => ({
+  isLoading: store.get('old').users.isLoading,
+  users: store.get('old').users.data || []
 });
 
 export default connect(mapStatetoProps)(Users);

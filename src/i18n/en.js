@@ -1,12 +1,16 @@
 module.exports = {
     switched_to_this_language: 'You have switched to English',
     search: 'Search',
+    close: 'Close',
+    spaces: 'Spaces',
     users: 'Users',
+    tracker: 'Time Tracker',
     first_name: 'First name',
     last_name: 'Last name',
     email: 'Email address',
     user: 'User',
     settings: 'Settings',
+    rights: 'Rights',
     password: 'Password',
     inventory: 'Inventory',
     categories: 'Categories',
@@ -24,6 +28,8 @@ module.exports = {
     item_modification: 'Update item',
     save_item: 'Save item',
     create_item: 'Create item',
+    create_user: 'Create user',
+    update_user: 'Update user',
     save: 'Save',
     price: 'Price',
     space_name: 'Site',
@@ -39,5 +45,10 @@ module.exports = {
     item_full_description: 'Product full description',
     drop_image_here: 'Drop images here',
     image_uploaded_success: '"{file}" successfully uploaded',
-    item_field_published: "Published"
+    item_field_published: 'Published',
+    delete: 'Delete',
+    disconnect: 'Disconnect',
+    disconnect_title: 'This will terminate your current session',
+    can_see_images: 'Can see full resolution images',
+    can_see_prices: 'Can see prices'
 };

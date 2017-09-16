@@ -5,10 +5,6 @@ const initialState = {
 
 const session = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOGOUT':
-      return {
-        isAuth: false
-      };
     case 'SESSION_FETCH':
       return {
         isAuth: false,

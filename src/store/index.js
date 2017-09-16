@@ -1,21 +1,23 @@
-import { createStore, combineReducers } from 'redux';
+import {createStore} from 'redux';
 
-import session from './reducers/session';
-import items from './reducers/items';
-import users from './reducers/users';
-import categories from './reducers/categories';
-import geometry from './reducers/geometry';
-import notifications from './reducers/notifications';
-import language from './reducers/language';
+import reducers from './reducers';
 
-const store = createStore(combineReducers({
-  session,
-  items,
-  users,
-  categories,
-  geometry,
-  notifications,
-  language
-}));
+let store = null;
+
+if (process.env.NODE_ENV !== 'production') {
+    // Allow Redux devtools
+    // https://github.com/zalmoxisus/redux-devtools-extension#usage
+    store = createStore(
+        reducers,
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__({
+            actionsBlacklist: ['DATAMANAGER.DISPATCH']
+        }) // eslint-disable-line  no-underscore-dangle
+    );
+
+    // HMR functionnality
+    if (module.hot) module.hot.accept('./reducers', () => store.replaceReducer(require('./reducers')));
+} else {
+    store = createStore(reducers);
+}
 
 export default store;
