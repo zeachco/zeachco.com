@@ -109,6 +109,18 @@ class EditUser extends Component {
             </div>
 
             <div className="form-group">
+              <label htmlFor="email" className="control-label"><Translate content="email" /></label>
+              <input
+                type="text"
+                autoComplete={false}
+                className="form-control"
+                name="email"
+                placeholder="user@email.com"
+                value={email}
+              />
+            </div>
+
+            <div className="form-group">
               <label htmlFor="firstName" className="control-label"><Translate content="first_name" /></label>
               <input
                 type="text"

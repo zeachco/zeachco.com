@@ -61,8 +61,8 @@ function logout() {
     return axios
         .delete('/api/logout')
         .then(() => {
-            store.dispatch({type: 'LOGOUT_DONE'});
-            browserHistory.push('/')
+            store.dispatch({type: 'DISCONNECT_DONE'});
+            browserHistory.push('/');
         });
 }
 
