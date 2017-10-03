@@ -80,10 +80,11 @@ class ItemForm extends Component {
     }
 
     mapItemOut(post) {
-        delete post.__v
-        delete post.optionString
-        post.labels = post.labels.split(/[ ,]/g).filter(l => !!l)
-        return Object.assign({}, post);
+        const payload = Object.assign({}, post);
+        delete payload.__v;
+        delete payload.optionString;
+        payload.labels = payload.labels.split(/[ ,]/g).filter(l => !!l);
+        return payload;
     }
 
     handleChanges(ev) {
@@ -153,7 +154,7 @@ class ItemForm extends Component {
             shortDescription,
             description,
             price = 0,
-            labels = [],
+            labels = '',
             options = [],
             optionString = '',
             width,
