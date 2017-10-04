@@ -231,8 +231,8 @@ class ItemForm extends Component {
                             : (<Translate content="create_item" />)}
                     </legend>
                     <Row className="show-grid">
-                        <Col sm={7} md={8} lg={6}>
-                            <BSFormField label={(<Translate content="space_name"/>)} icon="globe">
+                        <Col key="col_1" sm={7} md={8} lg={6}>
+                            <BSFormField key="space_name" label={(<Translate content="space_name"/>)} icon="globe">
                                 <select name="space" className="form-control" value={space}>
                                     <option value="">{Translate.content("select_space")}</option>
                                     {spaces.map(s => (
@@ -240,7 +240,7 @@ class ItemForm extends Component {
                                     ))}
                                 </select>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="item_code"/>)} icon="file">
+                            <BSFormField key="item_code" label={(<Translate content="item_code"/>)} icon="file">
                                 <input
                                     name="code"
                                     placeholder="SK123456789"
@@ -248,7 +248,7 @@ class ItemForm extends Component {
                                     value={code}
                                     type="text"/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="item_name"/>)}>
+                            <BSFormField key="item_name" label={(<Translate content="item_name"/>)}>
                                 <input
                                     name="name"
                                     placeholder="Blue shirt"
@@ -256,15 +256,15 @@ class ItemForm extends Component {
                                     value={name}
                                     type="text"/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="labels"/>)} icon="tags">
+                            <BSFormField key="labels" label={(<Translate content="labels"/>)} icon="tags">
                                 <input
                                     name="labels"
                                     placeholder="men, clothes, summer"
                                     className="form-control"
                                     type="text"
-                                    value={labels}/>
+                                    value={ labels }/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="item_short_description"/>)}>
+                            <BSFormField key="item_short_description" label={(<Translate content="item_short_description"/>)}>
                                 <input
                                     name="shortDescription"
                                     placeholder="Shirt with a unicorn design"
@@ -272,7 +272,7 @@ class ItemForm extends Component {
                                     value={shortDescription}
                                     type="text"/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="item_full_description"/>)}>
+                            <BSFormField key="item_full_description" label={(<Translate content="item_full_description"/>)}>
                                 <RichTextArea
                                     className="form-control"
                                     name="description"
@@ -281,7 +281,7 @@ class ItemForm extends Component {
                                     rows={12}
                                     value={description} />
                             </BSFormField>
-                            <BSFormField label={(<Translate content="width"/>)} icon="resize-horizontal">
+                            <BSFormField key="width" label={(<Translate content="width"/>)} icon="resize-horizontal">
                                 <input
                                     name="width"
                                     placeholder="10cm"
@@ -289,7 +289,7 @@ class ItemForm extends Component {
                                     type="number"
                                     value={width}/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="height"/>)} icon="resize-vertical">
+                            <BSFormField key="height" label={(<Translate content="height"/>)} icon="resize-vertical">
                                 <input
                                     name="height"
                                     placeholder="10cm"
@@ -297,7 +297,7 @@ class ItemForm extends Component {
                                     type="number"
                                     value={height}/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="depth"/>)} icon="export">
+                            <BSFormField key="depth" label={(<Translate content="depth"/>)} icon="export">
                                 <input
                                     name="depth"
                                     placeholder="10cm"
@@ -305,7 +305,7 @@ class ItemForm extends Component {
                                     type="number"
                                     value={depth}/>
                             </BSFormField>
-                            <BSFormField label={(<Translate content="weight"/>)} icon="scale">
+                            <BSFormField key="weight" label={(<Translate content="weight"/>)} icon="scale">
                                 <input
                                     name="weight"
                                     placeholder="300g"
@@ -314,7 +314,7 @@ class ItemForm extends Component {
                                     value={weight}/>
                             </BSFormField>
                             <hr/>
-                            <BSFormField label={(<Translate content="option_group"/>)} icon="th-list">
+                            <BSFormField key="options_group" label={(<Translate content="option_group"/>)} icon="th-list">
                                 <textarea
                                     name="optionString"
                                     className="form-control"
@@ -335,7 +335,7 @@ class ItemForm extends Component {
                             <p>A line can be jumped for a new option group</p>
                             <hr/> {options.map(og => {
                                 return (
-                                    <BSFormField label={og.code} icon="th-list">
+                                    <BSFormField key={`option_${og.code}`} label={og.code} icon="th-list">
                                         <select
                                             name={og.code}
                                             className="form-control"
@@ -348,30 +348,33 @@ class ItemForm extends Component {
                                                     }
                                                 }))
                                             } }>
-                                                <option>Choose an option to test</option>
+                                                <option key="option_value_(default)">Choose an option to test</option>
                                                 {og
                                                 .options
                                                 .map(o => (
-                                                    <option value={o.value} title={o.value}>{o.code}</option>
-                                                ))}</select>
+                                                    <option key={`option_value_${og.code}/${o.code}`} value={o.value} title={o.value}>{o.code}</option>
+                                                ))}
+                                        </select>
                                     </BSFormField>
                                 )
                             })}
                             <BSFormField
+                                key="price"
                                 label={(<Translate content="price"/>)}
                                 icon="usd"
                                 message={formulaEval.error}
                                 state={formulaState}>
                                 <input
+                                    key="price_input"
                                     name="price"
                                     placeholder="(10.15 + size) + qty"
                                     className="form-control "
                                     type="text"
                                     value={price} />
-                                    <span className="input-group-addon" ><Price value={formulaEval.value} /></span>
+                                <span key="price_display" className="input-group-addon" ><Price value={formulaEval.value} /></span>
                             </BSFormField>
                         </Col>
-                        <Col sm={5} md={4} lg={6}>
+                        <Col key="col_2" sm={5} md={4} lg={6}>
                             <div className="editor-images">
                                 <img className="col-xs-12" src={files[0]} alt="Primary"/>
                                 <div>
