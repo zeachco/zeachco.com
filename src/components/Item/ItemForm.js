@@ -28,7 +28,22 @@ class ItemForm extends Component {
     constructor(args) {
         super(args)
         this.state = {
+            code: '',
+            space: '',
+            name: '',
+            visible: false,
+            shortDescription: '',
+            description: '',
+            price: 0,
+            labels: '',
+            options: [],
+            optionString: '',
+            width: 0,
+            height: 0,
+            depth: 0,
+            weight: 0,
             files: [],
+            customOptions: {},
             ...this.props
         };
         AutoBind(this);
