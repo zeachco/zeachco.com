@@ -10,6 +10,10 @@ class SearchBar extends Component {
     autoBind(this);
   }
 
+  componentDidMount() {
+    this._triggerSearch();
+  }
+
   _submit(e) {
     e.preventDefault();
     this.setState({ search: e.target[0].value });
