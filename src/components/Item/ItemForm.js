@@ -288,6 +288,7 @@ class ItemForm extends Component {
                                     type="number"
                                     step="0.01"
                                     value={width}/>
+                                <span className="input-group-addon unit"><span><Translate content="size_unit"/></span></span>
                             </BSFormField>
                             <BSFormField label={(<Translate content="height"/>)} icon="resize-vertical">
                                 <input
@@ -297,6 +298,7 @@ class ItemForm extends Component {
                                     type="number"
                                     step="0.01"
                                     value={height}/>
+                                <span className="input-group-addon unit"><span><Translate content="size_unit"/></span></span>
                             </BSFormField>
                             <BSFormField label={(<Translate content="depth"/>)} icon="export">
                                 <input
@@ -306,6 +308,7 @@ class ItemForm extends Component {
                                     type="number"
                                     step="0.01"
                                     value={depth}/>
+                                <span className="input-group-addon unit"><span><Translate content="size_unit"/></span></span>
                             </BSFormField>
                             <BSFormField label={(<Translate content="weight"/>)} icon="scale">
                                 <input
@@ -315,6 +318,7 @@ class ItemForm extends Component {
                                     type="number"
                                     step="0.01"
                                     value={weight}/>
+                                <span className="input-group-addon unit"><span><Translate content="weight_unit"/></span></span>
                             </BSFormField>
                             <hr/>
                             <BSFormField label={(<Translate content="option_group"/>)} icon="th-list">
