@@ -313,7 +313,7 @@ class ItemForm extends Component {
                             <BSFormField label={(<Translate content="weight"/>)} icon="scale">
                                 <input
                                     name="weight"
-                                    placeholder="300g"
+                                    placeholder="3.55kg"
                                     className="form-control"
                                     type="number"
                                     step="0.01"

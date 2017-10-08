@@ -40,7 +40,7 @@ module.exports = {
     depth: 'Depth',
     size_unit: 'cm',
     weight: 'Weight',
-    weight_unit: 'g',
+    weight_unit: 'kg',
     option_group: 'Option group',
     item_code: 'Product code',
     item_short_description: 'Short description',
