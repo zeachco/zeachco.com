@@ -286,6 +286,7 @@ class ItemForm extends Component {
                                     placeholder="10cm"
                                     className="form-control"
                                     type="number"
+                                    step="0.01"
                                     value={width}/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="height"/>)} icon="resize-vertical">
@@ -294,6 +295,7 @@ class ItemForm extends Component {
                                     placeholder="10cm"
                                     className="form-control"
                                     type="number"
+                                    step="0.01"
                                     value={height}/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="depth"/>)} icon="export">
@@ -302,6 +304,7 @@ class ItemForm extends Component {
                                     placeholder="10cm"
                                     className="form-control"
                                     type="number"
+                                    step="0.01"
                                     value={depth}/>
                             </BSFormField>
                             <BSFormField label={(<Translate content="weight"/>)} icon="scale">
@@ -310,6 +313,7 @@ class ItemForm extends Component {
                                     placeholder="300g"
                                     className="form-control"
                                     type="number"
+                                    step="0.01"
                                     value={weight}/>
                             </BSFormField>
                             <hr/>
