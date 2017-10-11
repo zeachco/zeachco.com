@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {browserHistory} from 'react-router';
 import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
 import AutoBind from 'auto-bind';
@@ -14,6 +15,7 @@ import { formula, getSpaces } from '../../core/utils';
 import { ItemOptions } from '../../core/converter';
 import { createOrUpdate } from '../../store/actions/items';
 import { addToastMessage } from '../../store/actions/notifications';
+import { showModal, hideModal } from '../../store/actions/modal';
 
 const fieldHandlers = {
     optionString: function (value) {
@@ -21,31 +23,78 @@ const fieldHandlers = {
             optionString: value,
             options: ItemOptions.toObject(value)
         });
+    },
+
+    space: function (space) {
+        if (!this.state._id) {
+            this.setState({ space });
+            return;
+        }
+
+        axios.get(`/api/admin/items/code/${this.state.code}`, { params: { space } }).then(xhr => {
+            if (xhr.data.length) {
+                browserHistory.push('/inventory/item/' + xhr.data._id);
+            } else {
+                showModal({
+                    header: "confirm_item_clone_header",
+                    text: "confirm_item_clone_text",
+                    buttons: [{
+                        label: 'confirm_item_clone_text_cancel',
+                        style: 'link'
+                    }, {
+                        label: 'confirm_item_clone_btn_copy',
+                        style: 'primary',
+                        onClick: () => {
+                            hideModal();
+                            const replaceState = {
+                                ...this.state
+                            };
+                            replaceState._id = null;
+                            replaceState.space = space;
+                            browserHistory.push({
+                                pathname: '/inventory/new',
+                                state: replaceState
+                            });
+                        }
+                    }]
+                });
+            }
+        });
     }
 };
 
 class ItemForm extends Component {
     constructor(args) {
         super(args)
-        this.state = {
-            code: '',
-            space: '',
-            name: '',
-            visible: false,
-            shortDescription: '',
-            description: '',
-            price: 0,
-            labels: '',
-            options: [],
-            optionString: '',
-            width: 0,
-            height: 0,
-            depth: 0,
-            weight: 0,
-            files: [],
-            customOptions: {},
-            ...this.props
-        };
+
+        if (!this.props._id && this.props.item) {
+            this.state = Object.assign(
+                {},
+                this.props.item,
+                { _id: undefined } //eslint-disable-line no-undefined
+            );
+        } else {
+            this.state = {
+                code: '',
+                space: '',
+                name: '',
+                visible: false,
+                shortDescription: '',
+                description: '',
+                price: 0,
+                labels: '',
+                options: [],
+                optionString: '',
+                width: 0,
+                height: 0,
+                depth: 0,
+                weight: 0,
+                files: [],
+                customOptions: {},
+                ...this.props
+            };
+        }
+
         AutoBind(this);
         this.fetchItem();
     }
@@ -426,7 +475,12 @@ class ItemForm extends Component {
 }
 
 ItemForm.propTypes = {
-    _id: React.PropTypes.string.isRequired
+    _id: React.PropTypes.string.isRequired,
+    item: React.PropTypes.object
 };
+
+ItemForm.defaultProps = {
+    item: null
+}
 
 export default ItemForm;

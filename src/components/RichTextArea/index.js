@@ -9,7 +9,7 @@ class RichTextArea extends Component {
         super(props);
         this.state = {
             rich: true,
-            html: ''
+            html: this.props.value || ''
         };
         autoBind(this);
     }

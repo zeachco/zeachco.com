@@ -8,6 +8,7 @@ import categories from './categories';
 import geometry from './geometry';
 import notifications from './notifications';
 import language from './language';
+import modal from './modal';
 
 const reducers = combineReducers({
     session,
@@ -16,7 +17,8 @@ const reducers = combineReducers({
     categories,
     geometry,
     notifications,
-    language
+    language,
+    modal
 });
 
 const defaultLang = (navigator.language || navigator.userLanguage).split('-')[0];
@@ -37,7 +39,8 @@ const defaultState = fromJS({
         searchResults: []
     },
     spaces: [],
-    forms: {}
+    forms: {},
+    ui: {}
 });
 
 export default (inboundState = defaultState, {type, payload}) => {
