@@ -11,3 +11,7 @@
   font-size: .8em;
   float: left;
 }
+
+.input-group-addon.unit {
+  width: 60px;
+}
