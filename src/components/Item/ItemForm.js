@@ -302,7 +302,9 @@ class ItemForm extends Component {
                                     placeholder="10cm"
                                     className="form-control"
                                     type="number"
+                                    step="0.01"
                                     value={width}/>
+                                <span className="input-group-addon unit"><span><Translate content="size_unit"/></span></span>
                             </BSFormField>
                             <BSFormField key="height" label={(<Translate content="height"/>)} icon="resize-vertical">
                                 <input
@@ -310,7 +312,9 @@ class ItemForm extends Component {
                                     placeholder="10cm"
                                     className="form-control"
                                     type="number"
+                                    step="0.01"
                                     value={height}/>
+                                <span className="input-group-addon unit"><span><Translate content="size_unit"/></span></span>
                             </BSFormField>
                             <BSFormField key="depth" label={(<Translate content="depth"/>)} icon="export">
                                 <input
@@ -318,15 +322,19 @@ class ItemForm extends Component {
                                     placeholder="10cm"
                                     className="form-control"
                                     type="number"
+                                    step="0.01"
                                     value={depth}/>
+                                <span className="input-group-addon unit"><span><Translate content="size_unit"/></span></span>
                             </BSFormField>
                             <BSFormField key="weight" label={(<Translate content="weight"/>)} icon="scale">
                                 <input
                                     name="weight"
-                                    placeholder="300g"
+                                    placeholder="3.55kg"
                                     className="form-control"
                                     type="number"
+                                    step="0.01"
                                     value={weight}/>
+                                <span className="input-group-addon unit"><span><Translate content="weight_unit"/></span></span>
                             </BSFormField>
                             <hr/>
                             <BSFormField key="options_group" label={(<Translate content="option_group"/>)} icon="th-list">
