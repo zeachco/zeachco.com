@@ -6,9 +6,7 @@ import {addToastMessage} from './actions/notifications';
 axios
     .interceptors
     .response
-    .use(function (response) {
-        return Promise.resolve(response);
-    }, function (err) {
+    .use(response => Promise.resolve(response), err => {
         const {status} = err.response;
         if (status === 403 || status === 401) {
             store.dispatch({type: 'SESSION_LOGIN_FAIL'});

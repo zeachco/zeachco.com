@@ -56,6 +56,7 @@ class EditUser extends Component {
       firstName,
       lastName,
       username,
+      email,
       space,
       password = '',
       roles = [],
@@ -79,7 +80,7 @@ class EditUser extends Component {
         </div>
       );
     }
-    
+
     return (
       <div className="user-editor">
         <div className="user-editor__mask" onClick={() => editUser(null)}></div>
@@ -104,6 +105,18 @@ class EditUser extends Component {
                 name="username"
                 placeholder="username@email.com"
                 value={username}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email" className="control-label"><Translate content="email" /></label>
+              <input
+                type="text"
+                autoComplete={false}
+                className="form-control"
+                name="email"
+                placeholder="user@email.com"
+                value={email}
               />
             </div>
 
