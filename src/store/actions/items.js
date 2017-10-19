@@ -5,13 +5,15 @@ import {browserHistory} from 'react-router';
 
 const {dispatch} = store;
 
+let lastSearch = '_'
 export function searchItems({search = '_', visible, space}) {
     // if (!search) return dispatch({ type: 'SEARCH_ITEMS_DONE', payload: [] });
     dispatch({ type: 'SEARCH_ITEMS_START' });
-    axios.get(`/api/admin/items/search/${search}`, { params: { visible, space } }).then(xhr => {
+    axios.get(`/api/admin/items/search/${search || lastSearch}`, { params: { visible, space } }).then(xhr => {
         dispatch({ type: 'SEARCH_ITEMS_DONE', payload: xhr.data });
         addToastMessage({ message: `${xhr.data.length} articles trouvés` });
     });
+    lastSearch = search || lastSearch;
 }
 
 function error(xhr) {
