@@ -1,5 +1,8 @@
 import './Base.scss'
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
+
+import ModalWrapper from '../components/ModalWrapper'
 
 class Base extends Component {
   constructor(props) {
@@ -24,9 +27,18 @@ class Base extends Component {
       <div className={animationClasses}>
         <div>{this.props.children}</div>
         <hr/>
+        <ModalWrapper modal={ this.props.modal } />
       </div>
     )
   }
 }
 
-export default Base
+Base.propTypes = {
+  modal: ModalWrapper.propTypes.modal
+};
+
+const mapStatetoProps = (store) => ({
+  modal: store.get('old').modal
+});
+
+export default connect(mapStatetoProps)(Base);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {browserHistory} from 'react-router';
 import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
 import AutoBind from 'auto-bind';
@@ -14,6 +15,7 @@ import { formula, getSpaces } from '../../core/utils';
 import { ItemOptions } from '../../core/converter';
 import { createOrUpdate } from '../../store/actions/items';
 import { addToastMessage } from '../../store/actions/notifications';
+import { showModal, hideModal } from '../../store/actions/modal';
 
 const fieldHandlers = {
     optionString: function (value) {
@@ -21,36 +23,91 @@ const fieldHandlers = {
             optionString: value,
             options: ItemOptions.toObject(value)
         });
+    },
+
+    space: function (space) {
+        if (!this.state._id) {
+            this.setState({ space });
+            return;
+        }
+
+        axios.get(`/api/admin/items/code/${this.state.code}`, { params: { space } }).then(xhr => {
+            if (xhr.data.length) {
+                if (xhr.data.length > 1) {
+                    addToastMessage({
+                        type: 'danger',
+                        message: `warning, ${xhr.data.length} items have been found with the code ${this.state.code}. Only the first one is selected, please run a search to edit others`
+                    });
+                }
+
+                browserHistory.push('/inventory/item/' + xhr.data[0]._id);
+                this.componentWillReceiveProps(this.mapItemIn(xhr.data[0]));
+            } else {
+                showModal({
+                    header: "confirm_item_clone_header",
+                    text: "confirm_item_clone_text",
+                    buttons: [{
+                        label: 'confirm_item_clone_text_cancel',
+                        style: 'link'
+                    }, {
+                        label: 'confirm_item_clone_btn_copy',
+                        style: 'primary',
+                        onClick: () => {
+                            hideModal();
+                            const replaceState = {
+                                ...this.state
+                            };
+                            replaceState._id = null;
+                            replaceState.space = space;
+                            browserHistory.push({
+                                pathname: '/inventory/new',
+                                state: replaceState
+                            });
+                        }
+                    }]
+                });
+            }
+        });
     }
 };
 
 class ItemForm extends Component {
     constructor(args) {
         super(args)
-        this.state = {
-            code: '',
-            space: '',
-            name: '',
-            visible: false,
-            shortDescription: '',
-            description: '',
-            price: 0,
-            labels: '',
-            options: [],
-            optionString: '',
-            width: 0,
-            height: 0,
-            depth: 0,
-            weight: 0,
-            files: [],
-            customOptions: {},
-            ...this.props
-        };
+
+        if (!this.props._id && this.props.item) {
+            this.state = Object.assign(
+                {},
+                this.props.item,
+                { _id: undefined } //eslint-disable-line no-undefined
+            );
+        } else {
+            this.state = {
+                code: '',
+                space: getSpaces()[0],
+                name: '',
+                visible: false,
+                shortDescription: '',
+                description: '',
+                price: 0,
+                labels: '',
+                options: [],
+                optionString: '',
+                width: 0,
+                height: 0,
+                depth: 0,
+                weight: 0,
+                files: [],
+                customOptions: {},
+                ...this.props
+            };
+        }
+
         AutoBind(this);
         this.fetchItem();
     }
 
-    willReceiveProps(newProps) {
+    componentWillReceiveProps(newProps) {
         this.setState({
             name: 'Loading...',
             files: [],
@@ -86,11 +143,11 @@ class ItemForm extends Component {
         }
     }
 
-    mapItemIn(get) {
+    mapItemIn({labels, options, ...attributes}) {
         return {
-            ...get,
-            labels: Array.isArray(get.labels) ? get.labels.join(', ') : get.labels,
-            optionString: ItemOptions.toString(get.options)
+            ...attributes,
+            labels: Array.isArray(labels) ? labels.join(', ') : labels,
+            optionString: ItemOptions.toString(options)
         };
     }
 
@@ -249,7 +306,6 @@ class ItemForm extends Component {
                         <Col key="col_1" sm={7} md={8} lg={6}>
                             <BSFormField key="space_name" label={(<Translate content="space_name"/>)} icon="globe">
                                 <select name="space" className="form-control" value={space}>
-                                    <option value="">{Translate.content("select_space")}</option>
                                     {spaces.map(s => (
                                         <option value={s} key={s}>{s}</option>
                                     ))}
@@ -426,7 +482,12 @@ class ItemForm extends Component {
 }
 
 ItemForm.propTypes = {
-    _id: React.PropTypes.string.isRequired
+    _id: React.PropTypes.string.isRequired,
+    item: React.PropTypes.object
 };
+
+ItemForm.defaultProps = {
+    item: null
+}
 
 export default ItemForm;
