@@ -33,7 +33,15 @@ const fieldHandlers = {
 
         axios.get(`/api/admin/items/code/${this.state.code}`, { params: { space } }).then(xhr => {
             if (xhr.data.length) {
-                browserHistory.push('/inventory/item/' + xhr.data._id);
+                if (xhr.data.length > 1) {
+                    addToastMessage({
+                        type: 'danger',
+                        message: `warning, ${xhr.data.length} items have been found with the code ${this.state.code}. Only the first one is selected, please run a search to edit others`
+                    });
+                }
+
+                browserHistory.push('/inventory/item/' + xhr.data[0]._id);
+                this.componentWillReceiveProps(this.mapItemIn(xhr.data[0]));
             } else {
                 showModal({
                     header: "confirm_item_clone_header",
@@ -76,7 +84,7 @@ class ItemForm extends Component {
         } else {
             this.state = {
                 code: '',
-                space: '',
+                space: getSpaces()[0],
                 name: '',
                 visible: false,
                 shortDescription: '',
@@ -99,7 +107,7 @@ class ItemForm extends Component {
         this.fetchItem();
     }
 
-    willReceiveProps(newProps) {
+    componentWillReceiveProps(newProps) {
         this.setState({
             name: 'Loading...',
             files: [],
@@ -135,11 +143,11 @@ class ItemForm extends Component {
         }
     }
 
-    mapItemIn(get) {
+    mapItemIn({labels, options, ...attributes}) {
         return {
-            ...get,
-            labels: Array.isArray(get.labels) ? get.labels.join(', ') : get.labels,
-            optionString: ItemOptions.toString(get.options)
+            ...attributes,
+            labels: Array.isArray(labels) ? labels.join(', ') : labels,
+            optionString: ItemOptions.toString(options)
         };
     }
 
@@ -298,7 +306,6 @@ class ItemForm extends Component {
                         <Col key="col_1" sm={7} md={8} lg={6}>
                             <BSFormField key="space_name" label={(<Translate content="space_name"/>)} icon="globe">
                                 <select name="space" className="form-control" value={space}>
-                                    <option value="">{Translate.content("select_space")}</option>
                                     {spaces.map(s => (
                                         <option value={s} key={s}>{s}</option>
                                     ))}

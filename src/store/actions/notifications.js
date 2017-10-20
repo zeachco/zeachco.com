@@ -6,6 +6,10 @@ function removeToastMessage(id) {
     store.dispatch({type: 'REMOVE_TOAST_MESSAGE', payload: id});
 }
 
+/**
+ * contains `type` `message` and `time` as optionnal params
+ * @param {Object} messageObject
+ */
 function addToastMessage(messageObject) {
     messageObject.time = messageObject.time || 4000;
     messageObject.expire = Date.now() + messageObject.time;

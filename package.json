@@ -35,7 +35,8 @@
     "start": "webpack-dev-server --progress",
     "build": "export NODE_ENV=production ; webpack -p --progress --env.prod",
     "eslint": "eslint --fix",
-    "deploy": "fly default"
+    "deploy": "fly default",
+    "test": "exit 0"
   },
   "proxy": "http://zeachco.com.dev:8080",
   "eslintConfig": {
