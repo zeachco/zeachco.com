@@ -6,18 +6,19 @@ import Translate from './Translate'
 import Checkbox from './Checkbox'  
 import BSFormField from './BSFormField'
 
-const SearchFilters = ({onChange, visible, spaces}) => (
+const SearchFilters = ({onChange, visible, spaces, space}) => (
   <div className="well">
     <Row>
       <Col  sm={5}>
         <BSFormField label={(<Translate content="space_name"/>)} icon="globe">
-          <select name="space" className="form-control" onChange={e => {
+          <select name="space" className="form-control" value={space || '(unselected)'} onChange={e => {
             e.preventDefault();
-            onChange({ filterKey: 'space', filterValue: e.target.value });
+            const value = e.target.value === '(unselected)' ? null : e.target.value;
+            onChange({ filterKey: 'space', filterValue: value });
           }}>
-              <option value="">{Translate.content("select_space")}</option>
-              {spaces.map(space => (
-                  <option value={space} key={space}>{space}</option>
+            <option value="(unselected)">{Translate.content("select_space")}</option>
+              {spaces.map(s => (
+                  <option value={s} key={s}>{s}</option>
               ))}
           </select>
         </BSFormField>
@@ -34,7 +35,8 @@ const SearchFilters = ({onChange, visible, spaces}) => (
 SearchFilters.propTypes = {
   onChange: PropTypes.func.isRequired,
   visible: PropTypes.bool,
-  spaces: PropTypes.array.isRequired
+  spaces: PropTypes.array.isRequired,
+  space: PropTypes.string
 };
 
 const mapStateToProps = state => ({
