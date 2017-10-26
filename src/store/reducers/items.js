@@ -1,7 +1,7 @@
 const defaultState = {
   searchResults: [],
   currentSearch: {
-    text: ''
+    query: ''
   }
 };
 
@@ -10,6 +10,10 @@ export default (state = defaultState, {type, payload}) => {
   switch (type) {
     case 'SEARCH_ITEMS_DONE':
       newState.searchResults = payload;
+      return newState;
+    case 'SEARCH_ITEMS_START':
+      newState.currentSearch = payload || {};
+      newState.currentSearch.query = newState.currentSearch.query || '';
       return newState;
     default:
       return state;

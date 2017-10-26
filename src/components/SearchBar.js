@@ -6,17 +6,21 @@ import SearchFilters from './SearchFilters';
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      ...props.initialSearch
+    };
     autoBind(this);
   }
 
   componentDidMount() {
+    this.setState({ 
+      ...this.props.initialSearch
+    });
     this._triggerSearch();
   }
 
   _submit(e) {
     e.preventDefault();
-    this.setState({ search: e.target[0].value });
     this._triggerSearch();
   }
 
@@ -31,9 +35,13 @@ class SearchBar extends Component {
     }, 50);
   }
 
+  _queryChange(e) {
+    this.setState({ query: e.target.value });
+  }
+
   render() {
     const {autoFocus, searchButtonText, placeholder} = this.props;
-    const {visible} = this.state;
+    const {visible, space} = this.state;
 
     return (
       <form onSubmit={this._submit} title={JSON.stringify(this.state, null, 2)} >
@@ -43,24 +51,29 @@ class SearchBar extends Component {
             className="form-control"
             autoFocus={autoFocus}
             placeholder={placeholder}
-            aria-describedby="basic-addon1"/>
+            aria-describedby="basic-addon1"
+            value={this.state.query}
+            onChange={this._queryChange} />
           <span className="input-group-btn">
             <button type="submit" className="btn btn-default">{searchButtonText}</button>
           </span>
         </div>
-        <SearchFilters onChange={this._filterChange} visible={visible}/>
+        <SearchFilters onChange={this._filterChange} visible={visible} space={space} />
       </form>
     );
   }
 }
 
-const {func, string, object, oneOfType, bool} = PropTypes;
+const {func, string, object, oneOfType, bool, shape} = PropTypes;
 
 SearchBar.defaultProps = {
   autoFocus: true
 }
 
 SearchBar.propTypes = {
+  initialSearch: shape({
+    query: string.isRequired
+  }).isRequired,
   onSearch: func.isRequired,
   placeholder: string.isRequired,
   autoFocus: bool,
