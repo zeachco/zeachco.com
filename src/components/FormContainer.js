@@ -22,7 +22,7 @@ const FormContainer = ({
     const handleChange = e => {
         e.preventDefault();
         e.stopPropagation();
-        updateForm(name, e.target.name, e.target.value);
+        updateForm(`${name}.${e.target.name}`, e.target.value);
     }
 
     return (

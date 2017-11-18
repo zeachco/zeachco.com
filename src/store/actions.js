@@ -58,9 +58,9 @@ export function bootstrap() {
         .then(() => fetchCategories());
 }
 
-export function updateForm(formName, key, value) {
+export function updateForm(path, value) {
     store.dispatch({
         type: 'UPDATE_FORM_STATE',
-        payload: { formName, key, value }
+        payload: { path, value }
     });
 }

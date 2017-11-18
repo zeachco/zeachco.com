@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {fromJS} from 'immutable';
+import {fromJS} from 'immutable-short-string-notation';
 
 import session from './session';
 import items from './items';
@@ -55,7 +55,7 @@ export default (inboundState = defaultState, {type, payload}) => {
         // CATEGORIES
         case 'CATEGORIES_SEARCH_DONE': return state.setIn('categories.searchResults', payload);
         // FORMS
-        case 'UPDATE_FORM_STATE': return state.setIn(['forms', payload.formName, payload.key], payload.value);
+        case 'UPDATE_FORM_STATE': return state.setIn('forms.' + payload.path, payload.value);
         default: return state
     }
 };
