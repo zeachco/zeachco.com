@@ -10,7 +10,7 @@ const Footer = () => (
       <LangSwitcher />
       <hr/>
       <p className="text-muted">
-        <Translate content="Inquiries" data={{email: 'zeachco@gmail.com'}} />
+        <Translate content="Inquiries" data={{email: 'info@zeachco.com'}} />
         <a className="pull-right" href="//www.linkedin.com/in/zeachco"><LinkedInIcon />{' '}linkedin.com/in/zeachco</a>
       </p>
     </div>
