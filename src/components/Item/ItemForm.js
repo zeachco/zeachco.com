@@ -18,17 +18,16 @@ import { addToastMessage } from '../../store/actions/notifications';
 import { showModal, hideModal } from '../../store/actions/modal';
 
 const fieldHandlers = {
-    optionString: function (value) {
-        this.setState({
+    optionString: value => {
+        return {
             optionString: value,
             options: ItemOptions.toObject(value)
-        });
+        };
     },
 
-    space: function (space) {
+    space: space => {
         if (!this.state._id) {
-            this.setState({ space });
-            return;
+            return { space };
         }
 
         axios.get(`/api/admin/items/code/${this.state.code}`, { params: { space } }).then(xhr => {
@@ -74,18 +73,35 @@ const fieldHandlers = {
 class ItemForm extends Component {
     constructor(args) {
         super(args)
+        AutoBind(this);
 
-        if (!this.props._id && this.props.item) {
-            this.state = Object.assign(
+        this.state = this.mapPropsIn(this.props);
+        this.fetchItem();
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.setState({
+            ...this.mapPropsIn(newProps),
+            name: 'Loading...',
+            files: [],
+            ...newProps,
+            ...this.updateStateFromFieldValue('optionString', newProps.optionString)
+        });
+        this.fetchItem();
+    }
+
+    mapPropsIn(props) {
+        if (!props._id && props.item) {
+            return Object.assign(
                 {},
-                this.props.item,
+                props.item,
                 { _id: undefined } //eslint-disable-line no-undefined
             );
         } else {
-            this.state = {
+            return {
                 code: '',
                 space: getSpaces()[0],
-                name: '',
+                name: 'Loading...',
                 visible: false,
                 shortDescription: '',
                 description: '',
@@ -99,28 +115,17 @@ class ItemForm extends Component {
                 weight: 0,
                 files: [],
                 customOptions: {},
-                ...this.props
+                ...props
             };
         }
-
-        AutoBind(this);
-        this.fetchItem();
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.setState({
-            name: 'Loading...',
-            files: [],
-            ...newProps
-        });
-        this.fetchItem();
     }
 
     fetchItem() {
         const {_id} = this.props;
         if (_id) {
             axios.get('/api/admin/item/' + _id).then(xhr => {
-                this.setState(this.mapItemIn(xhr.data));
+                const stateUpdates = this.mapItemIn(xhr.data);
+                this.setState(stateUpdates);
             });
         }
     }
@@ -147,6 +152,7 @@ class ItemForm extends Component {
         return {
             ...attributes,
             labels: Array.isArray(labels) ? labels.join(', ') : labels,
+            options,
             optionString: ItemOptions.toString(options)
         };
     }
@@ -163,11 +169,12 @@ class ItemForm extends Component {
         ev.preventDefault();
         const key = ev.target.name;
         let value = ev.target.value;
-        if (fieldHandlers[key]) {
-            fieldHandlers[key].call(this, value);
-        } else {
-            this.setState({[key]: value});
-        }
+        const stateChange = this.updateStateFromFieldValue(key, value);
+        this.setState(stateChange);
+    }
+
+    updateStateFromFieldValue(key, value) {
+        return fieldHandlers[key] ? fieldHandlers[key].call(this, value) : {[key]: value};
     }
 
     submit(e) {
@@ -407,7 +414,7 @@ class ItemForm extends Component {
                                 <code>size</code>
                                 that can be used in the price field and his value would be
                                 <code>0</code>
-                                or what's is specified after the
+                                or what&quot;s is specified after the
                                 <code>=</code>
                                 sign.
                             </p>
