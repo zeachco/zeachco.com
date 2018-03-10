@@ -10,6 +10,7 @@ const EditItem = (props) => (
 );
 
 EditItem.propTypes = {
+    location: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
     item: PropTypes.object
 };

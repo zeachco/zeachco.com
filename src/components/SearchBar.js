@@ -29,7 +29,6 @@ class SearchBar extends Component {
 
   render() {
     const {autoFocus, searchButtonText, placeholder, searchText} = this.props;
-    const {visible} = this.state;
 
     return (
       <form onSubmit={this._submit} title={JSON.stringify(this.state, null, 2)} >
