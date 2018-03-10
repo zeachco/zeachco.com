@@ -18,14 +18,14 @@ import { addToastMessage } from '../../store/actions/notifications';
 import { showModal, hideModal } from '../../store/actions/modal';
 
 const fieldHandlers = {
-    optionString: value => {
+    optionString: function(value) {
         return {
             optionString: value,
             options: ItemOptions.toObject(value)
         };
     },
 
-    space: space => {
+    space: function(space) {
         if (!this.state._id) {
             return { space };
         }
