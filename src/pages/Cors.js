@@ -10,7 +10,7 @@ class CorsPage extends Component {
   render() {
     return (
       <Base>
-        <h2>Please wait for this window to close</h2>
+        <h2>this domain have been authorized</h2>
       </Base>
     );
   }
