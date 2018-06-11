@@ -16,7 +16,7 @@
     "bootstrap-sass-webpack": "^0.0.3",
     "cms-core": "^2.2.2",
     "draft-js": "^0.10.0",
-    "google-map-react": "^0.24.0",
+    "google-map-react": "^0.25.0",
     "immutable": "^3.8.1",
     "immutable-short-string-notation": "^2.1.0",
     "prop-types": "^15.6.0",
