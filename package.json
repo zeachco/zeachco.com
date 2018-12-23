@@ -9,7 +9,7 @@
     "webpack-production-setup": "^4.3.0"
   },
   "dependencies": {
-    "auto-bind": "^1.1.0",
+    "auto-bind": "^2.0.0",
     "auto-bind-es5": "^1.1.0",
     "axios": "^0.15.2",
     "bootstrap-sass": "^3.3.7",
