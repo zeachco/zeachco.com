@@ -100,7 +100,11 @@ class TrackerPage extends Component {
 						selectElementContents(this);
 					}.bind(time);
 					info.onblur = () => {
-						this.infos[dayNb] = info.innerHTML;
+						info.innerHTML = info.innerHTML
+							.replace(/(style|class)="[^"]*"/gi, '')
+							.replace(/<\/?del>/gi, '')
+						;
+						this.infos[dayNb] = info.innerHTML
 						this.save();
 					};
 					tr.appendChild(date);

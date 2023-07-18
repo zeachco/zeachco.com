@@ -41,6 +41,17 @@ class EditUser extends Component {
       createOrUpdate(this.state).then(() => editUser(null));
   }
 
+  handleDestroy(e) {
+    e.preventDefault();
+    destroy(this.state._id);
+    editUser(null);
+  }
+
+  handleClose(e) {
+    e.preventDefault();
+    editUser(null);
+  }
+
   render() {
     const {
       user,
@@ -170,8 +181,8 @@ class EditUser extends Component {
               />
             </div>
             <button className="btn btn-primary" type="submit"><Translate content={_id ? 'save' : 'create_user'}/></button>&nbsp;
-            {_id && <button className="btn btn-danger" type="button" onClick={() => destroy(_id)}><Translate content="delete"/></button>}&nbsp;
-            <button className="btn btn-secondary" type="button" onClick={() => editUser(null)}><Translate content="close"/></button>
+            {_id && <button className="btn btn-danger" type="button" onClick={this.handleDestroy}><Translate content="delete"/></button>}&nbsp;
+            <button className="btn btn-secondary" type="button" onClick={this.handleClose}><Translate content="close"/></button>
           </form>
         </div>
       </div>

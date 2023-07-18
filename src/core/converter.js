@@ -14,7 +14,7 @@ export const ItemOptions = {
                 .code}: ${children
                 .join(', ')} \n`;
         });
-        return optionString;
+        return optionString.split('\n').filter(s => s.trim()).join('\n');
     },
     toObject: str => {
         try {

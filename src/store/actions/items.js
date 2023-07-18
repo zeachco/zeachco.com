@@ -5,16 +5,33 @@ import {browserHistory} from 'react-router';
 
 const {dispatch} = store;
 
-let lastSearch = '_'
-export function searchItems({search = '_', visible, space}) {
-    // if (!search) return dispatch({ type: 'SEARCH_ITEMS_DONE', payload: [] });
+export const searchItems = () => {
+    const state = store.getState();
+    const search = state.getIn('forms.inventory.search', '');
+    const visible = state.getIn('forms.inventory.visible');
+    const space = state.getIn('forms.inventory.space');
+
+    if (!search) return dispatch({ type: 'SEARCH_ITEMS_DONE', payload: [] });
+    
     dispatch({ type: 'SEARCH_ITEMS_START' });
-    axios.get(`/api/admin/items/search/${search || lastSearch}`, { params: { visible, space } }).then(xhr => {
-        dispatch({ type: 'SEARCH_ITEMS_DONE', payload: xhr.data });
-        addToastMessage({ message: `${xhr.data.length} articles trouvés` });
-    });
-    lastSearch = search || lastSearch;
-}
+    axios
+        .get(`/api/admin/items/search/${search}`, {
+            params: {
+                visible,
+                space
+            }
+        })
+        .then(xhr => {
+            dispatch({
+                type: 'SEARCH_ITEMS_DONE',
+                payload: xhr.data
+            });
+            addToastMessage({
+                message: `${xhr.data.length} articles trouvés`
+            });
+        })
+    ;
+};
 
 function error(xhr) {
     addToastMessage({message: xhr.message, type: 'danger'});
@@ -28,7 +45,7 @@ function error(xhr) {
     }
 }
 
-export function createOrUpdate(item) {
+export const createOrUpdate = item => {
     if (item._id) {
         dispatch({type: 'UPDATE_ITEM_START'});
         axios.put('/api/admin/item/' + item._id, item).then(xhr => {

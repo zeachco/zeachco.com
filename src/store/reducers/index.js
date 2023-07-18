@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {fromJS} from 'immutable';
+import {fromJS} from 'immutable-short-string-notation';
 
 import session from './session';
 import items from './items';
@@ -8,6 +8,7 @@ import categories from './categories';
 import geometry from './geometry';
 import notifications from './notifications';
 import language from './language';
+import modal from './modal';
 
 const reducers = combineReducers({
     session,
@@ -16,7 +17,8 @@ const reducers = combineReducers({
     categories,
     geometry,
     notifications,
-    language
+    language,
+    modal
 });
 
 const defaultLang = (navigator.language || navigator.userLanguage).split('-')[0];
@@ -37,7 +39,8 @@ const defaultState = fromJS({
         searchResults: []
     },
     spaces: [],
-    forms: {}
+    forms: {},
+    ui: {}
 });
 
 export default (inboundState = defaultState, {type, payload}) => {
@@ -52,7 +55,7 @@ export default (inboundState = defaultState, {type, payload}) => {
         // CATEGORIES
         case 'CATEGORIES_SEARCH_DONE': return state.setIn('categories.searchResults', payload);
         // FORMS
-        case 'UPDATE_FORM_STATE': return state.setIn(['forms', payload.formName, payload.key], payload.value);
+        case 'UPDATE_FORM_STATE': return state.setIn('forms.' + payload.path, payload.value);
         default: return state
     }
 };

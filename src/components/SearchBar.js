@@ -1,39 +1,34 @@
 import React, { Component, PropTypes } from 'react';
-import autoBind from 'auto-bind';
+import autobind from 'auto-bind-es5';
+import {connect} from 'react-redux';
 
 import SearchFilters from './SearchFilters';
+import {updateForm} from '../store/actions' ;
+import {searchItems} from '../store/actions/items';
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
+    autobind(this);
     this.state = {};
-    autoBind(this);
   }
 
   componentDidMount() {
-    this._triggerSearch();
+    searchItems();
   }
 
   _submit(e) {
     e.preventDefault();
-    this.setState({ search: e.target[0].value });
-    this._triggerSearch();
+    searchItems();
   }
 
-  _filterChange({filterKey, filterValue}) {
-    this.setState({ [filterKey]: filterValue });
-    this._triggerSearch();
-  }
-
-  _triggerSearch() {
-    setTimeout(() => {
-      this.props.onSearch(this.state);
-    }, 50);
+  handleChange(e) {
+    e.preventDefault();
+    updateForm(e.target.name, e.target.value);
   }
 
   render() {
-    const {autoFocus, searchButtonText, placeholder} = this.props;
-    const {visible} = this.state;
+    const {autoFocus, searchButtonText, placeholder, searchText} = this.props;
 
     return (
       <form onSubmit={this._submit} title={JSON.stringify(this.state, null, 2)} >
@@ -42,29 +37,39 @@ class SearchBar extends Component {
             type="text"
             className="form-control"
             autoFocus={autoFocus}
+            name="inventory.search"
             placeholder={placeholder}
-            aria-describedby="basic-addon1"/>
+            aria-describedby="basic-addon1"
+            onChange={this.handleChange}
+            value={searchText}
+          />
           <span className="input-group-btn">
             <button type="submit" className="btn btn-default">{searchButtonText}</button>
           </span>
         </div>
-        <SearchFilters onChange={this._filterChange} visible={visible}/>
+        <SearchFilters />
       </form>
     );
   }
 }
 
-const {func, string, object, oneOfType, bool} = PropTypes;
+const {string, object, oneOfType, bool} = PropTypes;
 
 SearchBar.defaultProps = {
   autoFocus: true
 }
 
 SearchBar.propTypes = {
-  onSearch: func.isRequired,
   placeholder: string.isRequired,
+  searchText: string.isRequired,
   autoFocus: bool,
   searchButtonText: oneOfType([string, object]).isRequired
 }
 
-export default SearchBar
+const mapStateToProps = state => {
+  return {
+    searchText: state.getIn('forms.inventory.search', '')
+  }
+};
+
+export default connect(mapStateToProps)(SearchBar);

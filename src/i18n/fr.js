@@ -52,5 +52,9 @@ module.exports = {
     disconnect: 'Déconnexion',
     disconnect_title: 'Cette action met fin à votre session courrante',
     can_see_images: 'Peut voir les images haute résolution',
-    can_see_prices: 'Peut voir les prix'
+    can_see_prices: 'Peut voir les prix',
+    confirm_item_clone_header: 'Copier l\'item',
+    confirm_item_clone_text: 'Voulez-vous copier l\'item vers ce site?',
+    confirm_item_clone_btn_copy: 'Copier',
+    confirm_item_clone_text_cancel: 'Annuler'
 };

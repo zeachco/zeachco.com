@@ -14,6 +14,7 @@ import Inventory from './pages/Inventory'
 import TrackerPage from './pages/TrackerPage'
 import Users from './pages/Users'
 import Home from './pages/Home'
+import Cors from './pages/Cors'
 import NotFound from './pages/NotFound'
 
 const Routes = () => (
@@ -37,6 +38,7 @@ const Routes = () => (
                 <Route path="space/:_id" component={SpacePage}/>
             </Route>
             <Route path="settings" component={requireAuth(Settings)}/>
+            <Route path="cors" component={Cors}/>
             <Route path="*" component={NotFound}/>
         </Route>
     </Router>

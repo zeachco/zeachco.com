@@ -52,5 +52,9 @@ module.exports = {
     disconnect: 'Disconnect',
     disconnect_title: 'This will terminate your current session',
     can_see_images: 'Can see full resolution images',
-    can_see_prices: 'Can see prices'
+    can_see_prices: 'Can see prices',
+    confirm_item_clone_header: 'Copy item',
+    confirm_item_clone_text: 'Do you want to copy the item to this site?',
+    confirm_item_clone_btn_copy: 'Copy',
+    confirm_item_clone_text_cancel: 'Cancel'
 };

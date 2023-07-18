@@ -76,11 +76,17 @@ const session = (state = initialState, {type, payload}) => {
         isLoading: false,
         editedUser: null
       }
-    case 'USER_UPDATE_FAIL':
-      return {
-        ...state,
-        isLoading: false
-      }
+      case 'USER_UPDATE_FAIL':
+        return {
+          ...state,
+          isLoading: false
+        }
+      case 'USER_DESTROY':
+        const newData = state.data.filter(u => u._id !== payload);
+        return {
+          ...state,
+          data: newData
+        }
     default:
       return state;
   }
